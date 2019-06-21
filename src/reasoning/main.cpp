@@ -205,11 +205,10 @@ public:
     }
 };
 
-int main(int argc, char **argv) {
-    ros::init(argc, argv, "tutorial_vision");
+main(int argc, char **argv) {
+    ros::init(argc, argv, "reasoning");
     PrologClient pc;
     ImageConverter ic(pc);
 
     ros::spin();
-    return 0;
 }
