@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY knowrob "http://knowrob.org/kb/knowrob.owl#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY Nao_computables "http://knowrob.org/kb/Nao_computables.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://knowrob.org/kb/Nao_computables.owl#"
+      xml:base="http://knowrob.org/kb/Nao_computables.owl"
+      xmlns:computable="http://knowrob.org/kb/computable.owl#"
+      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+      xmlns:owl="http://www.w3.org/2002/07/owl#"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:knowrob="http://knowrob.org/kb/knowrob.owl#"
+      xmlns:Nao_computables="http://knowrob.org/kb/Nao_computables.owl#">
+
+    <owl:Ontology rdf:about="http://knowrob.org/kb/Nao_computables.owl">
+        <owl:imports rdf:resource="package://knowrob_common/owl/knowrob.owl"/>
+    </owl:Ontology>
+
+<!-- Class -->
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#Carrot -->
+
+ <owl:Class rdf:about="&Nao_computables;Carrot">
+        <rdfs:subClassOf rdf:resource="&knowrob;Food"/>
+    </owl:Class>
+ <owl:Class rdf:about="&Nao_computables;Donut">
+        <rdfs:subClassOf rdf:resource="&knowrob;Food"/>
+    </owl:Class>
+
+ <owl:Class rdf:about="&Nao_computables;HotWing">
+        <rdfs:subClassOf rdf:resource="&knowrob;Food"/>
+    </owl:Class>
+
+ <owl:Class rdf:about="&Nao_computables;HotWing">
+        <rdfs:subClassOf rdf:resource="&knowrob;Food"/>
+    </owl:Class>
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#MoveForward -->
+    <owl:ObjectProperty rdf:about="&Nao_computables;MoveForward">
+        <rdfs:range rdf:resource="&knowrob;Movement-TranslationEvent"/>
+        <rdfs:domain rdf:resource="&knowrob;Movement-TranslationEvent"/>
+    </owl:ObjectProperty>
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#MoveToward -->
+    <owl:ObjectProperty rdf:about="&Nao_computables;MoveToward">
+        <rdfs:range rdf:resource="&knowrob;Movement-TranslationEvent"/>
+        <rdfs:domain rdf:resource="&knowrob;Movement-TranslationEvent"/>
+    </owl:ObjectProperty>
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#MoveLeft -->
+    <owl:ObjectProperty rdf:about="&Nao_computables;MoveLeft">
+        <rdfs:range rdf:resource="&knowrob;Movement-TranslationEvent"/>
+        <rdfs:domain rdf:resource="&knowrob;Movement-TranslationEvent"/>
+    </owl:ObjectProperty>
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#MoveRight -->
+    <owl:ObjectProperty rdf:about="&Nao_computables;MoveRight">
+        <rdfs:range rdf:resource="&knowrob;Movement-TranslationEvent"/>
+        <rdfs:domain rdf:resource="&knowrob;Movement-TranslationEvent"/>
+    </owl:ObjectProperty>
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#MoveUp -->
+    <owl:ObjectProperty rdf:about="&Nao_computables;MoveUp">
+        <rdfs:range rdf:resource="&knowrob;Movement-TranslationEvent"/>
+        <rdfs:domain rdf:resource="&knowrob;Movement-TranslationEvent"/>
+    </owl:ObjectProperty>
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#MoveDown -->
+    <owl:ObjectProperty rdf:about="&Nao_computables;MoveDown">
+        <rdfs:range rdf:resource="&knowrob;Movement-TranslationEvent"/>
+        <rdfs:domain rdf:resource="&knowrob;Movement-TranslationEvent"/>
+    </owl:ObjectProperty>
+
+<!-- http://knowrob.org/kb/Nao_computables.owl#ObjectInRange -->
+
+    <owl:Class rdf:about="&Nao_computables;ObjectInRange">
+        <rdfs:subClassOf rdf:resource="&knowrob;Event"/>
+    </owl:Class>
+
+
+</rdf:RDF>
