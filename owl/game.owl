@@ -1,0 +1,506 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/cogr/ontologies/2019/5/game"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/cogr/ontologies/2019/5/game">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Turn"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#DifferentCards"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#ExtraAttempt"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Rule"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isPlayedOf"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Object"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardCollection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isRule"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Game"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCardCollections"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCurrentAttempt"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasEvent"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayerNodeSequence"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Condition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasRound"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Round"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#CardsEmpty"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#roundNumber"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#associatedToCard"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#ItsThePlayersTurn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCurrentTurn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#associatedToPlayer"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#PlayerHasMostCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Attempt"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#currentRound"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isObjectOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isEqualTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasRule"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasAttempt"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#GameFinished"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Action"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasStatus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#hasDrawnCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#cardDrawn"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Event"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#PlayerWins"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#FinishRound"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayerNode"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#FinishTurn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#plays"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Status"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasTurns"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#PlayerNode"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Player"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#EqualCards"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#WinCards"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#MustFinishTurn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isStatusOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasAction"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isActionOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayer"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Attempt"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasEvent"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Event"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Object"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isEqualTo"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardCollection"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#associatedToCard"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardCollection"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#associatedToPlayer"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Player"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#FinishRound"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Action"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#FinishTurn"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Action"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGame"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Game"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGame"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasStatus"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Status"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasRound"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Round"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCardCollections"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#CardCollection"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        <ObjectMinCardinality cardinality="2">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayer"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Player"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#currentRound"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Round"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayerNodeSequence"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#PlayerNode"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isStatusOf"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#MemoryGameStatus"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#PlayerNode"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayer"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Player"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#PlayerNode"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayerNode"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#PlayerNode"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Round"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasTurns"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Turn"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Round"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCurrentTurn"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Turn"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Rule"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCondition"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Condition"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Turn"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasAttempt"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Attempt"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Turn"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#associatedToPlayer"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Player"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Turn"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCurrentAttempt"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Attempt"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Action"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#hasDrawnCard"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Event"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#hasDrawnCard"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#cardDrawn"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Condition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#CardsEmpty"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Condition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#DifferentCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Condition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#EqualCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Rule"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#ExtraAttempt"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Rule"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#GameFinished"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Condition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#ItsThePlayersTurn"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Rule"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#MustFinishTurn"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Condition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#PlayerHasMostCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Rule"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#PlayerWins"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Rule"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#WinCards"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCondition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#ExtraAttempt"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#EqualCards"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCondition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#GameFinished"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#CardsEmpty"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCondition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#MustFinishTurn"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#DifferentCards"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCondition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#PlayerWins"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#PlayerHasMostCards"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCondition"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#WinCards"/>
+        <NamedIndividual IRI="http://knowrob.org/kb/knowrob.owl#EqualCards"/>
+    </ObjectPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#associatedToCard"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#associatedToPlayer"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#cardDrawn"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCurrentTurn"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPlayerNodeSequence"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isStatusOf"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#plays"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasAction"/>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isActionOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isPlayedOf"/>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#plays"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isStatusOf"/>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isStatusOf"/>
+    </InverseObjectProperties>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasStatus"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isEqualTo"/>
+    </FunctionalObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isActionOf"/>
+    </SymmetricObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isStatusOf"/>
+    </SymmetricObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isEqualTo"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#plays"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Player"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasAction"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Action"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasObject"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Object"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasStatus"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Status"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isEqualTo"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Card"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#roundNumber"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#Round"/>
+    </DataPropertyDomain>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
