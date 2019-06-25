@@ -5,6 +5,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 find_package(catkin REQUIRED COMPONENTS
         roscpp
         rospy
+        naoqi_bridge_msgs
         std_msgs
         cv_bridge
         image_transport
