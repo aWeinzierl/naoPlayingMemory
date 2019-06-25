@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(perception)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp SpeechRecognition.cpp SpeechRecognition.h)
 find_package(catkin REQUIRED COMPONENTS
         roscpp
         rospy
+        naoqi_bridge_msgs
         std_msgs
         cv_bridge
         image_transport
