@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(action)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp
+        SpeechClient.cpp
+        )
 find_package(catkin REQUIRED COMPONENTS
         roscpp
         rospy
