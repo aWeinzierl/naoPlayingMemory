@@ -82,9 +82,6 @@
         <Class IRI="#KnownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SearchPairs"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
     </Declaration>
     <Declaration>
