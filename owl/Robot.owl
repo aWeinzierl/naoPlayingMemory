@@ -6,7 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#">
-    <Prefix name="" IRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot"/>
+    <Prefix name="" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -24,34 +24,22 @@
         <DataProperty IRI="hasMarkerId"/>
     </Declaration>
     <Declaration>
-        <Class IRI="WinGame"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Action"/>
+        <NamedIndividual IRI="TurnOneKnown/UnknownCard"/>
     </Declaration>
     <Declaration>
         <Class IRI="KnownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="TakeCardsWinCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="ChooseTwoEqualCards"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="hasCoordinate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="TurnCard"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Choose1Unknown1KnownCard"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="ChooseTwoRandomCards"/>
+        <Class IRI="TurnMultipleCards"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasMarkerId"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="TurnEqualCards"/>
     </Declaration>
     <Declaration>
         <Class IRI="ArucoIdToObjectMappings"/>
@@ -66,10 +54,10 @@
         <DataProperty IRI="hasYCoordinate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="ChooseCards"/>
+        <Class IRI="UnknownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="UnknownCard"/>
+        <NamedIndividual IRI="TurnTwoUnknownCards"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="ArucoIdToObjectMappings"/>
@@ -99,22 +87,6 @@
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="Choose1Unknown1KnownCard"/>
-        <Class IRI="ChooseCards"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="ChooseCards"/>
-        <Class IRI="Action"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="ChooseTwoEqualCards"/>
-        <Class IRI="ChooseCards"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="ChooseTwoRandomCards"/>
-        <Class IRI="ChooseCards"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="KnownCard"/>
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
     </SubClassOf>
@@ -133,25 +105,29 @@
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="TakeCardsWinCards"/>
-        <Class IRI="Action"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="TurnCard"/>
-        <Class IRI="Action"/>
+        <Class IRI="TurnMultipleCards"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="UnknownCard"/>
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
     </SubClassOf>
-    <SubClassOf>
-        <Class IRI="WinGame"/>
-        <Class IRI="Action"/>
-    </SubClassOf>
     <DisjointClasses>
         <Class IRI="KnownCard"/>
         <Class IRI="UnknownCard"/>
     </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="TurnMultipleCards"/>
+        <NamedIndividual IRI="TurnEqualCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="TurnMultipleCards"/>
+        <NamedIndividual IRI="TurnTwoUnknownCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="TurnMultipleCards"/>
+        <NamedIndividual IRI="TurnOneKnown/UnknownCard"/>
+    </ClassAssertion>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
@@ -198,21 +174,6 @@
 --&gt;2xCats      ---&gt;Id:7,8
 --&gt;2xLions     ---&gt;Id:9,10
 --&gt;2xEagles  ---&gt;Id:11,12</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>ChooseTwoRandomCards</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>TakeCardsWinCards</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Associate these Cards to The &quot;Me&quot; Class</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>WinGame</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Check if someone as more than 1/2 the cards</Literal>
     </AnnotationAssertion>
 </Ontology>
 
