@@ -130,13 +130,6 @@
         <Class IRI="#Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Card"/>
-        <DataExactCardinality cardinality="1">
-            <DataProperty IRI="#hasMarkerId"/>
-            <Datatype abbreviatedIRI="xsd:integer"/>
-        </DataExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#Choose1Unknown1KnownCard"/>
         <Class IRI="#ChooseCards"/>
     </SubClassOf>
@@ -170,6 +163,13 @@
             <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
             <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
         </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#KnownCard"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#hasMarkerId"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Me"/>
