@@ -13,9 +13,6 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <Class IRI="#CardSetup"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#doAction"/>
     </Declaration>
     <Declaration>
@@ -29,6 +26,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Card"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
     </Declaration>
     <Declaration>
         <Class IRI="#WinGame"/>
@@ -65,6 +65,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#ChooseTwoRandomCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IdToObjectMapping"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
@@ -117,6 +120,19 @@
     <SubClassOf>
         <Class IRI="#ChooseTwoRandomCards"/>
         <Class IRI="#ChooseCards"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#IdToObjectMapping"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#IdToObjectMapping"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#hasMarkerId"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#KnownCard"/>
@@ -185,7 +201,12 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#CardSetup</IRI>
+        <IRI>#ChooseTwoRandomCards</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#IdToObjectMapping</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
 --&gt;2xPenguin---&gt;Id:1,2
 --&gt;2xGiraffes ---&gt;Id:3,4
@@ -193,11 +214,6 @@
 --&gt;2xCats      ---&gt;Id:7,8
 --&gt;2xLions     ---&gt;Id:9,10
 --&gt;2xEagles  ---&gt;Id:11,12</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ChooseTwoRandomCards</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
