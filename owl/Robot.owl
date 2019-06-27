@@ -13,7 +13,7 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
+        <DataProperty IRI="#hasXCoordinate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Card"/>
@@ -22,7 +22,7 @@
         <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
+        <ObjectProperty IRI="#isAssociatedWith"/>
     </Declaration>
     <Declaration>
         <Class IRI="#WinGame"/>
@@ -40,10 +40,10 @@
         <Class IRI="#Choose1Unknown1KnownCard"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
+        <DataProperty IRI="#hasYCoordinate"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+        <DataProperty IRI="#hasCoordinate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#KnownCard"/>
@@ -55,7 +55,7 @@
         <Class IRI="#IdToObjectMapping"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
+        <ObjectProperty IRI="#hasPosition"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ChooseCards"/>
@@ -64,27 +64,27 @@
         <Class IRI="#UnknownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        <Class IRI="#CardPosition"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
+        <Class IRI="#TurnCard"/>
     </Declaration>
     <SubClassOf>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        <Class IRI="#CardPosition"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
+            <DataProperty IRI="#hasXCoordinate"/>
             <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        <Class IRI="#CardPosition"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
+            <DataProperty IRI="#hasYCoordinate"/>
             <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
+        <Class IRI="#TurnCard"/>
         <Class IRI="#Action"/>
     </SubClassOf>
     <SubClassOf>
@@ -106,7 +106,7 @@
     <SubClassOf>
         <Class IRI="#IdToObjectMapping"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
+            <ObjectProperty IRI="#isAssociatedWith"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
@@ -123,8 +123,8 @@
     <SubClassOf>
         <Class IRI="#KnownCard"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
-            <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+            <ObjectProperty IRI="#hasPosition"/>
+            <Class IRI="#CardPosition"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
@@ -151,39 +151,39 @@
         <Class IRI="#UnknownCard"/>
     </DisjointClasses>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
+        <ObjectProperty IRI="#hasPosition"/>
         <Class IRI="#Card"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
+        <ObjectProperty IRI="#isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        <ObjectProperty IRI="#hasPosition"/>
+        <Class IRI="#CardPosition"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
+        <ObjectProperty IRI="#isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+        <DataProperty IRI="#hasXCoordinate"/>
+        <DataProperty IRI="#hasCoordinate"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+        <DataProperty IRI="#hasYCoordinate"/>
+        <DataProperty IRI="#hasCoordinate"/>
     </SubDataPropertyOf>
     <DataPropertyDomain>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        <DataProperty IRI="#hasCoordinate"/>
+        <Class IRI="#CardPosition"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#hasMarkerId"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </DataPropertyDomain>
     <DataPropertyRange>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+        <DataProperty IRI="#hasCoordinate"/>
         <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
     <DataPropertyRange>
