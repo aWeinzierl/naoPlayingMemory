@@ -28,9 +28,6 @@
         <Class IRI="#ChooseTwoEqualCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#OutOfGame"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#turnedCardsAre"/>
     </Declaration>
     <Declaration>
@@ -76,9 +73,6 @@
         <Class IRI="#Action"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Position"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
     </Declaration>
     <Declaration>
@@ -92,9 +86,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#InGame"/>
     </Declaration>
     <Declaration>
         <Class IRI="#UnknownCard"/>
@@ -137,10 +128,6 @@
         <Class IRI="#ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#InGame"/>
-        <Class IRI="#Position"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#KnownCard"/>
         <Class IRI="#Card"/>
     </SubClassOf>
@@ -171,10 +158,6 @@
             <DataProperty IRI="#hasPoints"/>
             <Datatype abbreviatedIRI="xsd:integer"/>
         </DataExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#OutOfGame"/>
-        <Class IRI="#Position"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TakeCardsWinCards"/>
@@ -245,11 +228,6 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#InGame</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">At the beginning all cards are in InGame Postions</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Me</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Associate won Card pairs to &quot;Me&quot;</Literal>
     </AnnotationAssertion>
@@ -258,19 +236,6 @@
         <IRI>#Oponent</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each opponent is an Instance of Oponent
 Each opponent instance has a PointCount</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Position</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">has x (number of cards) instances, each corresponding to a diferent position of the Board. Example 12 cards, 4 rows of 3 cards
-
-x10  x11  x12
-x7    x8    x9
-x4    x5    x6
-x1    x2    x3
-
-
-Aquire number of cards at beginning of game and instanciate diferente position</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
