@@ -13,6 +13,7 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Prefix name="robot" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#"/>
+    <Import>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#</Import>
     <Declaration>
         <DataProperty IRI="hasXCoordinate"/>
     </Declaration>
@@ -53,6 +54,9 @@
         <Class IRI="ChooseTwoRandomCards"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#hasMarkerId"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="ArucoIdToObjectMappings"/>
     </Declaration>
     <Declaration>
@@ -69,9 +73,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="UnknownCard"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="ArucoIdToObjectMappings"/>
