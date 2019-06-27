@@ -6,6 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#">
+    <Prefix name="" IRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -13,177 +14,180 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Prefix name="robot" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#"/>
     <Declaration>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate"/>
+        <DataProperty IRI="hasXCoordinate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card"/>
+        <ObjectProperty IRI="isAssociatedWith"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId"/>
+        <DataProperty IRI="hasMarkerId"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isAssociatedWith"/>
+        <Class IRI="WinGame"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#WinGame"/>
+        <Class IRI="Action"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Action"/>
+        <Class IRI="KnownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#TurnCard"/>
+        <Class IRI="Card"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#TakeCardsWinCards"/>
+        <Class IRI="TakeCardsWinCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseTwoEqualCards"/>
+        <Class IRI="ChooseTwoEqualCards"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCoordinate"/>
+        <DataProperty IRI="hasCoordinate"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasPosition"/>
+        <Class IRI="TurnCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Choose1Unknown1KnownCard"/>
+        <Class IRI="Choose1Unknown1KnownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#KnownCard"/>
+        <Class IRI="ChooseTwoRandomCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseTwoRandomCards"/>
+        <Class IRI="ArucoIdToObjectMappings"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasYCoordinate"/>
+        <Class IRI="CardPosition"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ArucoIdToObjectMappings"/>
+        <ObjectProperty IRI="hasPosition"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseCards"/>
+        <DataProperty IRI="hasYCoordinate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#CardPosition"/>
+        <Class IRI="ChooseCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#UnknownCard"/>
+        <Class IRI="UnknownCard"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ArucoIdToObjectMappings"/>
+        <Class IRI="ArucoIdToObjectMappings"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isAssociatedWith"/>
+            <ObjectProperty IRI="isAssociatedWith"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ArucoIdToObjectMappings"/>
+        <Class IRI="ArucoIdToObjectMappings"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId"/>
+            <DataProperty IRI="hasMarkerId"/>
             <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#CardPosition"/>
+        <Class IRI="CardPosition"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate"/>
+            <DataProperty IRI="hasXCoordinate"/>
             <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#CardPosition"/>
+        <Class IRI="CardPosition"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasYCoordinate"/>
+            <DataProperty IRI="hasYCoordinate"/>
             <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Choose1Unknown1KnownCard"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseCards"/>
+        <Class IRI="Choose1Unknown1KnownCard"/>
+        <Class IRI="ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseCards"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Action"/>
+        <Class IRI="ChooseCards"/>
+        <Class IRI="Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseTwoEqualCards"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseCards"/>
+        <Class IRI="ChooseTwoEqualCards"/>
+        <Class IRI="ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseTwoRandomCards"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseCards"/>
+        <Class IRI="ChooseTwoRandomCards"/>
+        <Class IRI="ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#KnownCard"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card"/>
+        <Class IRI="KnownCard"/>
+        <Class IRI="Card"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#KnownCard"/>
+        <Class IRI="KnownCard"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasPosition"/>
-            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#CardPosition"/>
+            <ObjectProperty IRI="hasPosition"/>
+            <Class IRI="CardPosition"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#KnownCard"/>
+        <Class IRI="KnownCard"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId"/>
+            <DataProperty IRI="hasMarkerId"/>
             <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#TakeCardsWinCards"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Action"/>
+        <Class IRI="TakeCardsWinCards"/>
+        <Class IRI="Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#TurnCard"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Action"/>
+        <Class IRI="TurnCard"/>
+        <Class IRI="Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#UnknownCard"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card"/>
+        <Class IRI="UnknownCard"/>
+        <Class IRI="Card"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#WinGame"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Action"/>
+        <Class IRI="WinGame"/>
+        <Class IRI="Action"/>
     </SubClassOf>
     <DisjointClasses>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#KnownCard"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#UnknownCard"/>
+        <Class IRI="KnownCard"/>
+        <Class IRI="UnknownCard"/>
     </DisjointClasses>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasPosition"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card"/>
+        <ObjectProperty IRI="hasPosition"/>
+        <Class IRI="Card"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isAssociatedWith"/>
+        <ObjectProperty IRI="isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasPosition"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#CardPosition"/>
+        <ObjectProperty IRI="hasPosition"/>
+        <Class IRI="CardPosition"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isAssociatedWith"/>
+        <ObjectProperty IRI="isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate"/>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCoordinate"/>
+        <DataProperty IRI="hasXCoordinate"/>
+        <DataProperty IRI="hasCoordinate"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasYCoordinate"/>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCoordinate"/>
+        <DataProperty IRI="hasYCoordinate"/>
+        <DataProperty IRI="hasCoordinate"/>
     </SubDataPropertyOf>
     <DataPropertyDomain>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCoordinate"/>
-        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#CardPosition"/>
+        <DataProperty IRI="hasCoordinate"/>
+        <Class IRI="CardPosition"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId"/>
+        <DataProperty IRI="hasMarkerId"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </DataPropertyDomain>
     <DataPropertyRange>
-        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCoordinate"/>
+        <DataProperty IRI="hasCoordinate"/>
         <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
     <DataPropertyRange>
@@ -192,7 +196,7 @@
     </DataPropertyRange>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ArucoIdToObjectMappings</IRI>
+        <IRI>ArucoIdToObjectMappings</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
 --&gt;2xPenguin---&gt;Id:1,2
 --&gt;2xGiraffes ---&gt;Id:3,4
@@ -203,22 +207,22 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card</IRI>
+        <IRI>Card</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each card turned is instanciated as subclass of Card and linked to a ArucoId . If the position is kown they are &quot;KownCards&quot;. I not they are &quot;UnknownCards&quot;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#ChooseTwoRandomCards</IRI>
+        <IRI>ChooseTwoRandomCards</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#TakeCardsWinCards</IRI>
+        <IRI>TakeCardsWinCards</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Associate these Cards to The &quot;Me&quot; Class</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#WinGame</IRI>
+        <IRI>WinGame</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Check if someone as more than 1/2 the cards</Literal>
     </AnnotationAssertion>
 </Ontology>
