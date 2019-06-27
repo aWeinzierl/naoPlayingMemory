@@ -13,19 +13,13 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <ObjectProperty IRI="#doAction"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#IsInPosition"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasMarkerId"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Card"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
@@ -37,16 +31,10 @@
         <Class IRI="#Action"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TakeCardsWinCards"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#ChooseTwoEqualCards"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#turnedCardsAre"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasKnownPair"/>
+        <Class IRI="#TakeCardsWinCards"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Choose1Unknown1KnownCard"/>
@@ -56,9 +44,6 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasPoints"/>
     </Declaration>
     <Declaration>
         <Class IRI="#KnownCard"/>
@@ -74,9 +59,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#ChooseCards"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#knowsPositionOfCard"/>
     </Declaration>
     <Declaration>
         <Class IRI="#UnknownCard"/>
@@ -168,23 +150,21 @@
         <Class IRI="#KnownCard"/>
         <Class IRI="#UnknownCard"/>
     </DisjointClasses>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasKnownPair"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <FunctionalObjectProperty>
-        <ObjectProperty IRI="#doAction"/>
-    </FunctionalObjectProperty>
-    <FunctionalObjectProperty>
-        <ObjectProperty IRI="#turnedCardsAre"/>
-    </FunctionalObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasKnownPair"/>
-        <Class IRI="#KnownCard"/>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
+        <Class IRI="#Card"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
+        <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#doAction"/>
-        <Class IRI="#Action"/>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#isAssociatedWith"/>
+        <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
@@ -194,6 +174,22 @@
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
     </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasMarkerId"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasMarkerId"/>
+        <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+    </DataPropertyRange>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Card</IRI>
