@@ -16,13 +16,16 @@
         <ObjectProperty IRI="#doAction"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Me"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ChooseTwoEqualCards"/>
+        <Class IRI="#TakeCardsWinCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TakeCardsWinCards"/>
+        <Class IRI="#ChooseTwoEqualCards"/>
     </Declaration>
     <Declaration>
         <Class IRI="#NotEqualCards"/>
@@ -58,25 +61,28 @@
         <ObjectProperty IRI="#knowsPositionOfCard"/>
     </Declaration>
     <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#CardSetup"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#IsInPosition"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Card"/>
+        <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasMarkerId"/>
+        <Class IRI="#Card"/>
     </Declaration>
     <Declaration>
         <Class IRI="#WinGame"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Action"/>
+        <Class IRI="#Oponent"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Oponent"/>
+        <Class IRI="#Action"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Position"/>
@@ -85,20 +91,43 @@
         <Class IRI="#KnownPairs"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#KnownCard"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SearchPairs"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#UnknownCard"/>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
     </Declaration>
     <Declaration>
         <Class IRI="#InGame"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#UnknownCard"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
     </Declaration>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataExactCardinality>
+    </SubClassOf>
     <SubClassOf>
         <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
         <Class IRI="#Action"/>
@@ -144,6 +173,13 @@
     <SubClassOf>
         <Class IRI="#KnownCard"/>
         <Class IRI="#Card"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#KnownCard"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
+            <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
+        </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#KnownPairs"/>
@@ -230,6 +266,14 @@
         <ObjectProperty IRI="#turnedCardsAre"/>
         <Class IRI="#TurnedCards"/>
     </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+    </SubDataPropertyOf>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Card</IRI>
