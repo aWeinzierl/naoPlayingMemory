@@ -96,6 +96,10 @@
         <DataProperty IRI="#hasPoints"/>
     </Declaration>
     <SubClassOf>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
+        <Class IRI="#Action"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Card"/>
         <DataExactCardinality cardinality="1">
             <DataProperty IRI="#hasMarkerId"/>
