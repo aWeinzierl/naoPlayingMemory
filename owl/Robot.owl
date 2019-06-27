@@ -33,9 +33,6 @@
         <Class IRI="KnownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="Card"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="TakeCardsWinCards"/>
     </Declaration>
     <Declaration>
@@ -119,7 +116,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="KnownCard"/>
-        <Class IRI="Card"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="KnownCard"/>
@@ -145,7 +142,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="UnknownCard"/>
-        <Class IRI="Card"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="WinGame"/>
@@ -155,10 +152,6 @@
         <Class IRI="KnownCard"/>
         <Class IRI="UnknownCard"/>
     </DisjointClasses>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="hasPosition"/>
-        <Class IRI="Card"/>
-    </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
@@ -205,11 +198,6 @@
 --&gt;2xCats      ---&gt;Id:7,8
 --&gt;2xLions     ---&gt;Id:9,10
 --&gt;2xEagles  ---&gt;Id:11,12</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>Card</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each card turned is instanciated as subclass of Card and linked to a ArucoId . If the position is kown they are &quot;KownCards&quot;. I not they are &quot;UnknownCards&quot;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
