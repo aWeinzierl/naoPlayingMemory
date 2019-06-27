@@ -28,12 +28,6 @@
         <Class IRI="#ChooseTwoEqualCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#NotEqualCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TurnedCards"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#OutOfGame"/>
     </Declaration>
     <Declaration>
@@ -50,9 +44,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#ChooseTwoRandomCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#EqualCards"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ChooseCards"/>
@@ -146,10 +137,6 @@
         <Class IRI="#ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#EqualCards"/>
-        <Class IRI="#TurnedCards"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#InGame"/>
         <Class IRI="#Position"/>
     </SubClassOf>
@@ -179,10 +166,6 @@
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#NotEqualCards"/>
-        <Class IRI="#TurnedCards"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#Oponent"/>
         <DataExactCardinality cardinality="1">
             <DataProperty IRI="#hasPoints"/>
@@ -198,19 +181,6 @@
         <Class IRI="#Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TakeCardsWinCards"/>
-        <ObjectIntersectionOf>
-            <ObjectAllValuesFrom>
-                <ObjectProperty IRI="#doAction"/>
-                <Class IRI="#ChooseCards"/>
-            </ObjectAllValuesFrom>
-            <ObjectAllValuesFrom>
-                <ObjectProperty IRI="#turnedCardsAre"/>
-                <Class IRI="#EqualCards"/>
-            </ObjectAllValuesFrom>
-        </ObjectIntersectionOf>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#UnknownCard"/>
         <Class IRI="#Card"/>
     </SubClassOf>
@@ -218,10 +188,6 @@
         <Class IRI="#WinGame"/>
         <Class IRI="#Action"/>
     </SubClassOf>
-    <DisjointClasses>
-        <Class IRI="#EqualCards"/>
-        <Class IRI="#NotEqualCards"/>
-    </DisjointClasses>
     <DisjointClasses>
         <Class IRI="#KnownCard"/>
         <Class IRI="#UnknownCard"/>
@@ -247,10 +213,6 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#doAction"/>
         <Class IRI="#Action"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#turnedCardsAre"/>
-        <Class IRI="#TurnedCards"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
