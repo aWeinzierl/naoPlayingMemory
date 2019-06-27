@@ -88,9 +88,6 @@
         <Class IRI="#Position"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#KnownPairs"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
     </Declaration>
     <Declaration>
@@ -152,13 +149,6 @@
         <Class IRI="#ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ChooseTwoEqualCards"/>
-        <ObjectAllValuesFrom>
-            <ObjectProperty IRI="#hasKnownPair"/>
-            <Class IRI="#KnownPairs"/>
-        </ObjectAllValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#ChooseTwoRandomCards"/>
         <Class IRI="#ChooseCards"/>
     </SubClassOf>
@@ -180,10 +170,6 @@
             <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
             <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
         </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#KnownPairs"/>
-        <Class IRI="#KnownCard"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Me"/>
@@ -299,11 +285,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#InGame</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">At the beginning all cards are in InGame Postions</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#KnownPairs</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each Pair instance has two Card Instances associated to it that belong to the Card Class</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
