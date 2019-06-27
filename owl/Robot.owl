@@ -6,28 +6,47 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot">
+    <Prefix name="" IRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <Class IRI="#Action"/>
+        <ObjectProperty IRI="#doAction"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Card"/>
+        <Class IRI="#KnownCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#CardSetup"/>
+        <Class IRI="#Me"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ChooseTwoEqualCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TakeCardsWinCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NotEqualCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TurnedCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OutOfGame"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#turnedCardsAre"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasKnownPair"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Choose1Unknown1KnownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ChooseCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ChooseTwoEqualCards"/>
+        <DataProperty IRI="#hasPoints"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ChooseTwoRandomCards"/>
@@ -36,64 +55,49 @@
         <Class IRI="#EqualCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InGame"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#KnownCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#KnownPairs"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Me"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#NotEqualCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Oponent"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#OutOfGame"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Position"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SearchPairs"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TakeCardsWinCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TurnedCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#UnknownCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#WinGame"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#IsInPosition"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#doAction"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasKnownPair"/>
+        <Class IRI="#ChooseCards"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#knowsPositionOfCard"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#turnedCardsAre"/>
+        <Class IRI="#CardSetup"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#IsInPosition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Card"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasPoints"/>
+        <Class IRI="#WinGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Action"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Oponent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UnknownCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Position"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#KnownPairs"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SearchPairs"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
@@ -229,12 +233,12 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Card</IRI>
-        <Literal>Each card turned is instanciated as subclass of Card and linked to a ArucoId . If the position is kown they are &quot;KownCards&quot;. I not they are &quot;UnknownCards&quot;</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each card turned is instanciated as subclass of Card and linked to a ArucoId . If the position is kown they are &quot;KownCards&quot;. I not they are &quot;UnknownCards&quot;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#CardSetup</IRI>
-        <Literal>CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
 --&gt;2xPenguin---&gt;Id:1,2
 --&gt;2xGiraffes ---&gt;Id:3,4
 --&gt;2xDogs     ---&gt;Id:5,6
@@ -245,33 +249,33 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ChooseTwoRandomCards</IRI>
-        <Literal>Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#InGame</IRI>
-        <Literal>At the beginning all cards are in InGame Postions</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">At the beginning all cards are in InGame Postions</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#KnownPairs</IRI>
-        <Literal>Each Pair instance has two Card Instances associated to it that belong to the Card Class</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each Pair instance has two Card Instances associated to it that belong to the Card Class</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Me</IRI>
-        <Literal>Associate won Card pairs to &quot;Me&quot;</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Associate won Card pairs to &quot;Me&quot;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Oponent</IRI>
-        <Literal>Each opponent is an Instance of Oponent
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each opponent is an Instance of Oponent
 Each opponent instance has a PointCount</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Position</IRI>
-        <Literal>has x (number of cards) instances, each corresponding to a diferent position of the Board. Example 12 cards, 4 rows of 3 cards
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">has x (number of cards) instances, each corresponding to a diferent position of the Board. Example 12 cards, 4 rows of 3 cards
 
 x10  x11  x12
 x7    x8    x9
@@ -284,16 +288,16 @@ Aquire number of cards at beginning of game and instanciate diferente position</
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TakeCardsWinCards</IRI>
-        <Literal>Associate these Cards to The &quot;Me&quot; Class</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Associate these Cards to The &quot;Me&quot; Class</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#WinGame</IRI>
-        <Literal>Check if someone as more than 1/2 the cards</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Check if someone as more than 1/2 the cards</Literal>
     </AnnotationAssertion>
 </Ontology>
 
 
 
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
 
