@@ -6,12 +6,12 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot">
-    <Prefix name="" IRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="robot" IRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot#"/>
     <Declaration>
         <DataProperty IRI="#hasXCoordinate"/>
     </Declaration>
