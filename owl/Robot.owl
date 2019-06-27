@@ -13,13 +13,28 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
+        <Class IRI="#CardSetup"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#doAction"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#IsInPosition"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasXCoordinate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Me"/>
+        <Class IRI="#Card"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WinGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Action"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TakeCardsWinCards"/>
@@ -37,10 +52,22 @@
         <Class IRI="#Choose1Unknown1KnownCard"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#hasPoints"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#KnownCard"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ChooseTwoRandomCards"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ChooseCards"/>
@@ -49,43 +76,10 @@
         <ObjectProperty IRI="#knowsPositionOfCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#CardSetup"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#IsInPosition"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasMarkerId"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Card"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#WinGame"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Oponent"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Action"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasYCoordinate"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="http://knowrob.org/kb/knowrob.owl#hasCoordinate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#KnownCard"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://knowrob.org/kb/knowrob.owl#hasPosition"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#UnknownCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://knowrob.org/kb/knowrob.owl#CardPosition"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://knowrob.org/kb/knowrob.owl#TurnCard"/>
@@ -143,20 +137,6 @@
         </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Me"/>
-        <DataExactCardinality cardinality="1">
-            <DataProperty IRI="#hasPoints"/>
-            <Datatype abbreviatedIRI="xsd:integer"/>
-        </DataExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Oponent"/>
-        <DataExactCardinality cardinality="1">
-            <DataProperty IRI="#hasPoints"/>
-            <Datatype abbreviatedIRI="xsd:integer"/>
-        </DataExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#TakeCardsWinCards"/>
         <Class IRI="#Action"/>
     </SubClassOf>
@@ -182,10 +162,6 @@
     <FunctionalObjectProperty>
         <ObjectProperty IRI="#turnedCardsAre"/>
     </FunctionalObjectProperty>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#doAction"/>
-        <Class IRI="#Me"/>
-    </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasKnownPair"/>
         <Class IRI="#KnownCard"/>
@@ -222,17 +198,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ChooseTwoRandomCards</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Me</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Associate won Card pairs to &quot;Me&quot;</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Oponent</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each opponent is an Instance of Oponent
-Each opponent instance has a PointCount</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
