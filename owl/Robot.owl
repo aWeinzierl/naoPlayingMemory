@@ -6,101 +6,86 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot">
+    <Prefix name="" IRI="http://www.semanticweb.org/henrique/ontologies/2019/5/Robot"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <Class IRI="#Action"/>
+        <DataProperty IRI="#hasXCoordinate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Card"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#CardSetup"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Choose1Unknown1KnownCard"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ChooseCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ChooseTwoEqualCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ChooseTwoRandomCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#EqualCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#InGame"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#KnownCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#KnownPairs"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Me"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#NotEqualCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Oponent"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#OutOfGame"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Position"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SearchPairs"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TakeCardsWinCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TurnedCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#UnknownCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#WinGame"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#IsInPosition"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#doAction"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasKnownPair"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#knowsPositionOfCard"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#turnedCardsAre"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasMarkerId"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasPoints"/>
+        <ObjectProperty IRI="#isAssociatedWith"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WinGame"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Action"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ChooseTwoEqualCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TakeCardsWinCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Choose1Unknown1KnownCard"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasYCoordinate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasCoordinate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#KnownCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ChooseTwoRandomCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IdToObjectMapping"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasPosition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ChooseCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UnknownCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CardPosition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TurnCard"/>
     </Declaration>
     <SubClassOf>
-        <Class IRI="#Card"/>
+        <Class IRI="#CardPosition"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="#hasMarkerId"/>
-            <Datatype abbreviatedIRI="xsd:integer"/>
+            <DataProperty IRI="#hasXCoordinate"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CardPosition"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#hasYCoordinate"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TurnCard"/>
+        <Class IRI="#Action"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Choose1Unknown1KnownCard"/>
@@ -115,73 +100,46 @@
         <Class IRI="#ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ChooseTwoEqualCards"/>
-        <ObjectAllValuesFrom>
-            <ObjectProperty IRI="#hasKnownPair"/>
-            <Class IRI="#KnownPairs"/>
-        </ObjectAllValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#ChooseTwoRandomCards"/>
         <Class IRI="#ChooseCards"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#EqualCards"/>
-        <Class IRI="#TurnedCards"/>
+        <Class IRI="#IdToObjectMapping"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#isAssociatedWith"/>
+        </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#InGame"/>
-        <Class IRI="#Position"/>
+        <Class IRI="#IdToObjectMapping"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#hasMarkerId"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#KnownCards"/>
+        <Class IRI="#KnownCard"/>
         <Class IRI="#Card"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#KnownPairs"/>
-        <Class IRI="#KnownCards"/>
+        <Class IRI="#KnownCard"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#hasPosition"/>
+            <Class IRI="#CardPosition"/>
+        </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Me"/>
+        <Class IRI="#KnownCard"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="#hasPoints"/>
-            <Datatype abbreviatedIRI="xsd:integer"/>
+            <DataProperty IRI="#hasMarkerId"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
         </DataExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#NotEqualCards"/>
-        <Class IRI="#TurnedCards"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Oponent"/>
-        <DataExactCardinality cardinality="1">
-            <DataProperty IRI="#hasPoints"/>
-            <Datatype abbreviatedIRI="xsd:integer"/>
-        </DataExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#OutOfGame"/>
-        <Class IRI="#Position"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TakeCardsWinCards"/>
         <Class IRI="#Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TakeCardsWinCards"/>
-        <ObjectIntersectionOf>
-            <ObjectAllValuesFrom>
-                <ObjectProperty IRI="#doAction"/>
-                <Class IRI="#ChooseCards"/>
-            </ObjectAllValuesFrom>
-            <ObjectAllValuesFrom>
-                <ObjectProperty IRI="#turnedCardsAre"/>
-                <Class IRI="#EqualCards"/>
-            </ObjectAllValuesFrom>
-        </ObjectIntersectionOf>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#UnknownCards"/>
+        <Class IRI="#UnknownCard"/>
         <Class IRI="#Card"/>
     </SubClassOf>
     <SubClassOf>
@@ -189,48 +147,63 @@
         <Class IRI="#Action"/>
     </SubClassOf>
     <DisjointClasses>
-        <Class IRI="#EqualCards"/>
-        <Class IRI="#NotEqualCards"/>
+        <Class IRI="#KnownCard"/>
+        <Class IRI="#UnknownCard"/>
     </DisjointClasses>
-    <DisjointClasses>
-        <Class IRI="#KnownCards"/>
-        <Class IRI="#UnknownCards"/>
-    </DisjointClasses>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasKnownPair"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <FunctionalObjectProperty>
-        <ObjectProperty IRI="#doAction"/>
-    </FunctionalObjectProperty>
-    <FunctionalObjectProperty>
-        <ObjectProperty IRI="#turnedCardsAre"/>
-    </FunctionalObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#doAction"/>
-        <Class IRI="#Me"/>
+        <ObjectProperty IRI="#hasPosition"/>
+        <Class IRI="#Card"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasKnownPair"/>
-        <Class IRI="#KnownCards"/>
+        <ObjectProperty IRI="#isAssociatedWith"/>
+        <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#doAction"/>
-        <Class IRI="#Action"/>
+        <ObjectProperty IRI="#hasPosition"/>
+        <Class IRI="#CardPosition"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#turnedCardsAre"/>
-        <Class IRI="#TurnedCards"/>
+        <ObjectProperty IRI="#isAssociatedWith"/>
+        <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasXCoordinate"/>
+        <DataProperty IRI="#hasCoordinate"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasYCoordinate"/>
+        <DataProperty IRI="#hasCoordinate"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasCoordinate"/>
+        <Class IRI="#CardPosition"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasMarkerId"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasCoordinate"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasMarkerId"/>
+        <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+    </DataPropertyRange>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Card</IRI>
-        <Literal>Each card turned is instanciated as subclass of Card and linked to a ArucoId . If the position is kown they are &quot;KownCards&quot;. I not they are &quot;UnknownCards&quot;</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Each card turned is instanciated as subclass of Card and linked to a ArucoId . If the position is kown they are &quot;KownCards&quot;. I not they are &quot;UnknownCards&quot;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#CardSetup</IRI>
-        <Literal>CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
+        <IRI>#ChooseTwoRandomCards</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#IdToObjectMapping</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
 --&gt;2xPenguin---&gt;Id:1,2
 --&gt;2xGiraffes ---&gt;Id:3,4
 --&gt;2xDogs     ---&gt;Id:5,6
@@ -240,56 +213,17 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ChooseTwoRandomCards</IRI>
-        <Literal>Normaly this is happens in the first turn or when the Nao has no more knowledge of previous pairs</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#InGame</IRI>
-        <Literal>At the beginning all cards are in InGame Postions</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#KnownPairs</IRI>
-        <Literal>Each Pair instance has two Card Instances associated to it that belong to the Card Class</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Me</IRI>
-        <Literal>Associate won Card pairs to &quot;Me&quot;</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Oponent</IRI>
-        <Literal>Each opponent is an Instance of Oponent
-Each opponent instance has a PointCount</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Position</IRI>
-        <Literal>has x (number of cards) instances, each corresponding to a diferent position of the Board. Example 12 cards, 4 rows of 3 cards
-
-x10  x11  x12
-x7    x8    x9
-x4    x5    x6
-x1    x2    x3
-
-
-Aquire number of cards at beginning of game and instanciate diferente position</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TakeCardsWinCards</IRI>
-        <Literal>Associate these Cards to The &quot;Me&quot; Class</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Associate these Cards to The &quot;Me&quot; Class</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#WinGame</IRI>
-        <Literal>Check if someone as more than 1/2 the cards</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Check if someone as more than 1/2 the cards</Literal>
     </AnnotationAssertion>
 </Ontology>
 
 
 
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
 
