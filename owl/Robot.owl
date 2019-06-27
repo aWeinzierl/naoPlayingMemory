@@ -16,9 +16,6 @@
         <ObjectProperty IRI="#doAction"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#KnownCards"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Me"/>
     </Declaration>
     <Declaration>
@@ -82,16 +79,19 @@
         <Class IRI="#Oponent"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#UnknownCards"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Position"/>
     </Declaration>
     <Declaration>
         <Class IRI="#KnownPairs"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#KnownCard"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#SearchPairs"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UnknownCard"/>
     </Declaration>
     <Declaration>
         <Class IRI="#InGame"/>
@@ -142,12 +142,12 @@
         <Class IRI="#Position"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#KnownCards"/>
+        <Class IRI="#KnownCard"/>
         <Class IRI="#Card"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#KnownPairs"/>
-        <Class IRI="#KnownCards"/>
+        <Class IRI="#KnownCard"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Me"/>
@@ -189,7 +189,7 @@
         </ObjectIntersectionOf>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#UnknownCards"/>
+        <Class IRI="#UnknownCard"/>
         <Class IRI="#Card"/>
     </SubClassOf>
     <SubClassOf>
@@ -201,8 +201,8 @@
         <Class IRI="#NotEqualCards"/>
     </DisjointClasses>
     <DisjointClasses>
-        <Class IRI="#KnownCards"/>
-        <Class IRI="#UnknownCards"/>
+        <Class IRI="#KnownCard"/>
+        <Class IRI="#UnknownCard"/>
     </DisjointClasses>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasKnownPair"/>
@@ -220,7 +220,7 @@
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasKnownPair"/>
-        <Class IRI="#KnownCards"/>
+        <Class IRI="#KnownCard"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#doAction"/>
