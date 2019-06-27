@@ -23,9 +23,6 @@
         <ObjectProperty IRI="isActionOf"/>
     </Declaration>
     <Declaration>
-        <Class IRI="FinishTurn"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="hasCondition"/>
     </Declaration>
     <Declaration>
@@ -44,16 +41,19 @@
         <NamedIndividual IRI="GameFinished"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="WinGame"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="currentRound"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="roundNumber"/>
     </Declaration>
     <Declaration>
-        <Class IRI="Card"/>
+        <ObjectProperty IRI="hasObject"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="hasObject"/>
+        <Class IRI="Card"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="hasEvent"/>
@@ -63,6 +63,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="PlayerNode"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="TakeCards"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="isEqualTo"/>
@@ -131,9 +134,6 @@
         <ObjectProperty IRI="isPlayedOf"/>
     </Declaration>
     <Declaration>
-        <Class IRI="FinishRound"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="Player"/>
     </Declaration>
     <Declaration>
@@ -149,7 +149,13 @@
         <Class IRI="Event"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="FinishRound"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="Turn"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="FinishTurn"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="hasStatus"/>
@@ -164,16 +170,16 @@
         <ObjectProperty IRI="hasAction"/>
     </Declaration>
     <Declaration>
-        <Class IRI="hasDrawnCard"/>
+        <Class IRI="Game"/>
     </Declaration>
     <Declaration>
-        <Class IRI="Game"/>
+        <Class IRI="hasDrawnCard"/>
     </Declaration>
     <Declaration>
         <Class IRI="Object"/>
     </Declaration>
     <Declaration>
-        <Class IRI="TurnCard"/>
+        <NamedIndividual IRI="TurnCard"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="MustFinishTurn"/>
@@ -182,10 +188,10 @@
         <Class IRI="MemoryGame"/>
     </Declaration>
     <Declaration>
-        <Class IRI="Status"/>
+        <NamedIndividual IRI="WinCards"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="WinCards"/>
+        <Class IRI="Status"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="Attempt"/>
@@ -218,14 +224,6 @@
             <ObjectProperty IRI="associatedToPlayer"/>
             <Class IRI="Player"/>
         </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="FinishRound"/>
-        <Class IRI="Action"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="FinishTurn"/>
-        <Class IRI="Action"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="MemoryGame"/>
@@ -341,10 +339,6 @@
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="TurnCard"/>
-        <Class IRI="Action"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="hasDrawnCard"/>
         <Class IRI="Event"/>
     </SubClassOf>
@@ -372,6 +366,14 @@
         <NamedIndividual IRI="ExtraAttempt"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="FinishRound"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="FinishTurn"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="Rule"/>
         <NamedIndividual IRI="GameFinished"/>
     </ClassAssertion>
@@ -392,8 +394,20 @@
         <NamedIndividual IRI="PlayerWins"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="TakeCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="TurnCard"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="Rule"/>
         <NamedIndividual IRI="WinCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="WinGame"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="hasCondition"/>
