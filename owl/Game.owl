@@ -5,499 +5,499 @@
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.semanticweb.org/cogr/ontologies/2019/5/Game">
-    <Prefix name="" IRI="http://www.semanticweb.org/cogr/ontologies/2019/5/game"/>
+     ontologyIRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#">
+    <Prefix name="game" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <Class IRI="#Turn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#DifferentCards"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#DifferentCards"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#ExtraAttempt"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ExtraAttempt"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Rule"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isPlayedOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isPlayedOf"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Object"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Object"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#CardCollection"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardCollection"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isRule"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isRule"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Game"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Game"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasCardCollections"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCardCollections"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasCurrentAttempt"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentAttempt"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasEvent"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasEvent"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasPlayerNodeSequence"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNodeSequence"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasObject"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Condition"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasRound"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRound"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Round"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#CardsEmpty"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardsEmpty"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasPosition"/>
+        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPosition"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#roundNumber"/>
+        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#roundNumber"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#associatedToCard"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToCard"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#ItsThePlayersTurn"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ItsThePlayersTurn"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasCurrentTurn"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentTurn"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#associatedToPlayer"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#PlayerHasMostCards"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerHasMostCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Attempt"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#currentRound"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#currentRound"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isObjectOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isObjectOf"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isEqualTo"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasRule"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRule"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasAttempt"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAttempt"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#GameFinished"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#GameFinished"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasStatus"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Action"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#hasDrawnCard"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasDrawnCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Card"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#cardDrawn"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#cardDrawn"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TurnCard"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#TurnCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Event"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Event"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#PlayerWins"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerWins"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#FinishRound"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishRound"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasCondition"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasPlayerNode"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNode"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#MemoryGame"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGame"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#FinishTurn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishTurn"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#plays"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Status"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Status"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTurns"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasTurns"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PlayerNode"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Player"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#EqualCards"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#WinCards"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#WinCards"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#MustFinishTurn"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MustFinishTurn"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isStatusOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasAction"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAction"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isActionOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isActionOf"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasPlayer"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayer"/>
     </Declaration>
     <SubClassOf>
-        <Class IRI="#Attempt"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt"/>
         <ObjectAllValuesFrom>
-            <ObjectProperty IRI="#hasEvent"/>
-            <Class IRI="#Event"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasEvent"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Event"/>
         </ObjectAllValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Card"/>
-        <Class IRI="#Object"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Object"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Card"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#isEqualTo"/>
-            <Class IRI="#Card"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#CardCollection"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardCollection"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#associatedToCard"/>
-            <Class IRI="#Card"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToCard"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#CardCollection"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardCollection"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#associatedToPlayer"/>
-            <Class IRI="#Player"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#FinishRound"/>
-        <Class IRI="#Action"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishRound"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#FinishTurn"/>
-        <Class IRI="#Action"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishTurn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGame"/>
-        <Class IRI="#Game"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGame"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Game"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGame"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGame"/>
         <ObjectAllValuesFrom>
-            <ObjectProperty IRI="#hasStatus"/>
-            <Class IRI="#MemoryGameStatus"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasStatus"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         </ObjectAllValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGameStatus"/>
-        <Class IRI="#Status"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Status"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#hasRound"/>
-            <Class IRI="#Round"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRound"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         <ObjectAllValuesFrom>
-            <ObjectProperty IRI="#hasCardCollections"/>
-            <Class IRI="#CardCollection"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCardCollections"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardCollection"/>
         </ObjectAllValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         <ObjectMinCardinality cardinality="2">
-            <ObjectProperty IRI="#hasPlayer"/>
-            <Class IRI="#Player"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayer"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
         </ObjectMinCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#currentRound"/>
-            <Class IRI="#Round"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#currentRound"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#hasPlayerNodeSequence"/>
-            <Class IRI="#PlayerNode"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNodeSequence"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#MemoryGameStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#isStatusOf"/>
-            <Class IRI="#MemoryGameStatus"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlayerNode"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#hasPlayer"/>
-            <Class IRI="#Player"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayer"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlayerNode"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode"/>
         <ObjectMaxCardinality cardinality="1">
-            <ObjectProperty IRI="#hasPlayerNode"/>
-            <Class IRI="#PlayerNode"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNode"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode"/>
         </ObjectMaxCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Round"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
         <ObjectAllValuesFrom>
-            <ObjectProperty IRI="#hasTurns"/>
-            <Class IRI="#Turn"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasTurns"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
         </ObjectAllValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Round"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#hasCurrentTurn"/>
-            <Class IRI="#Turn"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentTurn"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Rule"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#hasCondition"/>
-            <Class IRI="#Condition"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Turn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#hasAttempt"/>
-            <Class IRI="#Attempt"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAttempt"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Turn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#associatedToPlayer"/>
-            <Class IRI="#Player"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Turn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="#hasCurrentAttempt"/>
-            <Class IRI="#Attempt"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentAttempt"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TurnCard"/>
-        <Class IRI="#Action"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#TurnCard"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#hasDrawnCard"/>
-        <Class IRI="#Event"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasDrawnCard"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Event"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#hasDrawnCard"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasDrawnCard"/>
         <ObjectAllValuesFrom>
-            <ObjectProperty IRI="#cardDrawn"/>
-            <Class IRI="#Card"/>
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#cardDrawn"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
         </ObjectAllValuesFrom>
     </SubClassOf>
     <ClassAssertion>
-        <Class IRI="#Condition"/>
-        <NamedIndividual IRI="#CardsEmpty"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardsEmpty"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Condition"/>
-        <NamedIndividual IRI="#DifferentCards"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#DifferentCards"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Condition"/>
-        <NamedIndividual IRI="#EqualCards"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Rule"/>
-        <NamedIndividual IRI="#ExtraAttempt"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ExtraAttempt"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Rule"/>
-        <NamedIndividual IRI="#GameFinished"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#GameFinished"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Condition"/>
-        <NamedIndividual IRI="#ItsThePlayersTurn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ItsThePlayersTurn"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Rule"/>
-        <NamedIndividual IRI="#MustFinishTurn"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MustFinishTurn"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Condition"/>
-        <NamedIndividual IRI="#PlayerHasMostCards"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerHasMostCards"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Rule"/>
-        <NamedIndividual IRI="#PlayerWins"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerWins"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Rule"/>
-        <NamedIndividual IRI="#WinCards"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#WinCards"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasCondition"/>
-        <NamedIndividual IRI="#ExtraAttempt"/>
-        <NamedIndividual IRI="#EqualCards"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ExtraAttempt"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasCondition"/>
-        <NamedIndividual IRI="#GameFinished"/>
-        <NamedIndividual IRI="#CardsEmpty"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#GameFinished"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardsEmpty"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasCondition"/>
-        <NamedIndividual IRI="#MustFinishTurn"/>
-        <NamedIndividual IRI="#DifferentCards"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MustFinishTurn"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#DifferentCards"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasCondition"/>
-        <NamedIndividual IRI="#PlayerWins"/>
-        <NamedIndividual IRI="#PlayerHasMostCards"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerWins"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerHasMostCards"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasCondition"/>
-        <NamedIndividual IRI="#WinCards"/>
-        <NamedIndividual IRI="#EqualCards"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#WinCards"/>
+        <NamedIndividual IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards"/>
     </ObjectPropertyAssertion>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#associatedToCard"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToCard"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#associatedToPlayer"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#cardDrawn"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#cardDrawn"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasCurrentTurn"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentTurn"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasPlayerNodeSequence"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNodeSequence"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#isStatusOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#plays"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#hasAction"/>
-        <ObjectProperty IRI="#isActionOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAction"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isActionOf"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#isPlayedOf"/>
-        <ObjectProperty IRI="#plays"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isPlayedOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#isStatusOf"/>
-        <ObjectProperty IRI="#isStatusOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
     </InverseObjectProperties>
     <FunctionalObjectProperty>
-        <ObjectProperty IRI="#hasStatus"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasStatus"/>
     </FunctionalObjectProperty>
     <FunctionalObjectProperty>
-        <ObjectProperty IRI="#isEqualTo"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo"/>
     </FunctionalObjectProperty>
     <SymmetricObjectProperty>
-        <ObjectProperty IRI="#isActionOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isActionOf"/>
     </SymmetricObjectProperty>
     <SymmetricObjectProperty>
-        <ObjectProperty IRI="#isStatusOf"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
     </SymmetricObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#isEqualTo"/>
-        <Class IRI="#Card"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#plays"/>
-        <Class IRI="#Player"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasAction"/>
-        <Class IRI="#Action"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAction"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasObject"/>
-        <Class IRI="#Object"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasObject"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Object"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasStatus"/>
-        <Class IRI="#Status"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasStatus"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Status"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#isEqualTo"/>
-        <Class IRI="#Card"/>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
     </ObjectPropertyRange>
     <DataPropertyDomain>
-        <DataProperty IRI="#roundNumber"/>
-        <Class IRI="#Round"/>
+        <DataProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#roundNumber"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
     </DataPropertyDomain>
 </Ontology>
 
