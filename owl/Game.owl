@@ -1,0 +1,522 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#">
+    <Prefix name="" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="game" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <ObjectProperty IRI="hasRule"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasTurns"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="isActionOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasCondition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasAttempt"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="isStatusOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="plays"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasPlayerNodeSequence"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="GameFinished"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="WinGame"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="currentRound"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="roundNumber"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Card"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasEvent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Condition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="PlayerNode"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="TakeCards"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="isEqualTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="cardDrawn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="associatedToPlayer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="MemoryGameStatus"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="DifferentCards"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="ExtraAttempt"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Rule"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="PlayerWins"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="isObjectOf"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="hasPosition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="associatedToCard"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="PlayerHasMostCards"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="ItsThePlayersTurn"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Round"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasCurrentTurn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasRound"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="CardsEmpty"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="isRule"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Attempt"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasCurrentAttempt"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="CardCollection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="isPlayedOf"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Player"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasPlayerNode"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="EqualCards"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasCardCollections"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Event"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="FinishRound"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Turn"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="FinishTurn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasStatus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Action"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasPlayer"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasAction"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Game"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="hasDrawnCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Object"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="TurnCard"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="MustFinishTurn"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="MemoryGame"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="WinCards"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Status"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="Attempt"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="hasEvent"/>
+            <Class IRI="Event"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Card"/>
+        <Class IRI="Object"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Card"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="isEqualTo"/>
+            <Class IRI="Card"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="CardCollection"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="associatedToCard"/>
+            <Class IRI="Card"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="CardCollection"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="associatedToPlayer"/>
+            <Class IRI="Player"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGame"/>
+        <Class IRI="Game"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGame"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="hasStatus"/>
+            <Class IRI="MemoryGameStatus"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGameStatus"/>
+        <Class IRI="Status"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGameStatus"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasRound"/>
+            <Class IRI="Round"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGameStatus"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="hasCardCollections"/>
+            <Class IRI="CardCollection"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGameStatus"/>
+        <ObjectMinCardinality cardinality="2">
+            <ObjectProperty IRI="hasPlayer"/>
+            <Class IRI="Player"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGameStatus"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="currentRound"/>
+            <Class IRI="Round"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGameStatus"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="hasPlayerNodeSequence"/>
+            <Class IRI="PlayerNode"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MemoryGameStatus"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="isStatusOf"/>
+            <Class IRI="MemoryGameStatus"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="PlayerNode"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="hasPlayer"/>
+            <Class IRI="Player"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="PlayerNode"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="hasPlayerNode"/>
+            <Class IRI="PlayerNode"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Round"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="hasTurns"/>
+            <Class IRI="Turn"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Round"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="hasCurrentTurn"/>
+            <Class IRI="Turn"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Rule"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasCondition"/>
+            <Class IRI="Condition"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Turn"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasAttempt"/>
+            <Class IRI="Attempt"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Turn"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="associatedToPlayer"/>
+            <Class IRI="Player"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Turn"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="hasCurrentAttempt"/>
+            <Class IRI="Attempt"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="hasDrawnCard"/>
+        <Class IRI="Event"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="hasDrawnCard"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="cardDrawn"/>
+            <Class IRI="Card"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="Condition"/>
+        <NamedIndividual IRI="CardsEmpty"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Condition"/>
+        <NamedIndividual IRI="DifferentCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Condition"/>
+        <NamedIndividual IRI="EqualCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Rule"/>
+        <NamedIndividual IRI="ExtraAttempt"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="FinishRound"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="FinishTurn"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Rule"/>
+        <NamedIndividual IRI="GameFinished"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Condition"/>
+        <NamedIndividual IRI="ItsThePlayersTurn"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Rule"/>
+        <NamedIndividual IRI="MustFinishTurn"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Condition"/>
+        <NamedIndividual IRI="PlayerHasMostCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Rule"/>
+        <NamedIndividual IRI="PlayerWins"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="TakeCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="TurnCard"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Rule"/>
+        <NamedIndividual IRI="WinCards"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Action"/>
+        <NamedIndividual IRI="WinGame"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="hasCondition"/>
+        <NamedIndividual IRI="ExtraAttempt"/>
+        <NamedIndividual IRI="EqualCards"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="hasCondition"/>
+        <NamedIndividual IRI="GameFinished"/>
+        <NamedIndividual IRI="CardsEmpty"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="hasCondition"/>
+        <NamedIndividual IRI="MustFinishTurn"/>
+        <NamedIndividual IRI="DifferentCards"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="hasCondition"/>
+        <NamedIndividual IRI="PlayerWins"/>
+        <NamedIndividual IRI="PlayerHasMostCards"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="hasCondition"/>
+        <NamedIndividual IRI="WinCards"/>
+        <NamedIndividual IRI="EqualCards"/>
+    </ObjectPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="associatedToCard"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="associatedToPlayer"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="cardDrawn"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="hasCurrentTurn"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="hasPlayerNodeSequence"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="isStatusOf"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="plays"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="hasAction"/>
+        <ObjectProperty IRI="isActionOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="isPlayedOf"/>
+        <ObjectProperty IRI="plays"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="isStatusOf"/>
+        <ObjectProperty IRI="isStatusOf"/>
+    </InverseObjectProperties>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="hasStatus"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="isEqualTo"/>
+    </FunctionalObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="isActionOf"/>
+    </SymmetricObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="isStatusOf"/>
+    </SymmetricObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="isEqualTo"/>
+        <Class IRI="Card"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="plays"/>
+        <Class IRI="Player"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="hasAction"/>
+        <Class IRI="Action"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="hasObject"/>
+        <Class IRI="Object"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="hasStatus"/>
+        <Class IRI="Status"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="isEqualTo"/>
+        <Class IRI="Card"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="roundNumber"/>
+        <Class IRI="Round"/>
+    </DataPropertyDomain>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
