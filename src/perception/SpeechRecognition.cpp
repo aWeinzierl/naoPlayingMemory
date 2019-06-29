@@ -17,7 +17,7 @@ namespace patch
 }
 
 perception::SpeechRecognitionClient::SpeechRecognitionClient(ros::NodeHandle &nodeHandle) {
-    _vocab_pub = nodeHandle.advertise<naoqi_bridge_msgs::SetSpeechVocabularyActionGoal>("/speech_action/goal", 1);
+    _vocab_pub = nodeHandle.advertise<naoqi_bridge_msgs::SetSpeechVocabularyActionGoal>("/speech_vocabulary_action/goal", 1);
     _recog_start_srv = nodeHandle.serviceClient<std_srvs::Empty>("/start_recognition");
     _recog_stop_srv = nodeHandle.serviceClient<std_srvs::Empty>("/stop_recognition");
     _speech_recog_sub = nodeHandle.subscribe("/word_recognized", 1, &SpeechRecognitionClient::speech_recognition_callback, this);
@@ -57,7 +57,6 @@ void perception::SpeechRecognitionClient::listen(std::vector<std::string> &avail
                 results.append(_matches.at(i));
                 results.append(" ");
             }
-            std::cout<<"nao understood: "<<results<<std::endl;
         }
     }
     else {
@@ -67,7 +66,6 @@ void perception::SpeechRecognitionClient::listen(std::vector<std::string> &avail
 
 void perception::SpeechRecognitionClient::speech_recognition_callback(
         const naoqi_bridge_msgs::WordRecognized::ConstPtr &msg) {
-    std::cout<<"Here"<< std::endl;
     for (int i = 0; i < msg->words.size(); i++) {
 
         // Check confidence values

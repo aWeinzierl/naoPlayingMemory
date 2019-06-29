@@ -13,8 +13,9 @@ main(int argc, char **argv) {
    available_vocabulary.push_back("No");
    available_vocabulary.push_back("Hi Nao");
    std::string result;
-   uint32_t duration=20;
+   uint32_t duration=10;
 
    perception::SpeechRecognitionClient RecogClient(n);
    RecogClient.listen(available_vocabulary,result, duration);
+   std::cout<<"Nao understood: "<<result<<std::endl;
 }
