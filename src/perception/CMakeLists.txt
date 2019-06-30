@@ -5,6 +5,9 @@ set (CMAKE_CXX_STANDARD 11)
 add_executable(${PROJECT_NAME} main.cpp
         SpeechRecognition.cpp
         Vision.cpp
+        Card.cpp
+        GridElement.cpp
+        GridBoard.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS

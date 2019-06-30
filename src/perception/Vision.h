@@ -10,8 +10,9 @@
 #include <aruco/cvdrawingutils.h>
 #include <json_prolog/prolog.h>
 
-namespace perception{
+#include "GridBoard.h"
 
+namespace perception{
     class VisionClient {
         image_transport::ImageTransport it_;
         image_transport::Subscriber image_sub_;
@@ -35,15 +36,16 @@ namespace perception{
 
         bool game_initialized;
 
+        GridBoard grid_board;
+
+
     public:
         explicit VisionClient(ros::NodeHandle& nodeHandle);
         void image_callback(const sensor_msgs::ImageConstPtr& msg);
         void detect_cards();
 
     private:
-        void _initialize_game_grid();
-        int _get_card_position(int number);
-        int _find_min_position(cv::Mat matrix);
-        int _fing_max_position(cv::Mat matrix);
+        void initialize_game_grid();
+        std::vector<GridElement> retrieve_edge_cards(const std::vector<GridElement> card_collection);
     };
 }

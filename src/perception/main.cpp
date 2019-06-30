@@ -13,6 +13,7 @@ main(int argc, char **argv) {
    available_vocabulary.push_back("Yes");
    available_vocabulary.push_back("No");
    available_vocabulary.push_back("Hi Nao");
+
    std::string result;
    uint32_t duration=10;
 
