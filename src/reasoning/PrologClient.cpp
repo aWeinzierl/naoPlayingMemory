@@ -1,54 +1,99 @@
 #include "PrologClient.h"
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <aruco/aruco.h>
+#include <aruco/cvdrawingutils.h>
+#include <json_prolog/prolog.h>
+#include <unordered_map>
 
-PrologClient::PrologClient() {
-        class_to_current_id_associations_ = {
-                {"Carrot",  0},
-                {"Donut",   0},
-                {"HotWing", 0},
-        };
+#include "PrologClient.h"
+
+using namespace std;
+using namespace cv;
+using namespace aruco;
+
+
+void PrologClient::test_prolog_query() {
+    json_prolog::PrologQueryProxy bdgs = _pl.query("rdf_custom_has2(A,B,C)");
+    int cont=0;
+    for(auto const& bdg: bdgs){
+            //cont+1;
+            //cout<<std::to_string(cont)<<endl;
+            cout << "A = "<< bdg["A"] << endl;
+
     }
-
-uint PrologClient::CreateTypeInstance(const std::string &associatedClass) {
-    auto supposedId = class_to_current_id_associations_.find(associatedClass)->second + 1;
-
-    json_prolog::PrologQueryProxy bdgs = _pl.query(
-            "rdf_costom_instance_from_class('http://knowrob.org/kb/knowrob.owl#" + associatedClass + "',_," +
-            std::to_string(supposedId) + ",ObjInst)");
-
-    class_to_current_id_associations_[associatedClass] = supposedId;
-
-    logQueryResult(bdgs);
-
-    return supposedId;
 }
 
-void PrologClient::logQueryResult(json_prolog::PrologQueryProxy &bdgs) const {
-    for (auto const &bdg : bdgs) {
-        std::cout << bdg["ObjInst"] << "\n";
+PrologClient::Instance::Instance(const std::string &classType, uint id) : _class(classType),_id(id) {
+}
+
+const std::string &PrologClient::Instance::Get_class() const noexcept {
+    return _class;
+}
+
+uint PrologClient::Instance::Get_id() const noexcept {
+    return _id;
+}
+
+
+void PrologClient::create_action_takecards(){
+    
+
+}
+
+void PrologClient::create_instance (const Instance& instance){
+    PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('"+ _NAMESPACE + instance._class+ ",_," +instance._name+ "', ObjInst)");
     }
 }
 
-void PrologClient::Register_motion_for_object(const Instance &instance, uint timeInstant,
-                                              DIRECTION direction) {
-    std::string movement;
-    if (direction==DIRECTION::LEFT){
-        movement = "MoveLeft";
-    } else if (direction == DIRECTION::RIGHT){
-        movement = "MoveRight";
-    } else if(direction == DIRECTION::CLOSER){
-        movement="MoveToward";
-    } else if (direction == DIRECTION::AWAY){
-        movement= "MoveForward";
-    }else if (direction == DIRECTION::UP){
-        movement = "MoveUp";
-    }else if (direction == DIRECTION::DOWN) {
-        movement = "MoveDown";
+/*void PrologClient::create_opponent(){
+    for(i=;i<(num)=;i++){
+        Instance alfons("asdfgd","fasdfasd")M
+        create_instance(alfons);
     }
 
-    auto bdgs = _pl.query(
-            "rdf_assert('http://knowrob.org/kb/Nao_computables.owl#" + instance.Get_class() +"_"+ std::to_string(instance.Get_id()) +
-    "','http://knowrob.org/kb/Nao_computables.owl#"+ movement +"','http://knowrob.org/kb/knowrob.owl#TimePoint_"+std::to_string(timeInstant)+ "')");
+}*/
+void PrologClient::create_nao(){
+   PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('" + _NAMESPACE + "Player_Nao, ObjInst')");
 }
+
+void PrologClient::create_game(int game_num){
+    PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('" + _NAMESPACE + "MemoryGame,_," +IntToStr(game_num)+ "', ObjInst)");
+}
+
+void PrologClient::create_ArucoToIdObjectMappings(){}
+
+void associateTurnToPlayer(const Instance& Player_instance,const Instance& Turn_instance){
+    PrologQueryProxy bdgs = _pl.query("is_in_turn('"+ _NAMESPACE + Player_instance._class+ "','"+ _NAMESPACE + Turn_instance._class+ "')");
+
+}
+
+struct Position{
+    unsigned int _x;
+    unsigned int _y;
+}
+
+struct TurnCard {
+    Position _position;
+}
+
+void save_action(const TurnCard& action){
+    //create prolog instance of TurnCard
+}
+
+struct ActionTyp2 {
+
+}
+
+void save_action(const ActionTyp2& action){
+
+}
+
+
 
 void PrologClient::Create_time_point_if_not_exists(uint timeInstant) {
 
@@ -70,37 +115,3 @@ bool PrologClient::Time_point_already_exists(uint timeInstant) {
     return bdgs.begin()==bdgs.begin();
 }
 
-void PrologClient::PrintMovementsOfInstance(PrologClient::Instance instance, DIRECTION direction) {
-    std::string movement;
-    if (direction==DIRECTION::LEFT){
-        movement = "MoveLeft";
-    } else if (direction == DIRECTION::RIGHT){
-        movement = "MoveRight";
-    } else if(direction == DIRECTION::CLOSER){
-        movement="MoveToward";
-    } else if (direction == DIRECTION::AWAY){
-        movement= "MoveForward";
-    }else if (direction == DIRECTION::UP){
-        movement = "MoveUp";
-    }else if (direction == DIRECTION::DOWN) {
-        movement = "MoveDown";
-    }
-
-    auto bdgs = _pl.query(
-            "rdf_has('http://knowrob.org/kb/Nao_computables.owl#"
-            + instance.Get_class() + "_" + std::to_string(instance.Get_id()) + "','http://knowrob.org/kb/Nao_computables.owl#"+ movement + "',ObjInst)");
-
-    std::cout << "History for this direction: ";
-    logQueryResult(bdgs);
-}
-
-PrologClient::Instance::Instance(const std::string &classType, uint id) : _class(classType),_id(id) {
-}
-
-const std::string &PrologClient::Instance::Get_class() const noexcept {
-    return _class;
-}
-
-uint PrologClient::Instance::Get_id() const noexcept {
-    return _id;
-}
