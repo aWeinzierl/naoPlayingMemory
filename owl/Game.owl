@@ -35,10 +35,10 @@
         <ObjectProperty IRI="plays"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="hasPlayerNodeSequence"/>
+        <NamedIndividual IRI="GameFinished"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="GameFinished"/>
+        <ObjectProperty IRI="hasPlayerNodeSequence"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="WinGame"/>
@@ -116,10 +116,10 @@
         <ObjectProperty IRI="hasRound"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="CardsEmpty"/>
+        <ObjectProperty IRI="isRule"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="isRule"/>
+        <NamedIndividual IRI="CardsEmpty"/>
     </Declaration>
     <Declaration>
         <Class IRI="Attempt"/>
@@ -396,10 +396,6 @@
     <ClassAssertion>
         <Class IRI="Action"/>
         <NamedIndividual IRI="TakeCards"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Action"/>
-        <NamedIndividual IRI="TurnCard"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="Rule"/>
