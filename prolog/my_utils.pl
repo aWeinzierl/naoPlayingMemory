@@ -28,3 +28,4 @@ rdf_costom_instance_from_class(Class, SourceRef,Instance_ID, Instance) :-
 % win_cards(Player, Cards):-
 
 is_in_turn(Player,Turn):- rdf_assert(Player,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentTurn',Turn).
+
