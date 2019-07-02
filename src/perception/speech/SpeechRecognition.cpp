@@ -26,9 +26,7 @@ perception::SpeechRecognitionClient::SpeechRecognitionClient(ros::NodeHandle &no
 void perception::SpeechRecognitionClient::listen(std::vector<std::string> &available_sentences, std::string &results,
                                                  int record_duration) {
     ros::Rate loop_rate(10);
-    for(int i=0;i<available_sentences.size();i++){
-        std::cout<<available_sentences.at(i)<<std::endl;
-    }
+
     publish_vocab(available_sentences);
     _matches.clear();
 

@@ -2,8 +2,7 @@
 #include <naoqi_bridge_msgs/SetSpeechVocabularyActionGoal.h>
 #include <naoqi_bridge_msgs/SpeechWithFeedbackActionGoal.h>
 #include <std_srvs/Empty.h>
-#include "SpeechRecognition.h"
-#include "Vision.h"
+#include "speech/SpeechRecognition.h"
 
 main(int argc, char **argv) {
    ros::init(argc, argv, "perception");
@@ -14,13 +13,8 @@ main(int argc, char **argv) {
    available_vocabulary.push_back("No");
    available_vocabulary.push_back("Hi Nao");
    std::string result;
-   uint32_t duration=10;
+   int duration=20;
 
-   perception::VisionClient VisionClient(n);
-   ros::spin();
-   //perception::SpeechRecognitionClient RecogClient(n);
-   //RecogClient.listen(available_vocabulary,result, duration);
-   //std::cout<<"Nao understood: "<<result<<std::endl;
-
-
+   perception::SpeechRecognitionClient RecogClient(n);
+   RecogClient.listen(available_vocabulary,result, duration);
 }

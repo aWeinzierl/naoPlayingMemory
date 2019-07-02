@@ -1,5 +1,6 @@
 #include <string>
 #include <ros/ros.h>
+#include <std_msgs/String.h>
 #include "SpeechClient.h"
 
 void action::SpeechClient::say_something(std::string text_to_say) {
