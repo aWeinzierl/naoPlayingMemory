@@ -2,7 +2,7 @@
 #include <naoqi_bridge_msgs/SetSpeechVocabularyActionGoal.h>
 #include <naoqi_bridge_msgs/SpeechWithFeedbackActionGoal.h>
 #include <std_srvs/Empty.h>
-#include "SpeechRecognition.h"
+#include "speech/SpeechRecognition.h"
 
 main(int argc, char **argv) {
    ros::init(argc, argv, "perception");

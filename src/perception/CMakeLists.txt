@@ -3,11 +3,11 @@ project(perception)
 add_compile_options(-std=c++11)
 
 add_executable(${PROJECT_NAME} main.cpp
-        SpeechRecognition.cpp
-        Vision.cpp
-        Card.cpp
-        GridElement.cpp
-        GridBoard.cpp
+        speech/SpeechRecognition.cpp
+        vision/Vision.cpp
+        vision/Card.cpp
+        vision/GridElement.cpp
+        vision/GridBoard.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS
