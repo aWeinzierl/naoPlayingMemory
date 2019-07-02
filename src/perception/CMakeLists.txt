@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(perception)
-set (CMAKE_CXX_STANDARD 11)
+add_compile_options(-std=c++11)
 
 add_executable(${PROJECT_NAME} main.cpp
         SpeechRecognition.cpp
@@ -22,9 +22,6 @@ find_package(catkin REQUIRED COMPONENTS
 include_directories(
         ${catkin_INCLUDE_DIRS}
 )
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
-
-## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 find_package(OpenCV REQUIRED)
