@@ -4,54 +4,73 @@
 
 #include <json_prolog/prolog.h>
 
+#include "classes/Card.h"
+#include "classes/Instance.h"
+#include "ObjectProperty.h"
+#include "nonstd/optional.hpp"
+#include "../../perception/vision/GridBoard.h"
 
+namespace reasoning {
 
-class PrologClient {
-    json_prolog::Prolog _pl;
+    class PrologClient {
+        json_prolog::Prolog _pl;
+        static constexpr char _ALLOWED_CHARS_FOR_RANDOM_NAMES[] =
+                "abcdefghijklmnaoqrstuvwxyz"
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                "1234567890";
+        static constexpr uint _RANDOM_NAME_LENGTH = 16;
 
+        const std::string _NAMESPACE = "https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#";
 
-    const std::string _NAMESPACE = "https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#";
+        static constexpr Instance create_time_stamp(uint time_instant) noexcept;
 
-public:
+        std::string generate_random_string(uint length);
 
-    struct Instance{
-    private:
-        std::string _class;
-        std::string _name;
-        //std::string _timeStamp;
+        bool instance_already_exists(const Instance& instance);
+
+        nonstd::optional<Instance> position_already_exists(CardPosition position);
+
+        void save(const Instance &instance);
+
+        void save_property(const Instance &instance_of_interest, const ObjectProperty& property);
 
     public:
-        Instance(const std::string& classType, std::string name);
-        const std::string& Get_class() const noexcept;
-        uint Get_id() const noexcept;
+
+
+
+        PrologClient();
+
+        uint CreateTypeInstance(const std::string &associatedClass);
+
+
+
+        void save_TimeStamp_property(const Instance &instance, const Instance &timeStamp);
+
+        void save_performed_action(const std::string &player_name, const TurnCard &action, uint time_instant);
+        void delete_instance(const Instance &instance);
+
+        void save_performed_action(const TurnCard &action, uint timeInstant);
+
+        void save(const EqualCard &action, uint timeInstant);
+
+        void save(const unknownCard &Card1, consta unknownCard & Card2,uint TimeInstance);
+
+        void instantiate_one_unknowncard(uint i, uint j, uint count);
+
+        void instantiate_all_unknownCards();
+
+        void associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance);
+
+        void save(const player &player);
+
+        void save(const turn &turn);
+
+        void save(const round &round);
+
+        void associate_current_turn_to_round(const Instance &turn, const round round);
+
+
     };
-    struct Property{
-        private:
-            std::string _name;
-            std::string _value;
-        public:
-        Property(std::string name, std::string  value);
-        const std::string& Get_name() const noexcept;
-    }
-    PrologClient();
-
-    uint CreateTypeInstance(const std::string &associatedClass);
-
-    void create_instance (const Instance& instance);
-    void assert_property(const Instance& instance,const Property& property);
-    void save_TimeStamp_property(const Instance &instance, const Instance &timeStamp);
-    void save_CardPosition_property(const Instance &instance, const Instance &position);
-    void delete_instance(const Instance& instance);
-    void save(const TurnCard &action, uint timeInstant);
-    void save(const EqualCard &action, uint timeInstant);
-    void save(const unknownCard &Card1, consta unknownCard& Card2,uint TimeInstance);
-    void instantiate_one_unknowncard(uint i, uint j, uint count);
-    void instantiate_all_unknownCards();
-    void associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance);
-    void save(const player &player);
-    void save(const turn &turn);
-    void save(const round &round);
-    void associate_current_turn_to_round(const Instance &turn, const round round);
 
 
-};
+}
