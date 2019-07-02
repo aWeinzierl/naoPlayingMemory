@@ -91,34 +91,34 @@ struct EqualCards {
     TurnCard _Card2; 
 }
 
-struct classification{
+struct Classification{
     std::string _class;
 }
 
-struct knownCard{
+struct KnownCard{
     Instance _knwon_card;
     position _position;
-    classification _class;
+    Classification _class;
 }
-struct unknownCard{
+struct UnknownCard{
     Instance _unknown_card;
     postion _position;
 }
 
-struct turn{
+struct Turn{
     Instance _turn;
     Instance _player;
     Instance _round;
     uint _timeInstance;
 }
 
-struct player{
+struct Player{
     std::string _name;
     uint _num; //Nao is always 1, after that is 2,3,4,5,.....
 }
 
 
-struct round{
+struct Round{
     Instance _round;
     turn _current_turn;
     uint _timeInstance
@@ -159,24 +159,24 @@ void PrologClient::save_action_turn_equal_cards(const EqualCard& action,uint tim
 }
 
 
-void PrologClient::save_action_turn_two_unkown_cards(const unknownCard& Card1, consta unknownCard& Card2,uint TimeInstance){
+void PrologClient::save_action_turn_two_unkown_cards(const UnknownCard& Card1, consta UnknownCard& Card2,uint TimeInstance){
     
     save_action_TurnCard(Card1._unknown_card, timeInstant);
     save_action_TurnCard(Card2._unknown_card, timeInstant);
 
 }
 
-void PrologClient::instanciate_one_unknowncard(uint i,uint j,uint count){
+void PrologClient::instanciate_one_unknowncard(uint x_pos,uint y_pos,uint count){
     //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-    Instance unknown_card_ins[count]("UnknownCard","UnkownCard_"+std::to_string(i)+std:to_string(j));
+    Instance unknown_card_ins[count]("UnknownCard","UnkownCard_"+std::to_string(x_pos)+std:to_string(y_pos));
     create_instance(unknown_card_ins[count]);
-    Instance card_position("CardPosition","Card_position"+std::to_string(i)+std:to_string(j));
-    Property x_pos("hasXCoordinate",std::to_string(i));
-    unknonw_card_ins[count]._position._x=i;
-    Porperty y_pos("hasYCoordinate",std::to_string(j));
-    unknonw_card_ins[count]._position._y=j;
-    assert_property(card_position,x_pos);
-    assert_property(card_position,y_pos);
+    Instance card_position("CardPosition","Card_position"+std::to_string(x_pos)+std:to_string(y_pos));
+    Property _x_pos("hasXCoordinate",std::to_string(x_pos));
+    unknonw_card_ins[count]._position._x=x_pos;
+    Porperty _y_pos("hasYCoordinate",std::to_string(y_pos));
+    unknonw_card_ins[count]._position._y=y_pos;
+    assert_property(card_position,_x_pos);
+    assert_property(card_position,_y_pos);
     assert_property(unkown_card_ins[count],card_position);
 }
 
@@ -185,9 +185,9 @@ void PrologClient::instanciate_all_unknownCards(){
     Instance unknown_card_ins[12];
     int count=0;
     for (int a=1,a<4,a++){
-        for(int b=1,b<4,b++){
+        for(int b=1,b<=4,b++){
             instanciate_all_unknownCards(a,b,count);
-            unknownCard._unknown_card[count]=unknown_card_ins[count];
+            UnknownCard._unknown_card[count]=unknown_card_ins[count];
             count=count+1;
         }
     }
@@ -197,17 +197,18 @@ void PrologClient::instanciate_all_unknownCards(){
 
 void PrologClient::associateTurnToPlayer(const Instance& Player_instance,const Instance& Turn_instance){
     PrologQueryProxy bdgs = _pl.query("is_in_turn('"+ _NAMESPACE + Player_instance._class+ "','"+ _NAMESPACE + Turn_instance._class+ "')");
+
 }
 
 
-void PrologClient::create_Player_instance(const player& player){
+void PrologClient::create_Player_instance(const Player& player){
     Instance player("Player","Player_"+std::to_String(player._num));
     create_instance(player);
 }
 
 
 
-void PrologClient::create_turn_instance(const turn& turn){
+void PrologClient::create_turn_instance(const Turn& turn){
     Instance turn("Turn","Turn_"+std::to_String(turn._timeInstance)+turn._round._name);
     turn._turn=turn;
     create_instance(turn);
@@ -222,14 +223,14 @@ void PrologClient::create_turn_instance(const turn& turn){
 }
 
 
-void PrologClient::create_round_instance(const round& round){
+void PrologClient::create_round_instance(const Round& round){
     Instance round("Round","Round_"+std::to_String(round._timeInstance));
     create_instance(round);
 }
 
 
 
-void PrologClient::associate_currente_turn__to_round(const Instance& turn,const round round){
+void PrologClient::associate_currente_turn__to_round(const Instance& turn,const Round& round){
     delete_instance(round._current_turn);
     round._current_turn = turn;
     Property hasCurrentTurn("hasCurrentTurn",turn);
@@ -269,7 +270,9 @@ void PrologClient::create_nao(){
 }
 
 void PrologClient::create_game(int game_num){
-    PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('" + _NAMESPACE + "MemoryGame,_," +IntToStr(game_num)+ "', ObjInst)");
+    PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('" + _NAMESPACE + "MemoryGame,_," +std::to_String(game_num)+ "', ObjInst)");
+
+    //Initialize timeStamps
 }
 
 void PrologClient::create_ArucoToIdObjectMappings(){}
