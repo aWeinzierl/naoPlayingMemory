@@ -11,6 +11,7 @@
 #include <json_prolog/prolog.h>
 
 #include "GridBoard.h"
+#include "GridElement.h"
 
 namespace perception{
     class VisionClient {
@@ -47,5 +48,6 @@ namespace perception{
     private:
         void initialize_game_grid();
         std::vector<GridElement> retrieve_edge_cards(const std::vector<GridElement> card_collection);
+        Position get_relative_position(cv::Mat rvec, cv::Mat tvec);
     };
 }

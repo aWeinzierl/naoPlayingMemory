@@ -53,8 +53,8 @@ namespace perception{
         timepoint = 0;
 
         game_initialized = false;
-        grid_board._left_marker._aruco_id = 11;
-        grid_board._right_marker._aruco_id = 12;
+        grid_board._left_marker._aruco_id = 13;
+        grid_board._right_marker._aruco_id = 14;
 
     }
 
@@ -96,11 +96,11 @@ namespace perception{
             marker.calculateExtrinsics(0.06, CameraParameters, true);
 
             if (marker.id == grid_board._left_marker._aruco_id) {
-                grid_board._left_marker._position._x = marker.Tvec.at<float>(0);
-                grid_board._left_marker._position._y = marker.Tvec.at<float>(1);
+                grid_board._left_marker._tvec= marker.Tvec;
+                grid_board._left_marker._rvec = marker.Rvec;
             }else if (marker.id == grid_board._right_marker._aruco_id) {
-                grid_board._right_marker._position._x = marker.Tvec.at<float>(0);
-                grid_board._right_marker._position._y = marker.Tvec.at<float>(1);
+                grid_board._right_marker._tvec = marker.Tvec;
+                grid_board._right_marker._rvec = marker.Rvec;
             } else {
                 Card tmp_card;
                 tmp_card.aruco_id_top = marker.id;
@@ -110,14 +110,22 @@ namespace perception{
 
                 GridElement tmp_grid_element;
                 tmp_grid_element.card = tmp_card;
-                tmp_grid_element.pos_x = marker.Tvec.at<float>(0);
-                tmp_grid_element.pos_x = marker.Tvec.at<float>(1);
+                tmp_grid_element._tvec= marker.Tvec;
+                tmp_grid_element._rvec = marker.Rvec;
 
                 element_collection.push_back(tmp_grid_element);
             }
         }
+        cv::Mat t_matrix;
+        if(!element_collection.empty()){
+            for (auto& element : element_collection){
+                element._rel_pos = get_relative_position(element._rvec, element._tvec);
+            }
+        }
 
 
+
+        /*
         auto edges = retrieve_edge_cards(element_collection);
 
         double min_distance = 1000;
@@ -130,14 +138,14 @@ namespace perception{
             if (distance < min_distance) {
                 closest_element = element;
             }
-        }
+        }*/
     }
 
     std::vector<GridElement> VisionClient::retrieve_edge_cards(const std::vector<GridElement> elements) {
         GridElement min_x_element, min_y_element, max_x_element, max_y_element;
         std::vector<GridElement> min_max_elements;
 
-        min_x_element.pos_x = std::numeric_limits<float >::max();
+        /*min_x_element.pos_x = std::numeric_limits<float >::max();
         min_y_element.pos_y = std::numeric_limits<float >::max();
         max_x_element.pos_x = std::numeric_limits<float >::min();
         max_y_element.pos_y = std::numeric_limits<float >::min();
@@ -158,6 +166,24 @@ namespace perception{
         min_max_elements.push_back(max_x_element);
         min_max_elements.push_back(max_y_element);
 
-        return min_max_elements;
+        return min_max_elements;*/
+    }
+
+    Position VisionClient::get_relative_position(cv::Mat rvec, cv::Mat tvec) {
+        Position rel_pos;
+        cv::Mat R, R_t, invRvec, invTvec, composedRvec, composedTvec;
+        cv::Rodrigues(grid_board._left_marker._rvec, R);
+        cv::transpose(R, R_t);
+        invTvec = -R_t * grid_board._left_marker._tvec;
+        cv::Rodrigues(R_t, invRvec);
+        cv::composeRT(rvec, tvec, invRvec, invTvec, composedRvec, composedTvec);
+        std::cout<<"card RVec: "<<rvec<<std::endl;
+        std::cout<<"card TVec: "<<tvec<<std::endl;
+        std::cout<<"board RVec: "<<grid_board._left_marker._rvec<<std::endl;
+        std::cout<<"board TVec: "<<grid_board._left_marker._tvec<<std::endl;
+        std::cout<<"composed RVec: "<<composedRvec<<std::endl;
+        std::cout<<"composed TVec: "<<composedTvec<<std::endl;
+        std::cout<<"difference x: "<<std::endl;
+        return rel_pos;
     }
 }
