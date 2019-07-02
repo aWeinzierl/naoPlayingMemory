@@ -3,7 +3,10 @@ project(reasoning)
 
 add_definitions(-std=c++11)
 
-add_executable(${PROJECT_NAME} main.cpp PrologClient.cpp)
+add_executable(${PROJECT_NAME} main.cpp
+        prolog/PrologClient.cpp
+        )
+
 find_package(catkin REQUIRED COMPONENTS
         roscpp
         rospy

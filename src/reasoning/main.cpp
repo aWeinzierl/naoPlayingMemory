@@ -9,7 +9,7 @@
 #include <json_prolog/prolog.h>
 #include <unordered_map>
 
-#include "PrologClient.h"
+#include "prolog/PrologClient.h"
 
 using namespace std;
 using namespace cv;
