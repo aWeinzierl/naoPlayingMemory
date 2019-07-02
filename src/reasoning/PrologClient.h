@@ -37,22 +37,21 @@ public:
 
     uint CreateTypeInstance(const std::string &associatedClass);
 
-    void test_prolog_query();
     void create_instance (const Instance& instance);
     void assert_property(const Instance& instance,const Property& property);
-    void assert_timeStamp_property(const Instance& instance,const Instance& timeStamp);
-    void assert_CardPosition_property(const Instance& instance,const Instance& position);
+    void save_TimeStamp_property(const Instance &instance, const Instance &timeStamp);
+    void save_CardPosition_property(const Instance &instance, const Instance &position);
     void delete_instance(const Instance& instance);
-    void save_action_TurnCard(const TurnCard& action,uint timeInstant);
-    void save_action_turn_equal_cards(const EqualCard& action,uint timeInstant);
-    void save_action_turn_two_unkown_cards(const unknownCard& Card1, consta unknownCard& Card2,uint TimeInstance);
-    void instanciate_one_unknowncard(uint i,uint j,uint count);
-    void instanciate_all_unknownCards();
-    void associateTurnToPlayer(const Instance& Player_instance,const Instance& Turn_instance);
-    void create_Player_instance(const player& player);
-    void create_turn_instance(const turn& turn);
-    void create_round_instance(const round& round);
-    void associate_currente_turn__to_round(const Instance& turn,const round round);
+    void save(const TurnCard &action, uint timeInstant);
+    void save(const EqualCard &action, uint timeInstant);
+    void save(const unknownCard &Card1, consta unknownCard& Card2,uint TimeInstance);
+    void instantiate_one_unknowncard(uint i, uint j, uint count);
+    void instantiate_all_unknownCards();
+    void associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance);
+    void save(const player &player);
+    void save(const turn &turn);
+    void save(const round &round);
+    void associate_current_turn_to_round(const Instance &turn, const round round);
 
 
 };
