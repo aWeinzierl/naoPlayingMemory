@@ -172,24 +172,20 @@ namespace reasoning {
 
 
 
-    void PrologClient::instantiate_one_unknowncard(uint i, uint j, uint count) {
+    void PrologClient::instantiate_one_unknowncard(uint x_pos1, uint y_pos1, uint count) {
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
         Instance  unknown_card_ins[count]("UnknownCard", "UnkownCard_" + std::to_string(i) + std:to_string(j));
         save(unknown_card_ins[count]);
         Instance card_position("CardPosition", "Card_position" + std::to_string(i) + std:to_string(j));
-        ObjectProperty x_pos("hasXCoordinate", std::to_string(i));
-        unknonw_card_ins[count]._position._x = i;
-        ObjectProperty y_pos("hasYCoordinate", std::to_string(j));
-        unknonw_card_ins[count]._position._y = j;
-        save_property(card_position, x_pos);
-        save_property(card_position, y_pos);
-        save_property(unknown_card_ins[count],card_position);
+        DataProperty x_pos("hasXCoordinate", x_pos1);
+        unknown_card_ins[count]._position._x = i;
+        DataProperty y_pos("hasYCoordinate", y_pos1);
+        unknown_card_ins[count]._position._y = j;
+        save_property_value(card_position, x_pos);
+        save_property_value(card_position, y_pos);
+        save_property_value(unknown_card_ins[count],card_position);
 
-        /*
-        assert_property_value(card_position, x_pos);
-        assert_property_value(card_position, y_pos);
-        assert_property(unkown_card_ins[count], card_position);
-        */
+   
     }
 
     void PrologClient::instantiate_all_unknownCards() {
