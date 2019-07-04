@@ -6,16 +6,16 @@
 
 namespace reasoning {
 
-    struct ObjectProperty {
+    struct DataProperty {
     private:
         std::string _name;
-        Instance _value;
+        uint _value;
         
     public:
-        ObjectProperty(std::string name, Instance value) noexcept;
-
+        DataProperty(std::string name, Instance value) noexcept;
+        
         const std::string &get_name() const noexcept;
-        const Instance& get_value() const noexcept;
+        const uint &get_value() const noexcept;
         
     };
 

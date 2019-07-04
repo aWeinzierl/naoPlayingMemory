@@ -15,4 +15,5 @@ namespace reasoning{
     const Instance &ObjectProperty::get_value() const noexcept {
         return _value;
     }
+
 }
