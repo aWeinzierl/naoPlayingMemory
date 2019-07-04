@@ -14,6 +14,11 @@
 using namespace json_prolog;
 
 namespace reasoning {
+        struct ConcealedCard{
+                Position position;
+                uint8 id;
+        };
+
 
         struct Position {
             unsigned int _x;

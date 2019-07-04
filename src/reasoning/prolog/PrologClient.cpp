@@ -152,7 +152,13 @@ namespace reasoning {
         return Instance("TimeStamp", std::to_string(time_instant));
     }
 
-    nonstd::optional<Instance> PrologClient::position_already_exists(Position position) {
+    nonstd::optional<Instance> PrologClient::position_already_exists(const Position &position) {
+        //TODO: check if position exists
+        //if it exists return instance of it
+        return nonstd::nullopt;
+    }
+
+    nonstd::optional<Instance> PrologClient::concealed_card_already_exists(const ConcealedCard &ConcealedCard) {
         //TODO: check if position exists
         //if it exists return instance of it
         return nonstd::nullopt;
@@ -171,36 +177,27 @@ namespace reasoning {
     }
 
 
-
-    void PrologClient::instantiate_one_unknowncard(uint x_pos1, uint y_pos1, uint count) {
+// change count by Marker Id -->ConcealedCard[]-->position,Id-->
+    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &ConcealedCard) {#
+        if (!concealed_card_already_exists(ConcealedCard).hasValue()){
+            return;
+        }
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-        Instance  unknown_card_ins[count]("UnknownCard", "UnkownCard_" + std::to_string(i) + std:to_string(j));
-        save(unknown_card_ins[count]);
+        Instance  unknown_card_ins[ConcealedCard._id]("UnknownCard", "Card_" + std::to_string(i) + std:to_string(j));
+        save(unknown_card_ins[ConcealedCard._id]);
         Instance card_position("CardPosition", "Card_position" + std::to_string(i) + std:to_string(j));
         DataProperty x_pos("hasXCoordinate", x_pos1);
-        unknown_card_ins[count]._position._x = i;
+        unknown_card_ins[ConcealedCard._id]._position._x = i;
         DataProperty y_pos("hasYCoordinate", y_pos1);
-        unknown_card_ins[count]._position._y = j;
+        unknown_card_ins[ConcealedCard._id]._position._y = j;
         save_property_value(card_position, x_pos);
         save_property_value(card_position, y_pos);
-        save_property_value(unknown_card_ins[count],card_position);
+        save_property_value(unknown_card_ins[ConcealedCard._id],card_position);
 
    
     }
 
-    void PrologClient::instantiate_all_unknownCards() {
-        //Do at the beginnnig 
-        Instance unknown_card_ins[12];
-        int count = 0;
-        for (int a = 1; a < 4; ++a) {
-            for (int b = 1; b < 4; ++b) {
-                instantiate_one_unknowncard(a, b, count);
-                unknownCard._unknown_card[count] = unknown_card_ins[count];
-                count = count + 1;
-            }
-        }
 
-    }
 
 
     void PrologClient::associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance) {
@@ -216,18 +213,16 @@ namespace reasoning {
 
 
     void PrologClient::create_turn_instance(const turn &turn) {
-        Instance turn("Turn", "Turn_" + std::to_String(turn._timeInstance) + turn._round._name);
-        turn._turn = turn;
-        save(turn);
+        Instance turn_i("Turn", "Turn_" + std::to_String(turn._timeInstance) + turn._round._name);
+        turn._turn = turn_i;
+        save(turn_i);
         //Associate a player
-        Property associatedToPlayer("associatedToPlayer", turn._player._name);
-        assert_property(turn, associatedToPlayer);
+        ObjectProperty associatedToPlayer("associatedToPlayer", turn._player._name);
+        save_property(turn_i, associatedToPlayer);
         //Associate a timeStampt
         Instance timeStamp("TimeStamp", "TimeStamp" + std::to_string(turn._timeInstance));
-
         save(timeStamp);
-        assert_timeStamp_property(turn, timeStamp);
-
+        assert_timeStamp_property(turn_i, timeStamp);
     }
 
 
@@ -240,8 +235,8 @@ namespace reasoning {
     void PrologClient::associate_current_turn_to_round(const Instance &turn, const round round) {
         delete_instance(round._current_turn);
         round._current_turn = turn;
-        Property hasCurrentTurn("hasCurrentTurn", turn);
-        assert_property(round._round, hasCurrentTurn);
+        ObjectProperty hasCurrentTurn("hasCurrentTurn", turn);
+        save_property(round._round, hasCurrentTurn);
     }
 
     void PrologClient::create_nao() {
