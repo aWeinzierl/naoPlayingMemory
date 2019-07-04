@@ -15,7 +15,6 @@
 
 namespace reasoning {
 
-
     //saves intance
     void PrologClient::save(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
@@ -23,30 +22,11 @@ namespace reasoning {
                 "', ObjInst)");
     }
 
-
-    void PrologClient::save_TimeStamp_property(const Instance &instance, const Instance &timeStamp) {
-        PrologQueryProxy bdgs = _pl.query(
-                "rdf_assert('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name() + "','" + _NAMESPACE +
-                "hasTimeStamp','" + timeStamp.get_name() + "')");
-        /*(instance, hasTimeStamp, TimeStamp_x) */
-    }
-
-    /*void PrologClient::save_CardPosition_property(const Instance &instance, const Instance &position) {
-        PrologQueryProxy bdgs = _pl.query(
-                "rdf_assert('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name() + "','" + _NAMESPACE +
-                "hasPositin','" + position.get_name() + "')");
-        /*(instance, hasPosition, intance_from_cardposition) 
-    }*/
-
     void PrologClient::delete_instance(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
                 "del('" + _NAMESPACE + instance.get_class() + "','" + _NAMESPACE + instance.get_class() + "',[])");
 
     }
-
-
-    
-
     //Creates ObjectProperty
     void PrologClient::save_property(const Instance &instance_of_interest, const ObjectProperty& property) {
         _pl.query(
@@ -54,9 +34,6 @@ namespace reasoning {
                 "','" + _NAMESPACE + property.get_name() +
                 "','" + _NAMESPACE + property.get_value().get_class() + "_" + property.get_value().get_name()  + "')");
     }
-
-
-
     //creates DataPorperty
     void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty& property) {
         _pl.query(
@@ -64,7 +41,6 @@ namespace reasoning {
                 "','" + _NAMESPACE + property.get_name() +
                 "','" + to_string(property.get_value())  + "')");
     }
-
 
     bool PrologClient::instance_already_exists(const Instance &instance) {
         auto bdgs = _pl.query(
@@ -74,7 +50,6 @@ namespace reasoning {
 
         return bdgs.begin() == bdgs.begin();
     }
-
 
     std::string PrologClient::generate_random_string(uint length) {
         std::mt19937_64 gen{std::random_device()()};
@@ -131,32 +106,7 @@ namespace reasoning {
 
     }
 
-    
-
-    //turn equal cards assuming they have already been instanced
-    /*void PrologClient::save(const knownCard &Card1,const knownCard &Card2, uint timeInstant,const player &player) {
-        turn_one_card(player,Card1._Card.get_id(),timeInstant);
-        turn_one_card(player,Card2._Card.get_id(),timeInstant);
-        
-        Instance turn_equal_cards("TurnEqualCards", "Turn_Equal_Cards");
-        save(turn_equal_cards);
-        //assert Timestamp_instance as property from turn_equal_cards
-        Instance timeStamp("TimeStamp", "TimeStamp" + std::to_string(timeInstant));
-        save(timeStamp);
-        save_TimeStamp_property(turn_equal_cards, timeStamp);
-
-        ObjectProperty hasAction("hasAction",turn_card);
-        //TODO delete_instance(delete_old_action);
-        save_property(player,hasAction);
-
-
-    }*/
-
-
-       
-
-
-    Instance PrologClient::create_time_stamp(uint time_instant) {
+    Instance PrologClient::create_time_stamp(uint time_instant) noexcept {
         return Instance("TimeStamp", std::to_string(time_instant));
     }
 
@@ -176,21 +126,7 @@ namespace reasoning {
         //TODO: check if position exists
         //if it exists return instance of it
         return nonstd::nullopt;
-    }    
-
-    //Turns 2 unknown cards
-    /*void PrologClient::save(const unknownCard &Card1, const unknownCard &Card2,uint TimeInstance) {
-        save(Card1._unknown_card, timeInstant);
-        save(Card2._unknown_card, timeInstant);
-        Instance turn_two_unknown_cards("TurnTwoUnknownCards", "Turn_Two_Unknown_Cards");
-        save(turn_two_unknown_cards);
-        //assert Timestamp_instance as property from turn_equal_cards
-        Instance timeStamp("TimeStamp", "TimeStamp" + std::to_string(timeInstant));
-        save(timeStamp);
-        save_TimeStamp_property(turn_two_unknown_cards, timeStamp);
-    }*/
-
-
+    }
 
     void PrologClient::instantiate_one_unknowncard(const ConcealedCard &ConcealedCard) {
 
@@ -209,14 +145,6 @@ namespace reasoning {
         save_property(card_position, y_pos);
         save_property(unknown_card_ins[ConcealedCard._id],card_position);   
     }
-
-
-
-    void PrologClient::associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance) {
-        PrologQueryProxy bdgs = _pl.query(
-                "is_in_turn('" + _NAMESPACE + Player_instance._class + "','" + _NAMESPACE + Turn_instance._class + "')");
-    }
-
 
     void PrologClient::create_Player_instance(const player &player) {
         Instance player("Player", "Player_" + std::to_String(player._num));
@@ -251,74 +179,8 @@ namespace reasoning {
         save_property(round._round, hasCurrentTurn);
     }
 
-    void PrologClient::create_nao() {
-        Instance nao("Player","Nao");
-        save(nao);
-        //PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('" + _NAMESPACE + "Player_Nao, ObjInst')");
-    }
-
-
-    void PrologClient::create_game(int game_num) {
-        Instance game("MemoryGame","Game_"+std::to_string(game_num));
-        save(game);
-    }
-
     PrologClient::PrologClient()
     : _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN(strlen(_ALLOWED_CHARS_FOR_RANDOM_NAMES))
                                                    {
     }
-
-    /*
-    void PrologClient::assert_MemoryGame_status(const Instance& status){
-
-
-    }
-    */
-
-
-
-
-    /*
-    void PrologClient::create_action_takecards(){
-        
-
-    }
-    */
-
-
-
-    /*
-    void PrologClient::Create_time_point_if_not_exists(uint timeInstant) {
-
-        if (Time_point_already_exists(timeInstant)) {
-            return;
-        }
-
-        auto bdgs = _pl.query(
-                "rdf_costom_instance_from_class('http://knowrob.org/kb/knowrob.owl#TimePoint',_," +
-                std::to_string(timeInstant) + ",ObjInst)");
-        logQueryResult(bdgs);
-    }
-
-    bool PrologClient::Time_point_already_exists(uint timeInstant) {
-        auto bdgs = _pl.query(
-                "owl_individual_of('http://knowrob.org/kb/knowrob.owl#TimePoint_" + std::to_string(timeInstant) +
-                "','http://knowrob.org/kb/knowrob.owl#TimePoint')"
-        );
-
-        return bdgs.begin() == bdgs.begin();
-    }
-
-    void PrologClient::logQueryResult(json_prolog::PrologQueryProxy &bdgs) const {
-        for (auto const &bdg : bdgs) {
-            std::cout << bdg["ObjInst"] << "\n";
-        }
-    }
-
-    */
-
-    /*void PrologClient::create_ArucoToIdObjectMappings() {}
-
-    }*/
-
 }

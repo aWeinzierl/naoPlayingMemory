@@ -10,7 +10,7 @@ namespace reasoning {
         std::string _name;
 
     public:
-        Instance(const std::string &classType, std::string name);
+        constexpr Instance(const std::string &classType, std::string name);
 
         const std::string &get_class() const noexcept;
 

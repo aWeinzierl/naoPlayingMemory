@@ -10,7 +10,7 @@ namespace reasoning{
         return _class;
     }
 
-    Instance::Instance(const std::string &classType, std::string name)
-    : _class(classType), _name(std::move(name)){
+    constexpr Instance::Instance(std::string classType, std::string name)
+    : _class(std::move(classType)), _name(std::move(name)){
     }
 }
