@@ -11,6 +11,7 @@ namespace reasoning {
         unsigned int _id;
         CardPosition _position;
         std::string _class;
+        
 
     public:
         Card(unsigned int id, CardPosition position, std::string classType);

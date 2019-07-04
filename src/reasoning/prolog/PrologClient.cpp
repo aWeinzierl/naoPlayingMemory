@@ -89,9 +89,9 @@ namespace reasoning {
 
     }
 
-    //creates instance of turn_Card
+    //creates instance of turn_Card action  
     void
-    PrologClient::save_turn_card(const std::string &player_name, const Card &action, uint time_instant) {
+    PrologClient::save_turn_card(const Instance &player, const uint id, uint time_instant) {
         
         //create time_stamp
         auto time_stamp = create_time_stamp(time_instant);
@@ -111,23 +111,33 @@ namespace reasoning {
         save_property(turn_card, hasTimeStamp);
 
         //create card_position instance and the coordinates
-        Instance card_position("CardPosition", "Card_Position_"+to_string(action.get_position().get_x())+to_string(action.get_position().get_y()));
-        save(card_position);
+        Instance card_pos("CardPosition","Card_" +to_string(card.get_position().get_x())+to_string(card.get_position().get_y()));
+        save(card_pos);
+        ObjectProperty card_position("hasCardPosition", card_pos);
     
-        DataProperty x_pos("hasXCoordinate", action.get_position().get_x());
-        DataProperty y_pos("hasYCoordinate", action.get_position().get_y());
-        save_property_value(card_position,x_pos);
-        save_property_value(card_position,y_pos);
-        save_property(turn_card,card_position);
+        //link to card instance
+        //search card instance
+        auto card = card_already_exists(id);
+        if (!card.hasValue()){
+            throw new logic_error("Card_already_exist");
+        }
 
-
+        ObjectProperty card_prop("hasCard",card);
+        save_property(turn_card,card);
+        
+        ObjectProperty hasAction("hasAction",turn_card);
+        //TODO delete_instance(delete_old_action);
+        save_property(player,hasAction);
 
     }
 
-    //turn equal cards
-    void PrologClient::save(const knownCard &Card1,const knownCard &Card2, uint timeInstant) {
-        save(action._Card1, timeInstant);
-        save(action._Card2, timeInstant);
+    
+
+    //turn equal cards assuming they have already been instanced
+    /*void PrologClient::save(const knownCard &Card1,const knownCard &Card2, uint timeInstant,const player &player) {
+        turn_one_card(player,Card1._Card.get_id(),timeInstant);
+        turn_one_card(player,Card2._Card.get_id(),timeInstant);
+        
         Instance turn_equal_cards("TurnEqualCards", "Turn_Equal_Cards");
         save(turn_equal_cards);
         //assert Timestamp_instance as property from turn_equal_cards
@@ -135,10 +145,15 @@ namespace reasoning {
         save(timeStamp);
         save_TimeStamp_property(turn_equal_cards, timeStamp);
 
-    }
+        ObjectProperty hasAction("hasAction",turn_card);
+        //TODO delete_instance(delete_old_action);
+        save_property(player,hasAction);
 
 
-    //pair equal_Cards    
+    }*/
+
+
+       
 
 
     Instance PrologClient::create_time_stamp(uint time_instant) {
@@ -157,8 +172,14 @@ namespace reasoning {
         return nonstd::nullopt;
     }
 
+    nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
+        //TODO: check if position exists
+        //if it exists return instance of it
+        return nonstd::nullopt;
+    }    
+
     //Turns 2 unknown cards
-    void PrologClient::save(const unknownCard &Card1, const unknownCard &Card2,uint TimeInstance) {
+    /*void PrologClient::save(const unknownCard &Card1, const unknownCard &Card2,uint TimeInstance) {
         save(Card1._unknown_card, timeInstant);
         save(Card2._unknown_card, timeInstant);
         Instance turn_two_unknown_cards("TurnTwoUnknownCards", "Turn_Two_Unknown_Cards");
@@ -167,29 +188,27 @@ namespace reasoning {
         Instance timeStamp("TimeStamp", "TimeStamp" + std::to_string(timeInstant));
         save(timeStamp);
         save_TimeStamp_property(turn_two_unknown_cards, timeStamp);
-    }
+    }*/
 
 
-// change count by Marker Id -->ConcealedCard[]-->position,Id-->
+
     void PrologClient::instantiate_one_unknowncard(const ConcealedCard &ConcealedCard) {
-        if (!concealed_card_already_exists(ConcealedCard).hasValue()){
-            return;
+
+        auto card = concealed_card_already_exists(ConcealedCard);
+        if (!card.hasValue()){
+            throw new logic_error("Card_already_exist");
+            //exit function----->
         }
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
         Instance  unknown_card_ins[ConcealedCard._id]("UnknownCard", "Card_" + std::to_string(i) + std:to_string(j));
         save(unknown_card_ins[ConcealedCard._id]);
         Instance card_position("CardPosition", "Card_position" + std::to_string(i) + std:to_string(j));
-        DataProperty x_pos("hasXCoordinate", x_pos1);
-        unknown_card_ins[ConcealedCard._id]._position._x = i;
-        DataProperty y_pos("hasYCoordinate", y_pos1);
-        unknown_card_ins[ConcealedCard._id]._position._y = j;
-        save_property_value(card_position, x_pos);
-        save_property_value(card_position, y_pos);
-        save_property_value(unknown_card_ins[ConcealedCard._id],card_position);
-
-   
+        DataProperty x_pos("hasXCoordinate", ConcealedCard.position._x);
+        DataProperty y_pos("hasYCoordinate", ConcealedCard.position._y);
+        save_property(card_position, x_pos);
+        save_property(card_position, y_pos);
+        save_property(unknown_card_ins[ConcealedCard._id],card_position);   
     }
-
 
 
 

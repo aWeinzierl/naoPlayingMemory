@@ -37,9 +37,7 @@ namespace reasoning {
         };
 
         struct knownCard {
-            Instance _knwon_card;
-            Position _position;
-            classification _class;
+            Card _Card;
         };
 
         struct unknownCard {
@@ -91,6 +89,7 @@ namespace reasoning {
         void save(const Instance &instance);
 
         void save_property(const Instance &instance_of_interest, const ObjectProperty& property);
+
         void save_property(const Instance &instance_of_interest, const DataProperty& property);
 
     public:
@@ -111,12 +110,12 @@ namespace reasoning {
         void save_performed_action(const std::string &player_name, const Card &action, uint time_instant);
         void delete_instance(const Instance &instance);
 
-        void save_turn_card(const std::string &player_name, const Card &action, uint time_instant);
+        void save_turn_card(const Instance &player, const uint id, uint time_instant);
 
-        void save(const knownCard &Card1,const knownCard &Card2, uint timeInstant);
+        /*void save(const knownCard &Card1,const knownCard &Card2, uint timeInstant,const player &player);
         
-        void save(const unknownCard &Card1, const unknownCard & Card2,uint TimeInstance);
-
+        void save(const unknownCard &Card1, const unknownCard & Card2,uint TimeInstance);*/
+        
         void instantiate_one_unknowncard(uint i, uint j, uint count);
 
         void instantiate_all_unknownCards();
