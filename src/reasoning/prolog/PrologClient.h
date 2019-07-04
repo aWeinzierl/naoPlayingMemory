@@ -84,13 +84,18 @@ namespace reasoning {
 
         bool instance_already_exists(const Instance& instance);
 
-        nonstd::optional<Instance> position_already_exists(CardPosition position);
-
         void save(const Instance &instance);
 
         void save_property(const Instance &instance_of_interest, const ObjectProperty& property);
 
         void save_property(const Instance &instance_of_interest, const DataProperty& property);
+
+        nonstd::optional<Instance> PrologClient::position_already_exists(const Position &position);
+
+        nonstd::optional<Instance> PrologClient::concealed_card_already_exists(const ConcealedCard &ConcealedCard);
+
+        nonstd::optional<Instance> PrologClient::card_already_exists(const uint id);
+
 
     public:
 
@@ -98,35 +103,18 @@ namespace reasoning {
 
         PrologClient();
         
-        /*void assert_property(const Instance &instance, const ObjectProperty &property);
 
-        void save_CardPosition_property(const Instance &instance, const Instance &position);
-        */
-        uint CreateTypeInstance(const std::string &associatedClass);
 
 
         void save_TimeStamp_property(const Instance &instance, const Instance &timeStamp);
 
-        void save_performed_action(const std::string &player_name, const Card &action, uint time_instant);
         void delete_instance(const Instance &instance);
 
         void save_turn_card(const Instance &player, const uint id, uint time_instant);
 
-        /*void save(const knownCard &Card1,const knownCard &Card2, uint timeInstant,const player &player);
-        
-        void save(const unknownCard &Card1, const unknownCard & Card2,uint TimeInstance);*/
-        
-        void instantiate_one_unknowncard(uint i, uint j, uint count);
-
-        void instantiate_all_unknownCards();
+        void instantiate_one_unknowncard(const ConcealedCard &ConcealedCard);
 
         void associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance);
-
-        void save(const player &player);
-
-        void save(const turn &turn);
-
-        void save(const round &round);
 
         void associate_current_turn_to_round(const Instance &turn, const round &round);
         
