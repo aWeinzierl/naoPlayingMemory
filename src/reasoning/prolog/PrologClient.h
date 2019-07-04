@@ -90,11 +90,11 @@ namespace reasoning {
 
         void save_property(const Instance &instance_of_interest, const DataProperty& property);
 
-        nonstd::optional<Instance> PrologClient::position_already_exists(const Position &position);
+        nonstd::optional<Instance> position_already_exists(const Position &position);
 
-        nonstd::optional<Instance> PrologClient::concealed_card_already_exists(const ConcealedCard &ConcealedCard);
+        nonstd::optional<Instance> concealed_card_already_exists(const ConcealedCard &ConcealedCard);
 
-        nonstd::optional<Instance> PrologClient::card_already_exists(const uint id);
+        nonstd::optional<Instance> card_already_exists(const uint id);
 
 
     public:
