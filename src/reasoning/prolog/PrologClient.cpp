@@ -244,7 +244,7 @@ namespace reasoning {
     }
 
 
-    void PrologClient::associate_current_turn_to_round(const Instance &turn, const round round) {
+    void PrologClient::associate_current_turn_to_round(const Instance &turn, const round &round) {
         delete_instance(round._current_turn);
         round._current_turn = turn;
         ObjectProperty hasCurrentTurn("hasCurrentTurn", turn);
