@@ -15,19 +15,28 @@
     <Prefix name="robot" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#"/>
     <Import>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#</Import>
     <Declaration>
-        <Class IRI="ActionTimeStampAssociation"/>
+        <DataProperty IRI="hasXCoordinate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="ArucoIdToObjectMappings"/>
+        <ObjectProperty IRI="hasCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="CardPosition"/>
+        <ObjectProperty IRI="isAssociatedWith"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="TurnOneKnown/UnknownCard"/>
     </Declaration>
     <Declaration>
         <Class IRI="KnownCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="TimeStamp"/>
+        <Class IRI="TurnTwoUnknownCards"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="hasCoordinate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="TurnMultipleCards"/>
     </Declaration>
     <Declaration>
         <Class IRI="TurnCard"/>
@@ -36,52 +45,43 @@
         <Class IRI="TurnEqualCards"/>
     </Declaration>
     <Declaration>
-        <Class IRI="TurnMultipleCards"/>
+        <Class IRI="TurnOneKnown/UnknownCard"/>
     </Declaration>
     <Declaration>
         <Class IRI="TurnOneCard"/>
     </Declaration>
     <Declaration>
-        <Class IRI="TurnTwoUnknownCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="UnknownCard"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="TurnOneKnown/UnknownCard"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasPosition"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasTimeStamp"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="isAssociatedWith"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="hasCoordinate"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="hasMarkerId"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="hasXCoordinate"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="hasYCoordinate"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="#hasMarkerId"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="ActionTimeStampAssociation"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="TurnEqualCards"/>
     </Declaration>
     <Declaration>
+        <Class IRI="ArucoIdToObjectMappings"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="CardPosition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasPosition"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="hasYCoordinate"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="TurnTwoUnknownCards"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="TurnOneKnown/UnknownCard"/>
+        <Class IRI="UnknownCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="TimeStamp"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasTimeStamp"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
@@ -102,13 +102,6 @@
         <ObjectExactCardinality cardinality="1">
             <ObjectProperty IRI="isAssociatedWith"/>
         </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="ArucoIdToObjectMappings"/>
-        <DataExactCardinality cardinality="1">
-            <DataProperty IRI="hasMarkerId"/>
-            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
-        </DataExactCardinality>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="CardPosition"/>
@@ -136,13 +129,6 @@
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="KnownCard"/>
-        <DataExactCardinality cardinality="1">
-            <DataProperty IRI="hasMarkerId"/>
-            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
-        </DataExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="TurnCard"/>
         <Class IRI="TurnOneCard"/>
     </SubClassOf>
@@ -161,8 +147,8 @@
     <SubClassOf>
         <Class IRI="TurnOneCard"/>
         <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="hasPosition"/>
-            <Class IRI="CardPosition"/>
+            <ObjectProperty IRI="hasCard"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
@@ -185,6 +171,9 @@
         <ObjectProperty IRI="hasTimeStamp"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="hasCard"/>
+    </FunctionalObjectProperty>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAction"/>
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
@@ -194,9 +183,17 @@
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="hasCard"/>
+        <Class IRI="TurnCard"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="hasCard"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
+    </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="hasPosition"/>
         <Class IRI="CardPosition"/>
@@ -217,10 +214,6 @@
         <DataProperty IRI="hasCoordinate"/>
         <Class IRI="CardPosition"/>
     </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="hasMarkerId"/>
-        <Class abbreviatedIRI="owl:Thing"/>
-    </DataPropertyDomain>
     <DataPropertyRange>
         <DataProperty IRI="hasCoordinate"/>
         <Datatype abbreviatedIRI="xsd:integer"/>
@@ -232,7 +225,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>ArucoIdToObjectMappings</IRI>
-        <Literal>CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">CardSetup are the cards on the board. Before the game the Nao learns the pairs. So lets say there are 12 cards , that means 6 pairs. before the game the Nao atributes each pair of ArucoId a specific trait. So if we are doing for ex: animals
 --&gt;2xPenguin---&gt;Id:1,2
 --&gt;2xGiraffes ---&gt;Id:3,4
 --&gt;2xDogs     ---&gt;Id:5,6
@@ -244,5 +237,5 @@
 
 
 
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
 

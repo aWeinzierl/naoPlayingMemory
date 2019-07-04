@@ -22,11 +22,22 @@ namespace reasoning {
                 "', ObjInst)");
     }
 
+
+    void PrologClient::save_TimeStamp_property(const Instance &instance, const Instance &timeStamp) {
+        PrologQueryProxy bdgs = _pl.query(
+                "rdf_assert('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name() + "','" + _NAMESPACE +
+                "hasTimeStamp','" + timeStamp.get_name() + "')");
+        /*(instance, hasTimeStamp, TimeStamp_x) */
+    }
+
     void PrologClient::delete_instance(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
                 "del('" + _NAMESPACE + instance.get_class() + "','" + _NAMESPACE + instance.get_class() + "',[])");
 
     }
+
+  
+
     //Creates ObjectProperty
     void PrologClient::save_property(const Instance &instance_of_interest, const ObjectProperty& property) {
         _pl.query(
@@ -88,19 +99,17 @@ namespace reasoning {
         //link to card instance
         //search card instance
         auto card = card_already_exists(id);
-        if (!card.hasValue()){
+        if (!card.has_value()){
             throw new logic_error("Card_already_exist");
         }
 
         //create card_position instance and the coordinates
-        Instance card_pos("CardPosition","Card_" +to_string(card.get_position().get_x())+to_string(card.get_position().get_y()));
+        /*Instance card_pos("CardPosition","Card_" +to_string(card.value.get_position().get_x()+to_string(card.value.get_position().get_y()));
         save(card_pos);
-        ObjectProperty card_position("hasCardPosition", card_pos);
-    
+        //ObjectProperty card_position("hasCardPosition", card_pos);*/
 
-
-        ObjectProperty card_prop("hasCard",card);
-        save_property(turn_card,card);
+        ObjectProperty card_prop("hasCard",card.value());
+        save_property(turn_card,card_prop);
         
         ObjectProperty hasAction("hasAction",turn_card);
         //TODO delete_instance(delete_old_action);
@@ -130,23 +139,32 @@ namespace reasoning {
         return nonstd::nullopt;
     }
 
-    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &ConcealedCard) {
+    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &concealed_card) {
 
-        auto card = concealed_card_already_exists(ConcealedCard);
-        if (!card.hasValue()){
+        auto card = concealed_card_already_exists(concealed_card);
+        if (!card.has_value()){
             throw new logic_error("Card_already_exist");
             //exit function----->
         }
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-        Instance  unknown_card_ins[ConcealedCard._id]("UnknownCard", "Card_" + std::to_string(i) + std:to_string(j));
-        save(unknown_card_ins[ConcealedCard._id]);
-        Instance card_position("CardPosition", "Card_position" + std::to_string(i) + std:to_string(j));
-        DataProperty x_pos("hasXCoordinate", ConcealedCard.position._x);
-        DataProperty y_pos("hasYCoordinate", ConcealedCard.position._y);
+        Instance  unknown_card_ins[concealed_card.id]("UnknownCard", "Card_" + to_string(concealed_card.id));
+        save(unknown_card_ins[concealed_card.id]);
+        Instance card_pos("CardPosition","CardPosition" + to_string(concealed_card.position._x)+to_string(concealed_card.position._x));
+        ObjectProperty card_position("hasPosition", card_pos);
+        DataProperty x_pos("hasXCoordinate", concealed_card.position._x);
+        DataProperty y_pos("hasYCoordinate", concealed_card.position._y);
         save_property(card_position, x_pos);
         save_property(card_position, y_pos);
-        save_property(unknown_card_ins[ConcealedCard._id],card_position);   
+        save_property(unknown_card_ins[concealed_card.id],card_position);   
     }
+
+
+
+    void PrologClient::associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance) {
+        PrologQueryProxy bdgs = _pl.query(
+                "is_in_turn('" + _NAMESPACE + Player_instance.get_class(9) + "','" + _NAMESPACE + Turn_instance.get_class() + "')");
+    }
+
 
     void PrologClient::create_Player_instance(const player &player) {
         Instance player("Player", "Player_" + std::to_String(player._num));
