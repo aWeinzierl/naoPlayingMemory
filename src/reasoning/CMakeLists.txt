@@ -31,6 +31,5 @@ target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 find_package(aruco REQUIRED)
 target_link_libraries(${PROJECT_NAME} ${aruco_LIBS})
 
-add_subdirectory(ext/optional-lite)
 target_include_directories(${PROJECT_NAME}
         PRIVATE ext/optional-lite/include)
