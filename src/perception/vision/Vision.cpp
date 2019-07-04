@@ -13,6 +13,8 @@
 #include <set>
 #include <math.h>
 #include <limits>
+#include <cv.h>
+#include <unordered_set>
 
 #include "Vision.h"
 #include "Card.h"
@@ -55,6 +57,9 @@ namespace perception{
         game_initialized = false;
         grid_board._left_marker._aruco_id = 13;
         grid_board._right_marker._aruco_id = 14;
+        for (int i=0;i<4;++i){
+            grid_board.grid.emplace_back(std::vector<GridElement>(3));
+        }
 
     }
 
@@ -79,6 +84,23 @@ namespace perception{
 
         if (game_initialized == false) {
             initialize_game_grid();
+        }else{
+            std::cout<<"Game initialized"<<std::endl;
+            std::cout << "1,1: "<<grid_board.grid[0][0].card.aruco_id_top<<std::endl;
+            std::cout << "1,2: "<<grid_board.grid[0][1].card.aruco_id_top<<std::endl;
+            std::cout << "1,3: "<<grid_board.grid[0][2].card.aruco_id_top<<std::endl;
+            std::cout << "2,1: "<<grid_board.grid[1][0].card.aruco_id_top<<std::endl;
+            std::cout << "2,2: "<<grid_board.grid[1][1].card.aruco_id_top<<std::endl;
+            std::cout << "2,3: "<<grid_board.grid[1][2].card.aruco_id_top<<std::endl;
+            std::cout << "3,1: "<<grid_board.grid[2][0].card.aruco_id_top<<std::endl;
+            std::cout << "3,2: "<<grid_board.grid[2][1].card.aruco_id_top<<std::endl;
+            std::cout << "3,3: "<<grid_board.grid[2][2].card.aruco_id_top<<std::endl;
+            std::cout << "4,1: "<<grid_board.grid[3][0].card.aruco_id_top<<std::endl;
+            std::cout << "4,2: "<<grid_board.grid[3][1].card.aruco_id_top<<std::endl;
+            std::cout << "4,3: "<<grid_board.grid[3][2].card.aruco_id_top<<std::endl;
+        }
+        for (auto &marker : markers) {
+            marker.draw(InImage, cv::Scalar(0, 0, 255), 2);
         }
 
 
@@ -94,13 +116,20 @@ namespace perception{
         for (auto &marker : markers) {
             marker.draw(InImage, cv::Scalar(0, 0, 255), 2);
             marker.calculateExtrinsics(0.06, CameraParameters, true);
+            Position center;
+            center = get_center(marker[0], marker[1], marker[2]);
 
             if (marker.id == grid_board._left_marker._aruco_id) {
                 grid_board._left_marker._tvec= marker.Tvec;
                 grid_board._left_marker._rvec = marker.Rvec;
+
+                grid_board._left_marker._im_pos = center;
+
             }else if (marker.id == grid_board._right_marker._aruco_id) {
                 grid_board._right_marker._tvec = marker.Tvec;
                 grid_board._right_marker._rvec = marker.Rvec;
+                grid_board._right_marker._im_pos = center;
+
             } else {
                 Card tmp_card;
                 tmp_card.aruco_id_top = marker.id;
@@ -113,60 +142,141 @@ namespace perception{
                 tmp_grid_element._tvec= marker.Tvec;
                 tmp_grid_element._rvec = marker.Rvec;
 
+                tmp_grid_element._im_pos = center;
+
+
                 element_collection.push_back(tmp_grid_element);
             }
         }
-        cv::Mat t_matrix;
-        if(!element_collection.empty()){
+        /*cv::Mat t_matrix;
+        if(!element_collection.empty() && !grid_board._left_marker._rvec.empty()){
             for (auto& element : element_collection){
-                element._rel_pos = get_relative_position(element._rvec, element._tvec);
+                element._im_pos = get_relative_position(element._rvec, element._tvec);
+            }
+        }*/
+
+        std::vector<GridElement> edges = retrieve_edge_cards(element_collection);
+        grid_board.grid[0][0] = edges[0];
+        grid_board.grid[3][0] = edges[1];
+        grid_board.grid[0][2] = edges[2];
+        grid_board.grid[3][2] = edges[3];
+
+        // find 2,1 and 3,1
+        Position center_21, center_31;
+        center_21.x = grid_board.grid[0][0]._im_pos.x + 0.33 * (grid_board.grid[3][0]._im_pos.x - grid_board.grid[0][0]._im_pos.x);
+        center_21.y = grid_board.grid[0][0]._im_pos.y + 0.33 * (grid_board.grid[3][0]._im_pos.y - grid_board.grid[0][0]._im_pos.y);
+        grid_board.grid[1][0] = find_closest_card(element_collection, center_21);
+
+        center_31.x = grid_board.grid[0][0]._im_pos.x + 0.66 * (grid_board.grid[3][0]._im_pos.x - grid_board.grid[0][0]._im_pos.x);
+        center_31.y = grid_board.grid[0][0]._im_pos.y + 0.66 * (grid_board.grid[3][0]._im_pos.y - grid_board.grid[0][0]._im_pos.y);
+        grid_board.grid[2][0] = find_closest_card(element_collection, center_31);
+
+        //find 1,2
+        Position center_12;
+        center_12.x = grid_board.grid[0][0]._im_pos.x + 0.5 * (grid_board.grid[0][2]._im_pos.x - grid_board.grid[0][0]._im_pos.x);
+        center_12.y = grid_board.grid[0][0]._im_pos.y + 0.5 * (grid_board.grid[0][2]._im_pos.y - grid_board.grid[0][0]._im_pos.y);
+        grid_board.grid[0][1] = find_closest_card(element_collection, center_12);
+
+        //find 4,2
+        Position center_42;
+        center_42.x = grid_board.grid[3][0]._im_pos.x + 0.5 * (grid_board.grid[3][2]._im_pos.x - grid_board.grid[3][0]._im_pos.x);
+        center_42.y = grid_board.grid[3][0]._im_pos.y + 0.5 * (grid_board.grid[3][2]._im_pos.y - grid_board.grid[3][0]._im_pos.y);
+        grid_board.grid[3][1] = find_closest_card(element_collection, center_42);
+
+        //find 2,2 and 3,2
+        Position center_22, center_32;
+        center_22.x = grid_board.grid[0][1]._im_pos.x + 0.33 * (grid_board.grid[3][1]._im_pos.x - grid_board.grid[0][1]._im_pos.x);
+        center_22.y = grid_board.grid[0][1]._im_pos.y + 0.33 * (grid_board.grid[3][1]._im_pos.y - grid_board.grid[0][1]._im_pos.y);
+        grid_board.grid[1][1] = find_closest_card(element_collection, center_22);
+
+        center_32.x = grid_board.grid[0][1]._im_pos.x + 0.66 * (grid_board.grid[3][1]._im_pos.x - grid_board.grid[0][1]._im_pos.x);
+        center_32.y = grid_board.grid[0][1]._im_pos.y + 0.66 * (grid_board.grid[3][1]._im_pos.y - grid_board.grid[0][1]._im_pos.y);
+        grid_board.grid[2][1] = find_closest_card(element_collection, center_32);
+
+        //find 2,3 and 3,3
+        Position center_23, center_33;
+        center_23.x = grid_board.grid[0][2]._im_pos.x + 0.33 * (grid_board.grid[3][2]._im_pos.x - grid_board.grid[0][2]._im_pos.x);
+        center_23.y = grid_board.grid[0][2]._im_pos.y + 0.33 * (grid_board.grid[3][2]._im_pos.y - grid_board.grid[0][2]._im_pos.y);
+        grid_board.grid[1][2] = find_closest_card(element_collection, center_23);
+
+        center_33.x = grid_board.grid[0][2]._im_pos.x + 0.66 * (grid_board.grid[3][2]._im_pos.x - grid_board.grid[0][2]._im_pos.x);
+        center_33.y = grid_board.grid[0][2]._im_pos.y + 0.66 * (grid_board.grid[3][2]._im_pos.y - grid_board.grid[0][2]._im_pos.y);
+        grid_board.grid[2][2] = find_closest_card(element_collection, center_33);
+
+        std::unordered_set<unsigned int> ids_found;
+        for(const auto& cols : grid_board.grid){
+            for(const auto& element : cols){
+                if(ids_found.find(element.card.aruco_id_top) != ids_found.end()){
+                    game_initialized = false;
+                    return;
+                }
+                ids_found.emplace(element.card.aruco_id_top);
             }
         }
 
+        if(ids_found.size() < 12 ){
+            std::cout<<ids_found.size()<<std::endl;
+            game_initialized = false;
+        } else {
+            game_initialized = true;
+        }
 
-
-        /*
-        auto edges = retrieve_edge_cards(element_collection);
-
-        double min_distance = 1000;
-        GridElement closest_element;
-        //find position of 1,1 (card closest to board aruco
-        for (const auto &element : edges) {
-            float diff_x = grid_board._left_marker._position._x - element.pos_x;
-            float diff_y = grid_board._left_marker._position._y - element.pos_y;
-            double distance = sqrt(pow(static_cast<double>(diff_x), 2.0) + pow(static_cast<double>(diff_y), 2.0));
-            if (distance < min_distance) {
-                closest_element = element;
-            }
-        }*/
     }
 
     std::vector<GridElement> VisionClient::retrieve_edge_cards(const std::vector<GridElement> elements) {
-        GridElement min_x_element, min_y_element, max_x_element, max_y_element;
-        std::vector<GridElement> min_max_elements;
+        GridElement c_1_1, c_4_1, c_1_3, c_4_3;
+        std::vector<GridElement> edges;
+        double min_distance = 1000;
+        double max_distance = 0;
 
-        /*min_x_element.pos_x = std::numeric_limits<float >::max();
-        min_y_element.pos_y = std::numeric_limits<float >::max();
-        max_x_element.pos_x = std::numeric_limits<float >::min();
-        max_y_element.pos_y = std::numeric_limits<float >::min();
-
-        for(const auto& element : elements){
-            if(element.pos_x < min_x_element.pos_x){
-                min_x_element = element;
-            }else if(element.pos_x > max_x_element.pos_x){
-                max_x_element = element;
-            }else if(element.pos_y < min_y_element.pos_y){
-                min_y_element = element;
-            }else if(element.pos_y > max_y_element.pos_y){
-                max_y_element = element;
+        for (const auto &element : elements) {
+            float diff_x = grid_board._left_marker._im_pos.x - element._im_pos.x;
+            float diff_y = grid_board._left_marker._im_pos.y - element._im_pos.y;
+            double distance = sqrt(pow(static_cast<double>(diff_x), 2.0) + pow(static_cast<double>(diff_y), 2.0));
+            if (distance < min_distance) {
+                c_1_1 = element;
+                min_distance = distance;
             }
         }
-        min_max_elements.push_back(min_x_element);
-        min_max_elements.push_back(min_y_element);
-        min_max_elements.push_back(max_x_element);
-        min_max_elements.push_back(max_y_element);
+        min_distance = 1000;
 
-        return min_max_elements;*/
+        for (const auto &element : elements) {
+            float diff_x = grid_board._left_marker._im_pos.x - element._im_pos.x;
+            float diff_y = grid_board._left_marker._im_pos.y - element._im_pos.y;
+            double distance = sqrt(pow(static_cast<double>(diff_x), 2.0) + pow(static_cast<double>(diff_y), 2.0));
+            if (distance > max_distance) {
+                c_4_3 = element;
+                max_distance = distance;
+            }
+        }
+        max_distance = 0;
+
+        for (const auto &element : elements) {
+            float diff_x = grid_board._right_marker._im_pos.x - element._im_pos.x;
+            float diff_y = grid_board._right_marker._im_pos.y - element._im_pos.y;
+            double distance = sqrt(pow(static_cast<double>(diff_x), 2.0) + pow(static_cast<double>(diff_y), 2.0));
+            if (distance < min_distance) {
+                c_4_1 = element;
+                min_distance = distance;
+            }
+        }
+
+        for (const auto &element : elements) {
+            float diff_x = grid_board._right_marker._im_pos.x - element._im_pos.x;
+            float diff_y = grid_board._right_marker._im_pos.y - element._im_pos.y;
+            double distance = sqrt(pow(static_cast<double>(diff_x), 2.0) + pow(static_cast<double>(diff_y), 2.0));
+            if (distance > max_distance) {
+                c_1_3 = element;
+                max_distance = distance;
+            }
+        }
+
+        edges.push_back(c_1_1);
+        edges.push_back(c_4_1);
+        edges.push_back(c_1_3);
+        edges.push_back(c_4_3);
+
+        return edges;
     }
 
     Position VisionClient::get_relative_position(cv::Mat rvec, cv::Mat tvec) {
@@ -177,13 +287,38 @@ namespace perception{
         invTvec = -R_t * grid_board._left_marker._tvec;
         cv::Rodrigues(R_t, invRvec);
         cv::composeRT(rvec, tvec, invRvec, invTvec, composedRvec, composedTvec);
-        std::cout<<"card RVec: "<<rvec<<std::endl;
+        /*std::cout<<"card RVec: "<<rvec<<std::endl;
         std::cout<<"card TVec: "<<tvec<<std::endl;
         std::cout<<"board RVec: "<<grid_board._left_marker._rvec<<std::endl;
         std::cout<<"board TVec: "<<grid_board._left_marker._tvec<<std::endl;
         std::cout<<"composed RVec: "<<composedRvec<<std::endl;
         std::cout<<"composed TVec: "<<composedTvec<<std::endl;
-        std::cout<<"difference x: "<<std::endl;
+        std::cout<<"difference x: "<<std::endl;*/
         return rel_pos;
+    }
+
+    Position VisionClient::get_center(cv::Point r, cv::Point g, cv::Point b) {
+        Position center;
+        center.x = r.x + 0.5*(b.x-r.x);
+        center.y = r.y + 0.5 *(b.y-r.y);
+        return center;
+    }
+
+    GridElement VisionClient::find_closest_card(std::vector<GridElement> elements, Position center) {
+        double min_distance = 1000;
+        GridElement tmp_el;
+
+        for(const auto& element : elements){
+            float diff_x = center.x - element._im_pos.x;
+            float diff_y = center.y - element._im_pos.y;
+            double distance = sqrt(pow(static_cast<double>(diff_x), 2.0) + pow(static_cast<double>(diff_y), 2.0));
+            if (distance < min_distance) {
+                tmp_el = element;
+                min_distance = distance;
+
+            }
+        }
+
+        return tmp_el;
     }
 }

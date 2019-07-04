@@ -9,6 +9,7 @@ struct BoardMarker{
     cv::Mat _rvec;
     cv::Mat _tvec;
     unsigned int _aruco_id;
+    Position _im_pos;
 };
 
 struct GridBoard {

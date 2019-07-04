@@ -12,5 +12,5 @@ struct GridElement {
     cv::Mat _tvec;
     cv::Mat _rvec;
 
-    Position _rel_pos;
+    Position _im_pos;
 };

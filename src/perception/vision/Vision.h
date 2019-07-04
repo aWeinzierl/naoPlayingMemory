@@ -12,6 +12,7 @@
 
 #include "GridBoard.h"
 #include "GridElement.h"
+#include <cv.h>
 
 namespace perception{
     class VisionClient {
@@ -49,5 +50,7 @@ namespace perception{
         void initialize_game_grid();
         std::vector<GridElement> retrieve_edge_cards(const std::vector<GridElement> card_collection);
         Position get_relative_position(cv::Mat rvec, cv::Mat tvec);
+        Position get_center(cv::Point r, cv::Point g, cv::Point b);
+        GridElement find_closest_card(std::vector<GridElement> elements, Position center);
     };
 }
