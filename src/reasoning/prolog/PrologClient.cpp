@@ -291,7 +291,7 @@ void PrologClient::create_nao() {
 
 
 void PrologClient::create_game(int game_num) {
-   Intance game("MemoryGame","Game_"+generate_random_string(3));
+   Intance game("MemoryGame","Game_"+std:to_string(game_num));
    create_instance(game);
 
 
@@ -300,6 +300,15 @@ void PrologClient::create_game(int game_num) {
             "rdf_costom_instance_from_class('" + _NAMESPACE + "MemoryGame,_," + IntToStr(game_num) + "', ObjInst)");
     */
 }
+
+void PrologClient::assert_MemoryGame_status(const Instance& status){
+
+
+}
+
+
+
+
 
 /*
 void PrologClient::create_action_takecards(){
