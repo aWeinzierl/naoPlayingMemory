@@ -68,6 +68,9 @@ namespace reasoning {
                 "abcdefghijklmnaoqrstuvwxyz"
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 "1234567890";
+
+        uint _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN;
+
         static constexpr uint _RANDOM_NAME_LENGTH = 16;
 
         const std::string _NAMESPACE = "https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#";

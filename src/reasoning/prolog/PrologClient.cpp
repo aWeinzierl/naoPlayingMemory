@@ -9,7 +9,7 @@
 #include <aruco/cvdrawingutils.h>
 #include <json_prolog/prolog.h>
 #include <unordered_map>
-
+#include <cstring>
 #include "PrologClient.h"
 
 
@@ -85,7 +85,7 @@ namespace reasoning {
 
     std::string PrologClient::generate_random_string(uint length) {
         std::mt19937_64 gen{std::random_device()()};
-        std::uniform_int_distribution<size_t> dist{0, _ALLOWED_CHARS_FOR_RANDOM_NAMES.length() - 1};
+        std::uniform_int_distribution<size_t> dist{0, _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN - 1};
         std::string ret;
 
         std::generate_n(
@@ -254,6 +254,11 @@ namespace reasoning {
     void PrologClient::create_game(int game_num) {
         Instance game("MemoryGame","Game_"+std::to_string(game_num));
         save(game);
+    }
+
+    PrologClient::PrologClient()
+    : _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN(strlen(_ALLOWED_CHARS_FOR_RANDOM_NAMES))
+                                                   {
     }
 
     /*
