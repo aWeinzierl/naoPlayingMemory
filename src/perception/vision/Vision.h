@@ -9,6 +9,7 @@
 #include <aruco/aruco.h>
 #include <aruco/cvdrawingutils.h>
 #include <json_prolog/prolog.h>
+#include <unordered_set>
 
 #include "GridBoard.h"
 #include "GridElement.h"
@@ -25,20 +26,18 @@ namespace perception{
         std::vector<aruco::Marker>markers;
 
         cv::Mat InImage;
-        cv::Mat card_positions;
-        cv::Mat game_grid;
 
         json_prolog::Prolog pl;
 
-        map<string, int> classes;
-        set<int> stored_markers;
 
         int timepoint;
-        float position_thresh;
-
+        double distance_thresh;
         bool game_initialized;
 
         GridBoard grid_board;
+        std::unordered_set<unsigned int> top_ids;
+        std::unordered_map<unsigned int, string> card_classes;
+
 
 
     public:
@@ -48,9 +47,12 @@ namespace perception{
 
     private:
         void initialize_game_grid();
+        void check_cards();
         std::vector<GridElement> retrieve_edge_cards(const std::vector<GridElement> card_collection);
         Position get_relative_position(cv::Mat rvec, cv::Mat tvec);
         Position get_center(cv::Point r, cv::Point g, cv::Point b);
         GridElement find_closest_card(std::vector<GridElement> elements, Position center);
+        GridElement find_closest_card_w_thresh(std::vector<GridElement> elements, Position center);
+
     };
 }
