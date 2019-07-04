@@ -110,17 +110,19 @@ namespace reasoning {
         auto hasTimeStamp = ObjectProperty("hasTimeStamp", time_stamp);
         save_property(turn_card, hasTimeStamp);
 
-        //create card_position instance and the coordinates
-        Instance card_pos("CardPosition","Card_" +to_string(card.get_position().get_x())+to_string(card.get_position().get_y()));
-        save(card_pos);
-        ObjectProperty card_position("hasCardPosition", card_pos);
-    
         //link to card instance
         //search card instance
         auto card = card_already_exists(id);
         if (!card.hasValue()){
             throw new logic_error("Card_already_exist");
         }
+
+        //create card_position instance and the coordinates
+        Instance card_pos("CardPosition","Card_" +to_string(card.get_position().get_x())+to_string(card.get_position().get_y()));
+        save(card_pos);
+        ObjectProperty card_position("hasCardPosition", card_pos);
+    
+
 
         ObjectProperty card_prop("hasCard",card);
         save_property(turn_card,card);
