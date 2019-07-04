@@ -132,7 +132,7 @@ namespace reasoning {
     }
 
     //turn equal cards
-    void PrologClient::save(const EqualCards &action, uint timeInstant) {
+    void PrologClient::save(const knownCard &Card1,const knownCard &Card2, uint timeInstant) {
         save(action._Card1, timeInstant);
         save(action._Card2, timeInstant);
         Instance turn_equal_cards("TurnEqualCards", "Turn_Equal_Cards");
@@ -160,11 +160,16 @@ namespace reasoning {
 
     //Turns 2 unknown cards
     void PrologClient::save(const unknownCard &Card1, const unknownCard &Card2,uint TimeInstance) {
-        save(Card1
-        ._unknown_card, timeInstant);
-        save(Card2
-        ._unknown_card, timeInstant);
+        save(Card1._unknown_card, timeInstant);
+        save(Card2._unknown_card, timeInstant);
+        Instance turn_two_unknown_cards("TurnTwoUnknownCards", "Turn_Two_Unknown_Cards");
+        save(turn_two_unknown_cards);
+        //assert Timestamp_instance as property from turn_equal_cards
+        Instance timeStamp("TimeStamp", "TimeStamp" + std::to_string(timeInstant));
+        save(timeStamp);
+        save_TimeStamp_property(turn_two_unknown_cards, timeStamp);
     }
+
 
 
     void PrologClient::instantiate_one_unknowncard(uint i, uint j, uint count) {
