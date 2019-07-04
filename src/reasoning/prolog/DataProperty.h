@@ -12,7 +12,7 @@ namespace reasoning {
         uint _value;
         
     public:
-        DataProperty(std::string name, Instance value) noexcept;
+        DataProperty(std::string name,uint value) noexcept;
         
         const std::string &get_name() const noexcept;
         const uint &get_value() const noexcept;

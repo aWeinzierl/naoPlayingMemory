@@ -1,11 +1,11 @@
 #include <utility>
 
-#include "ObjectProperty.h"
+#include "DataProperty.h"
 
 namespace reasoning{
 
     DataProperty::DataProperty(std::string name, uint value) noexcept
-    : _name(std::move(name)), _value(std::move(value)){
+    : _name(name), _value(value){
     }
 
     const std::string &DataProperty::get_name() const noexcept {

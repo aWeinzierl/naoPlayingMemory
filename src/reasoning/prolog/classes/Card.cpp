@@ -10,11 +10,11 @@ namespace reasoning {
         return _id;
     }
 
-    const CardPosition &Card::get_position() {
+    const CardPosition &Card::get_position() const noexcept{
         return _position;
     }
 
-    const std::string &Card::get_class() {
+    const std::string &Card::get_class() const noexcept{
         return _class;
     }
 

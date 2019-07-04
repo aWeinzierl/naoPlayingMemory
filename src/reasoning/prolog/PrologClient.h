@@ -16,7 +16,7 @@ using namespace json_prolog;
 namespace reasoning {
         struct ConcealedCard{
                 Position position;
-                uint8 id;
+                uint id;
         };
 
 
@@ -91,6 +91,7 @@ namespace reasoning {
         void save(const Instance &instance);
 
         void save_property(const Instance &instance_of_interest, const ObjectProperty& property);
+        void save_property(const Instance &instance_of_interest, const DataProperty& property);
 
     public:
 
@@ -112,8 +113,8 @@ namespace reasoning {
 
         void save_turn_card(const std::string &player_name, const Card &action, uint time_instant);
 
-        void save(const EqualCards &action, uint timeInstant);
-
+        void save(const knownCard &Card1,const knownCard &Card2, uint timeInstant);
+        
         void save(const unknownCard &Card1, const unknownCard & Card2,uint TimeInstance);
 
         void instantiate_one_unknowncard(uint i, uint j, uint count);

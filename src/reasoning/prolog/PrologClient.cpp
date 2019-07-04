@@ -24,30 +24,23 @@ namespace reasoning {
     }
 
 
-    /*void PrologClient::assert_property(const Instance &instance, const ObjectProperty &property) {
-        PrologQueryProxy bdgs = _pl.query(
-                "rdf_assert('" + _NAMESPACE + instance.get_class()+ "_" + instance.get_name() + "','" + _NAMESPACE +
-                property.get_name() + "','" + property.get_value() + "')");
-        /* (instance, propertyName, propertyValue/Instance) 
-    }*/
-
     void PrologClient::save_TimeStamp_property(const Instance &instance, const Instance &timeStamp) {
         PrologQueryProxy bdgs = _pl.query(
                 "rdf_assert('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name() + "','" + _NAMESPACE +
-                "hasTimeStamp','" + timeStamp._name + "')");
+                "hasTimeStamp','" + timeStamp.get_name() + "')");
         /*(instance, hasTimeStamp, TimeStamp_x) */
     }
 
-    void PrologClient::save_CardPosition_property(const Instance &instance, const Instance &position) {
+    /*void PrologClient::save_CardPosition_property(const Instance &instance, const Instance &position) {
         PrologQueryProxy bdgs = _pl.query(
                 "rdf_assert('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name() + "','" + _NAMESPACE +
                 "hasPositin','" + position.get_name() + "')");
-        /*(instance, hasPosition, intance_from_cardposition) */
-    }
+        /*(instance, hasPosition, intance_from_cardposition) 
+    }*/
 
     void PrologClient::delete_instance(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
-                "del('" + _NAMESPACE + instance._class + "','" + _NAMESPACE + instance._class + "',[])");
+                "del('" + _NAMESPACE + instance.get_class() + "','" + _NAMESPACE + instance.get_class() + "',[])");
 
     }
 
@@ -118,11 +111,11 @@ namespace reasoning {
         save_property(turn_card, hasTimeStamp);
 
         //create card_position instance and the coordinates
-        Instance card_position("CardPosition", "Card_Position_"+to_string(action._position._x)+to_string(action._position._y));
+        Instance card_position("CardPosition", "Card_Position_"+to_string(action.get_position().get_x())+to_string(action.get_position().get_y()));
         save(card_position);
-                        //auto hasXCoordinate = ("hasXCoordinate", po);
-        DataProperty x_pos("hasXCoordinate", std::to_string(action._position._x));
-        DataProperty y_pos("hasYCoordinate", std::to_string(action._position._y));
+    
+        DataProperty x_pos("hasXCoordinate", action.get_position().get_x());
+        DataProperty y_pos("hasYCoordinate", action.get_position().get_y());
         save_property_value(card_position,x_pos);
         save_property_value(card_position,y_pos);
         save_property(turn_card,card_position);
@@ -178,7 +171,7 @@ namespace reasoning {
 
 
 // change count by Marker Id -->ConcealedCard[]-->position,Id-->
-    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &ConcealedCard) {#
+    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &ConcealedCard) {
         if (!concealed_card_already_exists(ConcealedCard).hasValue()){
             return;
         }

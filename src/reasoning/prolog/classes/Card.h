@@ -17,8 +17,8 @@ namespace reasoning {
 
         unsigned  int get_id() const noexcept;
 
-        const CardPosition& get_position();
+        const CardPosition& get_position() const noexcept;
 
-        const std::string& get_class();
+        const std::string& get_class() const noexcept;
     };
 }
