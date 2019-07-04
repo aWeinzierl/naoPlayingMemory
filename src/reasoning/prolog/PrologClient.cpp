@@ -283,6 +283,23 @@ void PrologClient::associate_current_turn_to_round(const Instance &turn, const r
     assert_property(round._round, hasCurrentTurn);
 }
 
+void PrologClient::create_nao() {
+    Instance nao("Player","Nao");
+    create_instance(nao);
+    //PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('" + _NAMESPACE + "Player_Nao, ObjInst')");
+}
+
+
+void PrologClient::create_game(int game_num) {
+   Intance game("MemoryGame","Game_"+generate_random_string(3));
+   create_instance(game);
+
+
+   /* 
+   PrologQueryProxy bdgs = _pl.query(
+            "rdf_costom_instance_from_class('" + _NAMESPACE + "MemoryGame,_," + IntToStr(game_num) + "', ObjInst)");
+    */
+}
 
 /*
 void PrologClient::create_action_takecards(){
@@ -312,14 +329,8 @@ bool PrologClient::Time_point_already_exists(uint timeInstant) {
     return bdgs.begin() == bdgs.begin();
 }
 
-void PrologClient::create_nao() {
-    PrologQueryProxy bdgs = _pl.query("rdf_costom_instance_from_class('" + _NAMESPACE + "Player_Nao, ObjInst')");
-}
 
-void PrologClient::create_game(int game_num) {
-    PrologQueryProxy bdgs = _pl.query(
-            "rdf_costom_instance_from_class('" + _NAMESPACE + "MemoryGame,_," + IntToStr(game_num) + "', ObjInst)");
-}
+
 
 void PrologClient::create_ArucoToIdObjectMappings() {}
 
