@@ -138,7 +138,8 @@ namespace reasoning {
         if(bdgs.begin()==bdgs.end()){
             return nonstd::nullopt;
         }
-        Instance instance("Card",*(bdgs.begin())(["Instance"].as<string>()));
+        auto instance_bdg = *(bdgs.begin());
+        Instance instance("Card", instance_bdg["Instance"]);
         return instance;
         
     }
