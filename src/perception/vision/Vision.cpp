@@ -106,7 +106,7 @@ namespace perception{
         int i,j;
         i=1;
 
-        for(auto& cols : grid_board.grid){
+        /*for(auto& cols : grid_board.grid){
             j=1;
             for(auto& grid_element : cols) {
                 std::cout<<"Grid Pos: "<<i<<","<<j<<std::endl;
@@ -117,7 +117,7 @@ namespace perception{
                 ++j;
             }
             ++i;
-        }
+        }*/
 
         imshow("markers", this->InImage);
         cv::waitKey(10);
@@ -150,7 +150,6 @@ namespace perception{
         }
 
         std::unordered_set<unsigned int> ids_found;
-        std::cout<<"len ids found: "<<ids_found.size()<<std::endl;
         for(auto& cols : grid_board.grid){
             for(auto& grid_element : cols) {
                 GridElement tmp_elem;
@@ -188,6 +187,11 @@ namespace perception{
 
             } else {
                 Card tmp_card;
+                if(top_ids.find(marker.id) == top_ids.end()){
+                    game_initialized = false;
+                    std::cout<<"Please make sure that all cards are turned and restart."<<std::endl;
+                    return;
+                }
                 tmp_card.aruco_id_top = marker.id;
                 tmp_card.aruco_id_bottom = 0;
                 tmp_card.turned = false;
@@ -337,6 +341,7 @@ namespace perception{
     }
 
     Position VisionClient::get_relative_position(cv::Mat rvec, cv::Mat tvec) {
+        //NOT WORKING PROPERLY
         Position rel_pos;
         cv::Mat R, R_t, invRvec, invTvec, composedRvec, composedTvec;
         cv::Rodrigues(grid_board._left_marker._rvec, R);
@@ -408,7 +413,6 @@ namespace perception{
 
             }
         }
-        //std::cout<<"id: "<<tmp_el.card.aruco_id_top<<" distance: "<< min_distance<<std::endl;
         return tmp_el;
     }
 }
