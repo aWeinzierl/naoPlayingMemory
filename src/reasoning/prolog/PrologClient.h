@@ -19,6 +19,12 @@ namespace reasoning {
                 uint id;
         };
 
+        struct ExposedCard{
+                Position position;
+                uint id;
+                std::string class_type;
+        };
+
     class PrologClient {
         json_prolog::Prolog _pl;
         
@@ -47,15 +53,13 @@ namespace reasoning {
 
         nonstd::optional<Instance> position_already_exists(const Position &position);
 
-        nonstd::optional<Instance> concealed_card_already_exists(const ConcealedCard &ConcealedCard);
-
         nonstd::optional<Instance> card_already_exists(uint id);
 
     public:
 
         void delete_instance(const Instance &instance);
 
-        void save_turn_card(const Instance &player, uint id, uint time_instant);
+        void save_turn_card(const Instance &player, const  ExposedCard &Exposed_Card, uint time_instant);
 
         void instantiate_one_unknowncard(const ConcealedCard &ConcealedCard);
     };

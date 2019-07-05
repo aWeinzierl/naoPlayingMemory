@@ -79,8 +79,8 @@ namespace reasoning {
 
     //creates instance of turn_Card action  
     void
-    PrologClient::save_turn_card(const Instance &player, const uint id, uint time_instant) {
-
+    PrologClient::save_turn_card(const Instance &player, const  ExposedCard &Exposed_Card, uint time_instant) {
+        
         //create time_stamp
         auto time_stamp = create_time_stamp(time_instant);
         if (!instance_already_exists(time_stamp)) {
@@ -104,11 +104,11 @@ namespace reasoning {
         if (!card.has_value()) {
             throw new logic_error("Card_already_exist");
         }
+        //create class instance
 
-        //create card_position instance and the coordinates
-        /*Instance card_pos("CardPosition","Card_" +to_string(card.value.get_position().get_x()+to_string(card.value.get_position().get_y()));
-        save(card_pos);
-        //ObjectProperty card_position("hasCardPosition", card_pos);*/
+        //associate class to card
+        DataProperty class_prop("hasClass",Exposed_Card.class_type);
+        save_property(class_prop,card1.value());
 
         ObjectProperty card_prop("hasCard", card.value());
         save_property(turn_card, card_prop);
@@ -116,7 +116,6 @@ namespace reasoning {
         ObjectProperty hasAction("hasAction", turn_card);
         //TODO delete_instance(delete_old_action);
         save_property(player, hasAction);
-
     }
 
     Instance PrologClient::create_time_stamp(uint time_instant) noexcept {
@@ -129,52 +128,34 @@ namespace reasoning {
         return nonstd::nullopt;
     }
 
-    nonstd::optional<Instance> PrologClient::concealed_card_already_exists(const ConcealedCard &ConcealedCard) {
 
-        /*PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasCardPosition' ,CardPosition),
-                    owl_has(CardPosition,'" + _NAMESPACE + "hasXCoordinate','" + to_string(ConcealedCard.position._x) 
-                    + "'),owl_has(CardPosition,'" + _NAMESPACE + "hasYCoordinate','" + to_string(ConcealedCard.position._y) + "')");
-        */
 
-        PrologQueryProxy bdgs = _pl.query(
-                "owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')");
-        if (bdgs.begin() == bdgs.end()) {
+
+    nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
+
+        PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(id) + "')");
+        if(bdgs.begin()==bdgs.end()){
             return nonstd::nullopt;
         }
         auto instance_bdg = *(bdgs.begin());
         Instance instance("Card", instance_bdg["Instance"]);
         return instance;
-
     }
 
-    nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
-        //TODO: check if position exists
-        //if it exists return instance of it
-        /*PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')");        
-        if(bdgs.begin()==bdgs.end()){
-            return nonstd::nullopt;
-        }
-        auto instance_bdg = *(bdgs.begin());_ALLOWED_CHARS_FOR_RANDOM_N
-        Instance instance("Card", instance_bdg["Instance"]);
-        return instance;*/
+    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &Concealed_Card) {
 
-    }
-
-    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &concealed_card) {
-
-        auto card = concealed_card_already_exists(concealed_card);
-        if (!card.has_value()) {
+        auto card = card_already_exists(Concealed_Card.id);
+        if (!card.has_value()){
             throw new logic_error("Card_already_exist");
             //exit function----->
         }
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-        Instance unknown_card_ins("UnknownCard", "Card_" + to_string(concealed_card.id));
+        Instance  unknown_card_ins("UnknownCard", "Card_" + to_string(Concealed_Card.id));
         save(unknown_card_ins);
-        Instance card_pos("CardPosition", "CardPosition" + to_string(concealed_card.position._x) +
-                                          to_string(concealed_card.position._x));
+        Instance card_pos("CardPosition","CardPosition" + to_string(Concealed_Card.position._x)+to_string(Concealed_Card.position._x));
         ObjectProperty card_position("hasPosition", card_pos);
-        DataProperty x_pos("hasXCoordinate", concealed_card.position._x);
-        DataProperty y_pos("hasYCoordinate", concealed_card.position._y);
+        DataProperty x_pos("hasXCoordinate", Concealed_Card.position._x);
+        DataProperty y_pos("hasYCoordinate", Concealed_Card.position._y);
         save_property(card_pos, x_pos);
         save_property(card_pos, y_pos);
         save_property(unknown_card_ins, card_position);
