@@ -53,6 +53,11 @@ namespace reasoning {
                 "','" + to_string(property.get_value())  + "')");
     }
 
+
+
+
+
+
     bool PrologClient::instance_already_exists(const Instance &instance) {
         auto bdgs = _pl.query(
                 "owl_individual_of('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name()
@@ -64,13 +69,13 @@ namespace reasoning {
 
     std::string PrologClient::generate_random_string(uint length) {
         std::mt19937_64 gen{std::random_device()()};
-        std::uniform_int_distribution<size_t> dist{0, _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN - 1};
+        std::uniform_int_distribution<size_t> dist{0,PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN - 1};
         std::string ret;
 
         std::generate_n(
                 std::back_inserter(ret),
                 length,
-                [&] { return _ALLOWED_CHARS_FOR_RANDOM_NAMES[dist(gen)]; });
+                [&] { return PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES[dist(gen)]; });
         return ret;
 
     }
@@ -147,7 +152,14 @@ namespace reasoning {
     nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
         //TODO: check if position exists
         //if it exists return instance of it
-        return nonstd::nullopt;
+        /*PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')");        
+        if(bdgs.begin()==bdgs.end()){
+            return nonstd::nullopt;
+        }
+        auto instance_bdg = *(bdgs.begin());
+        Instance instance("Card", instance_bdg["Instance"]);
+        return instance;*/
+
     }
 
     void PrologClient::instantiate_one_unknowncard(const ConcealedCard &concealed_card) {
@@ -210,8 +222,5 @@ namespace reasoning {
         save_property(round._round, hasCurrentTurn);
     }*/
 
-    PrologClient::PrologClient()
-    : _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN(strlen(_ALLOWED_CHARS_FOR_RANDOM_NAMES))
-                                                   {
-    }
+
 }

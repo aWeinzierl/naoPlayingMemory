@@ -10,6 +10,7 @@ add_executable(${PROJECT_NAME} main.cpp
         prolog/ObjectProperty.cpp
         prolog/classes/CardPosition.cpp
         prolog/PrologEntities.h
+        prolog/DataProperty.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS

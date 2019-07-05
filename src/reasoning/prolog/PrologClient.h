@@ -27,9 +27,9 @@ namespace reasoning {
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 "1234567890";
 
-        uint _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN;
-
         static constexpr uint _RANDOM_NAME_LENGTH = 16;
+
+        static const uint _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN=strlen(_ALLOWED_CHARS_FOR_RANDOM_NAMES);
 
         const std::string _NAMESPACE = "https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#";
 
@@ -52,8 +52,6 @@ namespace reasoning {
         nonstd::optional<Instance> card_already_exists(uint id);
 
     public:
-
-        PrologClient();
 
         void delete_instance(const Instance &instance);
 
