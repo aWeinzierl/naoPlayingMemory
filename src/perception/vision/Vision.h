@@ -20,6 +20,7 @@ namespace perception{
         image_transport::ImageTransport it_;
         image_transport::Subscriber image_sub_;
         image_transport::Publisher image_pub_;
+        ros::Publisher cards_pub;
 
         aruco::CameraParameters CameraParameters;
         aruco::MarkerDetector markerDetector;
@@ -48,8 +49,8 @@ namespace perception{
     private:
         void initialize_game_grid();
         void check_cards();
+        void publish_cards();
         std::vector<GridElement> retrieve_edge_cards(const std::vector<GridElement> card_collection);
-        Position get_relative_position(cv::Mat rvec, cv::Mat tvec);
         Position get_center(cv::Point r, cv::Point g, cv::Point b);
         GridElement find_closest_card(std::vector<GridElement> elements, Position center);
         GridElement find_closest_card_w_thresh(std::vector<GridElement> elements, Position center);

@@ -1,3 +1,3 @@
 Position position
 uint8 id
-string class
+string class_type

@@ -20,12 +20,17 @@
 #include "Card.h"
 #include "GridElement.h"
 #include "GridBoard.h"
+#include <nao_playing_memory/Cards.h>
+#include <nao_playing_memory/ConcealedCard.h>
+#include <nao_playing_memory/ExposedCard.h>
+#include <nao_playing_memory/Position.h>
 
 namespace perception{
 
     VisionClient::VisionClient(ros::NodeHandle &nodeHandle) : it_(nodeHandle) {
         image_sub_ = it_.subscribe("/nao_robot/camera/top/camera/image_raw", 1,
                                    &perception::VisionClient::image_callback, this);
+        cards_pub = nodeHandle.advertise<nao_playing_memory::Cards>("cards", 1);
 
         cv::Mat dist(1, 5, CV_32FC1);
         dist.at<float>(0, 0) = -0.066494;
@@ -93,6 +98,8 @@ namespace perception{
 
         timepoint++;
         detect_cards();
+
+        publish_cards();
     }
 
     void VisionClient::detect_cards() {
@@ -105,20 +112,6 @@ namespace perception{
         }
         int i,j;
         i=1;
-
-        /*for(auto& cols : grid_board.grid){
-            j=1;
-            for(auto& grid_element : cols) {
-                std::cout<<"Grid Pos: "<<i<<","<<j<<std::endl;
-                std::cout<<"turned: "<<grid_element.card.turned<<std::endl;
-                std::cout<<"id top: "<<grid_element.card.aruco_id_top<<std::endl;
-                std::cout<<"class: "<<grid_element.card.object_type<<std::endl;
-                std::cout<<"bottom: "<<grid_element.card.aruco_id_bottom<<std::endl;
-                ++j;
-            }
-            ++i;
-        }*/
-
         imshow("markers", this->InImage);
         cv::waitKey(10);
     }
@@ -137,10 +130,14 @@ namespace perception{
                 if(top_ids.find(marker.id) != top_ids.end()){
                     tmp_card.aruco_id_top = marker.id;
                     tmp_card.turned = false;
+                    tmp_card.visible = true;
                 }else if(card_classes.find(marker.id) != card_classes.end()){
                     tmp_card.turned = true;
+                    tmp_card.visible = true;
                     tmp_card.aruco_id_bottom = marker.id;
                     tmp_card.object_type = card_classes.find(marker.id)->second;
+                }else{
+                    tmp_card.visible = false;
                 }
                 GridElement tmp_grid_element;
                 tmp_grid_element.card = tmp_card;
@@ -190,11 +187,13 @@ namespace perception{
                 if(top_ids.find(marker.id) == top_ids.end()){
                     game_initialized = false;
                     std::cout<<"Please make sure that all cards are turned and restart."<<std::endl;
+                    //TODO: Check distance between cards and only if distance is small enough return initialized = true
                     return;
                 }
                 tmp_card.aruco_id_top = marker.id;
                 tmp_card.aruco_id_bottom = 0;
                 tmp_card.turned = false;
+                tmp_card.visible = true;
                 tmp_card.object_type = "";
 
                 GridElement tmp_grid_element;
@@ -340,25 +339,6 @@ namespace perception{
         return edges;
     }
 
-    Position VisionClient::get_relative_position(cv::Mat rvec, cv::Mat tvec) {
-        //NOT WORKING PROPERLY
-        Position rel_pos;
-        cv::Mat R, R_t, invRvec, invTvec, composedRvec, composedTvec;
-        cv::Rodrigues(grid_board._left_marker._rvec, R);
-        cv::transpose(R, R_t);
-        invTvec = -R_t * grid_board._left_marker._tvec;
-        cv::Rodrigues(R_t, invRvec);
-        cv::composeRT(rvec, tvec, invRvec, invTvec, composedRvec, composedTvec);
-        /*std::cout<<"card RVec: "<<rvec<<std::endl;
-        std::cout<<"card TVec: "<<tvec<<std::endl;
-        std::cout<<"board RVec: "<<grid_board._left_marker._rvec<<std::endl;
-        std::cout<<"board TVec: "<<grid_board._left_marker._tvec<<std::endl;
-        std::cout<<"composed RVec: "<<composedRvec<<std::endl;
-        std::cout<<"composed TVec: "<<composedTvec<<std::endl;
-        std::cout<<"difference x: "<<std::endl;*/
-        return rel_pos;
-    }
-
     Position VisionClient::get_center(cv::Point r, cv::Point g, cv::Point b) {
         Position center;
         center.x = r.x + 0.5*(b.x-r.x);
@@ -389,7 +369,7 @@ namespace perception{
         GridElement tmp_el;
         tmp_el.card.aruco_id_bottom = 0;
         tmp_el.card.aruco_id_bottom = 0;
-        tmp_el.card.object_type = "Not available";
+        tmp_el.card.visible = false;
 
         for(const auto& element : elements){
             float diff_x = center.x - element._im_pos.x;
@@ -414,5 +394,43 @@ namespace perception{
             }
         }
         return tmp_el;
+    }
+
+    void VisionClient::publish_cards() {
+        nao_playing_memory::Cards cards_msg;
+
+        cards_msg.concealed_card_list;
+        int i=1,j=1;
+
+        for(auto& cols : grid_board.grid){
+            j=1;
+            for(auto& grid_element : cols) {
+                if (grid_element.card.turned == 1 && grid_element.card.visible == true){
+                    nao_playing_memory::ExposedCard tmp_exp;
+                    tmp_exp.class_type = grid_element.card.object_type;
+                    tmp_exp.id = grid_element.card.aruco_id_bottom;
+                    tmp_exp.position.x = i;
+                    tmp_exp.position.y = j;
+
+                    cards_msg.exposed_card_list.push_back(tmp_exp);
+
+                }else if(grid_element.card.turned == false && grid_element.card.visible ==true){
+                    nao_playing_memory::ConcealedCard tmp_con;
+                    tmp_con.id = grid_element.card.aruco_id_top;
+                    tmp_con.position.x = i;
+                    tmp_con.position.y = j;
+
+                    cards_msg.concealed_card_list.push_back(tmp_con);
+                }else if(grid_element.card.visible == false){
+                    nao_playing_memory::Position tmp_pos;
+                    tmp_pos.x = i;
+                    tmp_pos.y = j;
+                    cards_msg.no_card_list.push_back(tmp_pos);
+                }
+                ++j;
+            }
+            ++i;
+        }
+        cards_pub.publish(cards_msg);
     }
 }
