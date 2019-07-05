@@ -114,7 +114,6 @@ namespace perception{
                 std::cout<<"id top: "<<grid_element.card.aruco_id_top<<std::endl;
                 std::cout<<"class: "<<grid_element.card.object_type<<std::endl;
                 std::cout<<"bottom: "<<grid_element.card.aruco_id_bottom<<std::endl;
-                //std::cout<<"Center: "<<grid_element._im_pos.x<<", "<<grid_element._im_pos.y<<std::endl;
                 ++j;
             }
             ++i;
@@ -138,7 +137,7 @@ namespace perception{
                 if(top_ids.find(marker.id) != top_ids.end()){
                     tmp_card.aruco_id_top = marker.id;
                     tmp_card.turned = false;
-                }else{
+                }else if(card_classes.find(marker.id) != card_classes.end()){
                     tmp_card.turned = true;
                     tmp_card.aruco_id_bottom = marker.id;
                     tmp_card.object_type = card_classes.find(marker.id)->second;
@@ -158,13 +157,6 @@ namespace perception{
                 Position tmp_pos;
                 tmp_pos = grid_element._im_pos;
                 tmp_elem = find_closest_card_w_thresh(element_collection, tmp_pos);
-                if(tmp_elem.card.aruco_id_bottom != 0){
-                    if(ids_found.find(tmp_elem.card.aruco_id_bottom) != ids_found.end() || ids_found.find(tmp_elem.card.aruco_id_top) != ids_found.end() || tmp_elem.card.aruco_id_bottom == 111){
-                        std::cout<<"kicked bottom: "<<tmp_elem.card.aruco_id_bottom<<std::endl;
-                        std::cout<<"kicked top: "<<tmp_elem.card.aruco_id_top<<std::endl;
-                        return;
-                    }
-                }
                 grid_element.card = tmp_elem.card;
                 ids_found.emplace(tmp_elem.card.aruco_id_top);
                 ids_found.emplace(tmp_elem.card.aruco_id_bottom);
@@ -390,13 +382,26 @@ namespace perception{
     GridElement VisionClient::find_closest_card_w_thresh(std::vector<GridElement> elements, Position center) {
         double min_distance = distance_thresh;
         GridElement tmp_el;
-        tmp_el.card.aruco_id_bottom = 111;
-        tmp_el.card.aruco_id_bottom = 111;
+        tmp_el.card.aruco_id_bottom = 0;
+        tmp_el.card.aruco_id_bottom = 0;
+        tmp_el.card.object_type = "Not available";
 
         for(const auto& element : elements){
             float diff_x = center.x - element._im_pos.x;
             float diff_y = center.y - element._im_pos.y;
+
             double distance = sqrt(pow(static_cast<double>(diff_x), 2.0) + pow(static_cast<double>(diff_y), 2.0));
+
+
+            //Visualization
+            cv::Point c, c2;
+            c.x = center.x;
+            c.y = center.y;
+            c2.x = element._im_pos.x;
+            c2.x = element._im_pos.y;
+            cv::circle(InImage, c, min_distance,cv::Scalar(0, 0, 255));
+            cv::circle(InImage, c2, 1,cv::Scalar(255, 255, 0));
+
             if (distance < min_distance) {
                 tmp_el = element;
                 min_distance = distance;
