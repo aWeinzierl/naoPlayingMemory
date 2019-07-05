@@ -29,13 +29,13 @@ namespace reasoning {
 
         static constexpr uint _RANDOM_NAME_LENGTH = 16;
 
-        static const uint _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN=strlen(_ALLOWED_CHARS_FOR_RANDOM_NAMES);
+        static const uint _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN = strlen(PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES);
+
+        static std::string generate_random_string(uint length) noexcept;
 
         const std::string _NAMESPACE = "https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#";
 
         static Instance create_time_stamp(uint time_instant) noexcept;
-
-        std::string generate_random_string(uint length);
 
         bool instance_already_exists(const Instance& instance);
 

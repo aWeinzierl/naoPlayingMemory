@@ -14,6 +14,7 @@
 
 
 namespace reasoning {
+    constexpr char PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES[];
 
     //saves intance
     void PrologClient::save(const Instance &instance) {
@@ -36,26 +37,22 @@ namespace reasoning {
 
     }
 
-  
 
     //Creates ObjectProperty
-    void PrologClient::save_property(const Instance &instance_of_interest, const ObjectProperty& property) {
+    void PrologClient::save_property(const Instance &instance_of_interest, const ObjectProperty &property) {
         _pl.query(
                 "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
                 "','" + _NAMESPACE + property.get_name() +
-                "','" + _NAMESPACE + property.get_value().get_class() + "_" + property.get_value().get_name()  + "')");
+                "','" + _NAMESPACE + property.get_value().get_class() + "_" + property.get_value().get_name() + "')");
     }
+
     //creates DataPorperty
-    void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty& property) {
+    void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty &property) {
         _pl.query(
                 "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
                 "','" + _NAMESPACE + property.get_name() +
-                "','" + to_string(property.get_value())  + "')");
+                "','" + to_string(property.get_value()) + "')");
     }
-
-
-
-
 
 
     bool PrologClient::instance_already_exists(const Instance &instance) {
@@ -67,9 +64,9 @@ namespace reasoning {
         return bdgs.begin() == bdgs.begin();
     }
 
-    std::string PrologClient::generate_random_string(uint length) {
+    std::string PrologClient::generate_random_string(uint length) noexcept {
         std::mt19937_64 gen{std::random_device()()};
-        std::uniform_int_distribution<size_t> dist{0,PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN - 1};
+        std::uniform_int_distribution<size_t> dist{0, PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN - 1};
         std::string ret;
 
         std::generate_n(
@@ -83,7 +80,7 @@ namespace reasoning {
     //creates instance of turn_Card action  
     void
     PrologClient::save_turn_card(const Instance &player, const uint id, uint time_instant) {
-        
+
         //create time_stamp
         auto time_stamp = create_time_stamp(time_instant);
         if (!instance_already_exists(time_stamp)) {
@@ -104,7 +101,7 @@ namespace reasoning {
         //link to card instance
         //search card instance
         auto card = card_already_exists(id);
-        if (!card.has_value()){
+        if (!card.has_value()) {
             throw new logic_error("Card_already_exist");
         }
 
@@ -113,12 +110,12 @@ namespace reasoning {
         save(card_pos);
         //ObjectProperty card_position("hasCardPosition", card_pos);*/
 
-        ObjectProperty card_prop("hasCard",card.value());
-        save_property(turn_card,card_prop);
-        
-        ObjectProperty hasAction("hasAction",turn_card);
+        ObjectProperty card_prop("hasCard", card.value());
+        save_property(turn_card, card_prop);
+
+        ObjectProperty hasAction("hasAction", turn_card);
         //TODO delete_instance(delete_old_action);
-        save_property(player,hasAction);
+        save_property(player, hasAction);
 
     }
 
@@ -138,15 +135,16 @@ namespace reasoning {
                     owl_has(CardPosition,'" + _NAMESPACE + "hasXCoordinate','" + to_string(ConcealedCard.position._x) 
                     + "'),owl_has(CardPosition,'" + _NAMESPACE + "hasYCoordinate','" + to_string(ConcealedCard.position._y) + "')");
         */
-        
-        PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')");        
-        if(bdgs.begin()==bdgs.end()){
+
+        PrologQueryProxy bdgs = _pl.query(
+                "owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')");
+        if (bdgs.begin() == bdgs.end()) {
             return nonstd::nullopt;
         }
         auto instance_bdg = *(bdgs.begin());
         Instance instance("Card", instance_bdg["Instance"]);
         return instance;
-        
+
     }
 
     nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
@@ -156,7 +154,7 @@ namespace reasoning {
         if(bdgs.begin()==bdgs.end()){
             return nonstd::nullopt;
         }
-        auto instance_bdg = *(bdgs.begin());
+        auto instance_bdg = *(bdgs.begin());_ALLOWED_CHARS_FOR_RANDOM_N
         Instance instance("Card", instance_bdg["Instance"]);
         return instance;*/
 
@@ -165,20 +163,21 @@ namespace reasoning {
     void PrologClient::instantiate_one_unknowncard(const ConcealedCard &concealed_card) {
 
         auto card = concealed_card_already_exists(concealed_card);
-        if (!card.has_value()){
+        if (!card.has_value()) {
             throw new logic_error("Card_already_exist");
             //exit function----->
         }
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-        Instance  unknown_card_ins("UnknownCard", "Card_" + to_string(concealed_card.id));
+        Instance unknown_card_ins("UnknownCard", "Card_" + to_string(concealed_card.id));
         save(unknown_card_ins);
-        Instance card_pos("CardPosition","CardPosition" + to_string(concealed_card.position._x)+to_string(concealed_card.position._x));
+        Instance card_pos("CardPosition", "CardPosition" + to_string(concealed_card.position._x) +
+                                          to_string(concealed_card.position._x));
         ObjectProperty card_position("hasPosition", card_pos);
         DataProperty x_pos("hasXCoordinate", concealed_card.position._x);
         DataProperty y_pos("hasYCoordinate", concealed_card.position._y);
         save_property(card_pos, x_pos);
         save_property(card_pos, y_pos);
-        save_property(unknown_card_ins,card_position);   
+        save_property(unknown_card_ins, card_position);
     }
 
 
