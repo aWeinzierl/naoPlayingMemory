@@ -134,11 +134,11 @@ namespace reasoning {
                     + "'),owl_has(CardPosition,'" + _NAMESPACE + "hasYCoordinate','" + to_string(ConcealedCard.position._y) + "')");
         */
         
-        PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')";        
-        if(bdgs.begin())==bdgs.end()){
+        PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')");        
+        if(bdgs.begin()==bdgs.end()){
             return nonstd::nullopt;
         }
-        Instance instance("Card",*(bdgs.begin())["Instance"]);
+        Instance instance("Card",*(bdgs.begin())(["Instance"].as<string>()));
         return instance;
         
     }
@@ -157,15 +157,15 @@ namespace reasoning {
             //exit function----->
         }
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-        Instance  unknown_card_ins[concealed_card.id]("UnknownCard", "Card_" + to_string(concealed_card.id));
-        save(unknown_card_ins[concealed_card.id]);
+        Instance  unknown_card_ins("UnknownCard", "Card_" + to_string(concealed_card.id));
+        save(unknown_card_ins);
         Instance card_pos("CardPosition","CardPosition" + to_string(concealed_card.position._x)+to_string(concealed_card.position._x));
         ObjectProperty card_position("hasPosition", card_pos);
         DataProperty x_pos("hasXCoordinate", concealed_card.position._x);
         DataProperty y_pos("hasYCoordinate", concealed_card.position._y);
         save_property(card_pos, x_pos);
         save_property(card_pos, y_pos);
-        save_property(unknown_card_ins[concealed_card.id],card_position);   
+        save_property(unknown_card_ins,card_position);   
     }
 
 
