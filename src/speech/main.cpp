@@ -3,6 +3,7 @@
 #include <naoqi_bridge_msgs/SpeechWithFeedbackActionGoal.h>
 #include <std_srvs/Empty.h>
 #include "speech/SpeechRecognition.h"
+#include "string.h"
 
 main(int argc, char **argv) {
     ros::init(argc, argv, "speech");
@@ -15,10 +16,13 @@ main(int argc, char **argv) {
 
     std::string result;
     uint32_t duration=10;
+    speech::SpeechRecognitionClient RecogClient(n);
+    std::string text = "Hi, I am going to kill you!";
+    RecogClient.talk(text);
 
-    perception::SpeechRecognitionClient RecogClient(n);
-    RecogClient.listen(available_vocabulary,result, duration);
-    std::cout<<"Nao understood: "<<result<<std::endl;
+
+    std::string request = "You want to play a round?";
+    RecogClient.request_response_block(available_vocabulary,request, result);
 
 
 }
