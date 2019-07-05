@@ -6,16 +6,17 @@
 
 namespace reasoning {
 
+    template<class DataType>
     struct DataProperty {
     private:
         std::string _name;
-        uint _value;
+        DataType _value;
         
     public:
-        DataProperty(std::string name,uint value) noexcept;
+        DataProperty(std::string name,DataType value) noexcept;
         
         const std::string &get_name() const noexcept;
-        const uint &get_value() const noexcept;
+        const DataType &get_value() const noexcept;
         
     };
 

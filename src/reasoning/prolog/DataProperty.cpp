@@ -4,7 +4,7 @@
 
 namespace reasoning{
 
-    DataProperty::DataProperty(std::string name, uint value) noexcept
+    DataProperty::DataProperty(std::string name, Data value) noexcept
     : _name(name), _value(value){
     }
 
@@ -16,4 +16,7 @@ namespace reasoning{
         return _value;
     }
 
+    DataProperty<std::string>;
+    DataProperty<uint>;
 }
+
