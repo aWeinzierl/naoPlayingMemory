@@ -1,12 +1,9 @@
 cmake_minimum_required(VERSION 2.8.12)
-project(vision)
+project(speech)
 add_compile_options(-std=c++11)
 
 add_executable(${PROJECT_NAME} main.cpp
-        vision/Vision.cpp
-        vision/Card.cpp
-        vision/GridElement.cpp
-        vision/GridBoard.cpp
+        speech/SpeechRecognition.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS
