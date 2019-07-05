@@ -1,14 +1,11 @@
 #pragma once
 
-#include <string>
-
 #include <json_prolog/prolog.h>
+#include <nonstd/optional.hpp>
 
-#include "classes/Card.h"
 #include "classes/Instance.h"
 #include "ObjectProperty.h"
 #include "DataProperty.h"
-#include "nonstd/optional.hpp"
 #include "ExposedCard.h"
 #include "ConcealedCard.h"
 
@@ -43,8 +40,6 @@ namespace reasoning {
 
         void save_property(const Instance &instance_of_interest, const DataProperty<unsigned int> &property);
 
-        nonstd::optional<Instance> position_already_exists(const CardPosition &position);
-
         nonstd::optional<Instance> card_already_exists(uint id);
 
     public:
@@ -53,7 +48,7 @@ namespace reasoning {
 
         void save_turn_card(const Instance &player, const  ExposedCard &Exposed_Card, uint time_instant);
 
-        void instantiate_one_unknowncard(const ConcealedCard &ConcealedCard);
+        void save(const ConcealedCard &concealed_card);
 
     };
 

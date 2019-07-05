@@ -1,17 +1,7 @@
 #include "PrologClient.h"
-#include <ros/ros.h>
-#include <image_transport/image_transport.h>
-#include <cv_bridge/cv_bridge.h>
-#include <sensor_msgs/image_encodings.h>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <aruco/aruco.h>
-#include <aruco/cvdrawingutils.h>
-#include <json_prolog/prolog.h>
-#include <unordered_map>
-#include <cstring>
-#include "PrologClient.h"
 
+#include <string>
+#include <exception>
 
 namespace reasoning {
     constexpr char PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES[];
@@ -43,7 +33,7 @@ namespace reasoning {
         _pl.query(
                 "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
                 "','" + _NAMESPACE + property.get_name() +
-                "','" + to_string(property.get_value()) + "')");
+                "','" + std::to_string(property.get_value()) + "')");
     }
 
     void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty<std::string> &property) {
@@ -72,7 +62,6 @@ namespace reasoning {
                 length,
                 [&] { return PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES[dist(gen)]; });
         return ret;
-
     }
 
     //creates instance of turn_Card action  
@@ -100,7 +89,7 @@ namespace reasoning {
         //search card instance
         auto card = card_already_exists(Exposed_Card.get_id());
         if (!card.has_value()) {
-            throw new logic_error("Card_already_exist");
+            throw new std::logic_error("Card_already_exist");
         }
         //create class instance
 
@@ -112,7 +101,7 @@ namespace reasoning {
         save_property(turn_card, card_prop);
 
         ObjectProperty hasAction("hasAction", turn_card);
-        //TODO delete_instance(delete_old_action);
+
         save_property(player, hasAction);
     }
 
@@ -120,15 +109,9 @@ namespace reasoning {
         return Instance("TimeStamp", std::to_string(time_instant));
     }
 
-    nonstd::optional<Instance> PrologClient::position_already_exists(const CardPosition &position) {
-        //TODO: check if position exists
-        //if it exists return instance of it
-        return nonstd::nullopt;
-    }
-
     nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
 
-        PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(id) + "')");
+        PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + std::to_string(id) + "')");
         if(bdgs.begin()==bdgs.end()){
             return nonstd::nullopt;
         }
@@ -137,20 +120,19 @@ namespace reasoning {
         return instance;
     }
 
-    void PrologClient::instantiate_one_unknowncard(const ConcealedCard &Concealed_Card) {
+    void PrologClient::save(const ConcealedCard &concealed_card) {
 
-        auto card = card_already_exists(Concealed_Card.get_id());
+        auto card = card_already_exists(concealed_card.get_id());
         if (!card.has_value()){
-            throw new logic_error("Card_already_exist");
+            throw new std::logic_error("Card_already_exist");
             //exit function----->
         }
-        //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-        Instance  unknown_card_ins("UnknownCard", "Card_" + to_string(Concealed_Card.get_id()));
+        Instance  unknown_card_ins("UnknownCard", "Card_" + std::to_string(concealed_card.get_id()));
         save(unknown_card_ins);
-        Instance card_pos("CardPosition","CardPosition" + to_string(Concealed_Card.get_position().get_x())+to_string(Concealed_Card.get_position().get_x()));
+        Instance card_pos("CardPosition","CardPosition" + std::to_string(concealed_card.get_position().get_x())+std::to_string(concealed_card.get_position().get_x()));
         ObjectProperty card_position("hasPosition", card_pos);
-        DataProperty<unsigned int> x_pos("hasXCoordinate", Concealed_Card.get_position().get_x());
-        DataProperty<unsigned int> y_pos("hasYCoordinate", Concealed_Card.get_position().get_y());
+        DataProperty<unsigned int> x_pos("hasXCoordinate", concealed_card.get_position().get_x());
+        DataProperty<unsigned int> y_pos("hasYCoordinate", concealed_card.get_position().get_y());
         save_property(card_pos, x_pos);
         save_property(card_pos, y_pos);
         save_property(unknown_card_ins, card_position);
