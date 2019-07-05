@@ -23,14 +23,6 @@ namespace reasoning {
                 "', ObjInst)");
     }
 
-
-    /*void PrologClient::save_TimeStamp_property(const Instance &instance, const Instance &timeStamp) {
-        PrologQueryProxy bdgs = _pl.query(
-                "rdf_assert('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name() + "','" + _NAMESPACE +
-                "hasTimeStamp','" + timeStamp.get_name() + "')");
-        /*(instance, hasTimeStamp, TimeStamp_x) 
-    }*/
-
     void PrologClient::delete_instance(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
                 "del('" + _NAMESPACE + instance.get_class() + "','" + _NAMESPACE + instance.get_class() + "',[])");
@@ -47,13 +39,19 @@ namespace reasoning {
     }
 
     //creates DataPorperty
-    void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty &property) {
+    void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty<unsigned int> &property) {
         _pl.query(
                 "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
                 "','" + _NAMESPACE + property.get_name() +
                 "','" + to_string(property.get_value()) + "')");
     }
 
+    void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty<std::string> &property) {
+        _pl.query(
+                "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
+                "','" + _NAMESPACE + property.get_name() +
+                "','" + property.get_value() + "')");
+    }
 
     bool PrologClient::instance_already_exists(const Instance &instance) {
         auto bdgs = _pl.query(
@@ -100,15 +98,15 @@ namespace reasoning {
 
         //link to card instance
         //search card instance
-        auto card = card_already_exists(id);
+        auto card = card_already_exists(Exposed_Card.get_id());
         if (!card.has_value()) {
             throw new logic_error("Card_already_exist");
         }
         //create class instance
 
         //associate class to card
-        DataProperty class_prop("hasClass",Exposed_Card.class_type);
-        save_property(class_prop,card1.value());
+        DataProperty<std::string> class_prop("hasClass", Exposed_Card.get_class());
+        save_property(card.value(), class_prop);
 
         ObjectProperty card_prop("hasCard", card.value());
         save_property(turn_card, card_prop);
@@ -122,14 +120,11 @@ namespace reasoning {
         return Instance("TimeStamp", std::to_string(time_instant));
     }
 
-    nonstd::optional<Instance> PrologClient::position_already_exists(const Position &position) {
+    nonstd::optional<Instance> PrologClient::position_already_exists(const CardPosition &position) {
         //TODO: check if position exists
         //if it exists return instance of it
         return nonstd::nullopt;
     }
-
-
-
 
     nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
 
@@ -144,63 +139,20 @@ namespace reasoning {
 
     void PrologClient::instantiate_one_unknowncard(const ConcealedCard &Concealed_Card) {
 
-        auto card = card_already_exists(Concealed_Card.id);
+        auto card = card_already_exists(Concealed_Card.get_id());
         if (!card.has_value()){
             throw new logic_error("Card_already_exist");
             //exit function----->
         }
         //sdt::string name<<"unknown_card_"+std::to_string(i)+std:to_string(j);
-        Instance  unknown_card_ins("UnknownCard", "Card_" + to_string(Concealed_Card.id));
+        Instance  unknown_card_ins("UnknownCard", "Card_" + to_string(Concealed_Card.get_id()));
         save(unknown_card_ins);
-        Instance card_pos("CardPosition","CardPosition" + to_string(Concealed_Card.position._x)+to_string(Concealed_Card.position._x));
+        Instance card_pos("CardPosition","CardPosition" + to_string(Concealed_Card.get_position().get_x())+to_string(Concealed_Card.get_position().get_x()));
         ObjectProperty card_position("hasPosition", card_pos);
-        DataProperty x_pos("hasXCoordinate", Concealed_Card.position._x);
-        DataProperty y_pos("hasYCoordinate", Concealed_Card.position._y);
+        DataProperty<unsigned int> x_pos("hasXCoordinate", Concealed_Card.get_position().get_x());
+        DataProperty<unsigned int> y_pos("hasYCoordinate", Concealed_Card.get_position().get_y());
         save_property(card_pos, x_pos);
         save_property(card_pos, y_pos);
         save_property(unknown_card_ins, card_position);
     }
-
-
-
-    /*void PrologClient::associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance) {
-        PrologQueryProxy bdgs = _pl.query(
-                "is_in_turn('" + _NAMESPACE + Player_instance.get_class(9) + "','" + _NAMESPACE + Turn_instance.get_class() + "')");
-    }
-
-
-    void PrologClient::create_Player_instance(const player &player) {
-        Instance player("Player", "Player_" + std::to_String(player._num));
-        save(player);
-    }
-
-
-    void PrologClient::create_turn_instance(const turn &turn) {
-        Instance turn_i("Turn", "Turn_" + std::to_String(turn._timeInstance) + turn._round._name);
-        turn._turn = turn_i;
-        save(turn_i);
-        //Associate a player
-        ObjectProperty associatedToPlayer("associatedToPlayer", turn._player._name);
-        save_property(turn_i, associatedToPlayer);
-        //Associate a timeStampt
-        Instance timeStamp("TimeStamp", "TimeStamp" + std::to_string(turn._timeInstance));
-        save(timeStamp);
-        assert_timeStamp_property(turn_i, timeStamp);
-    }
-
-
-    void PrologClient::create_round_instance(const round &round) {
-        Instance round("Round", "Round_" + std::to_String(round._timeInstance));
-        save(round);
-    }
-
-
-    void PrologClient::associate_current_turn_to_round(const Instance &turn, const round &round) {
-        delete_instance(round._current_turn);
-        round._current_turn = turn;
-        ObjectProperty hasCurrentTurn("hasCurrentTurn", turn);
-        save_property(round._round, hasCurrentTurn);
-    }*/
-
-
 }
