@@ -2,8 +2,8 @@
 #include <queue> 
 #include "classes/CardPosition.h"
 #include <unordered_map>
-#include <ConcealedCard.h>
-#include <ExposedCard.h>
+#include "ExposedCard.h"
+#include "ConcealedCard.h"
 
 
 namespace reasoning {
