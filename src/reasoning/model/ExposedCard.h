@@ -1,5 +1,5 @@
 #include <string>
-#include "classes/CardPosition.h"
+#include "CardPosition.h"
 
 namespace reasoning {
 

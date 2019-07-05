@@ -6,8 +6,8 @@
 #include "classes/Instance.h"
 #include "ObjectProperty.h"
 #include "DataProperty.h"
-#include "ExposedCard.h"
-#include "ConcealedCard.h"
+#include "../model/ExposedCard.h"
+#include "../model/ConcealedCard.h"
 
 using namespace json_prolog;
 

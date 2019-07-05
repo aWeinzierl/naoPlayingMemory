@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "CardPosition.h"
+#include "../../model/CardPosition.h"
 
 namespace reasoning {
 
