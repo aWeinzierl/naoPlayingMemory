@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <pthread.h>
+#include <queue> 
 
 
 /*********************************************************************
@@ -8,14 +9,6 @@
 ********************************************************************/
 #include <ros/ros.h>
 #include <std_msgs/String.h>
-
-// Message File INCLUDES
-#include <Noa/ConcealedCard.h>
-#include <msg/ExposedCard.h>
-#include <msg/Cards.h>
-#include <msg/Position.h>
-
-
 
 
 /*********************************************************************
@@ -25,65 +18,41 @@
 #include "prolog/PrologClient.h"
 
 
-using namespace reasoning;
+namespace reasoning{
 
-void Callback(const std_msgs::String::ConstPtr &msg)
-{
-    
-    uint position_counter=0;
+    void StateProcessor::process_new_state(const std::vector<ConcealedCard>& ConcealedCard,const std::vector<ExposedCard>& ExposedCard,const std::vector<CardPosition>& NoCards)
 
-    for (const  auto val&: msg->concealed_card_list){
-        CardPosition position[position_counter](msg->concealed_card_list[val].position.x,msg->concealed_card_list[val].position.y);
-        ConcealedCard concealed_card[val](msg->concealed_card_list[val].id,position);
-        position_counter=+1;
+        //State Processing
+        for ()//all exposed_cards
+        {
+            //save_turn_card
+        }
+        
+        //12 ques-->1 pro card
+        //--->1 array: que[12][]--> each roch means one diferente card
+        //filter die zustand füur que speichert
+        //bei state anderung production von state
+        //0-->ConcealedCard   1-->ExposedCard    2--> NoCard
+        if(/*first time*/){
+            //create 12 queues
+        }
+        else{
+            //analise State from cards
+            for(const auto card&: ExposedCard){
+                //go to que from thar card id
+                mapping.find(card.get_Position())->second.push(1);
+            }
+            for(const auto card&: ConcealedCard){
+                mapping.find(card.get_Position())->second.push(0);
+            }
+            for(const auto card&: NoCard){
+                mapping.find(card)->second.push
+            }
+        }
+
+        //filter auf die que laufen lassen
+
+
 
     }
-    for (const  auto val&: msg->exposed_card_list){
-        CardPosition position[position_counter](msg->exposed_card_list[val].position.x,msg->exposed_card_list[val].position.y); 
-        ExposedCard Exposed_Card[val](msg->exposed_card_list[val].id,msg->exposed_card_list[val].class_type,position);
-        position_counter=+1;
-    }
-
-    for (const auto val&: msg->no_card_list){
-        CardPosition no_card[position_counter](msg->exposed_card_list[val].position.x,msg->exposed_card_list[val].position.y); 
-        //NoCard No_Card(position);
-        position_counter=+1;
-    }
-
-
-}
-
-
-
-
-int main( int argc, char** argv )
-{
-
-    ros::init(argc, argv, "StateProcessor");
-
-    ROS_INFO_STREAM("Subscribing to Perception Node");
-
-    ros::NodeHandle n;
-    ros::Rate r(60);
-
-    ros::Subscriber sub=n.subscribe("Cards",100,
-                                   Callback);
-
-
-    //State Processing
-    for ()//all exposed_cards
-    {
-        //save_turn_card
-    }
-    
-
-
-
-
-
-
-    ros::spinOnce();
-
-    r.sleep();
-
 }
