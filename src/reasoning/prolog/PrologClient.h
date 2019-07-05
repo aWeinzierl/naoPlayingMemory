@@ -14,7 +14,7 @@ using namespace json_prolog;
 namespace reasoning {
     class PrologClient {
         json_prolog::Prolog _pl;
-        
+
         static constexpr char _ALLOWED_CHARS_FOR_RANDOM_NAMES[] =
                 "abcdefghijklmnaoqrstuvwxyz"
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -30,13 +30,13 @@ namespace reasoning {
 
         static Instance create_time_stamp(uint time_instant) noexcept;
 
-        bool instance_already_exists(const Instance& instance);
+        bool instance_already_exists(const Instance &instance);
 
         void save(const Instance &instance);
 
-        void save_property(const Instance &instance_of_interest, const ObjectProperty& property);
+        void save_property(const Instance &instance_of_interest, const ObjectProperty &property);
 
-        void save_property(const Instance &instance_of_interest, const DataProperty<std::string>& property);
+        void save_property(const Instance &instance_of_interest, const DataProperty<std::string> &property);
 
         void save_property(const Instance &instance_of_interest, const DataProperty<unsigned int> &property);
 
@@ -46,13 +46,11 @@ namespace reasoning {
 
         void delete_instance(const Instance &instance);
 
-        void save_turn_card(const Instance &player, const  ExposedCard &Exposed_Card, uint time_instant);
+        void save_turn_card(const Instance &player, const ExposedCard &Exposed_Card, uint time_instant);
 
         void save(const ConcealedCard &concealed_card);
 
     };
-
-    
 
 
 }
