@@ -15,6 +15,7 @@ add_executable(${PROJECT_NAME} main.cpp
         model/ExposedCard.cpp
         model/ExposedCard.h
         model/CardPosition.cpp
+        NodeManager.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS
