@@ -14,7 +14,7 @@
 using namespace std;
 using namespace cv;
 using namespace aruco;
-
+using namespace reasoning;
 
 
 
@@ -23,9 +23,9 @@ using namespace aruco;
 
 main(int argc, char **argv) {
     ros::init(argc, argv, "reasoning");
-    PrologClient pc;
-
-    pc.test_prolog_query();
+    PrologClient pc();
+    
+    //pc.test_prolog_query();
     ros::spin();
 
 }

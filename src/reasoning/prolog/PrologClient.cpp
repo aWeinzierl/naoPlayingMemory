@@ -23,12 +23,12 @@ namespace reasoning {
     }
 
 
-    void PrologClient::save_TimeStamp_property(const Instance &instance, const Instance &timeStamp) {
+    /*void PrologClient::save_TimeStamp_property(const Instance &instance, const Instance &timeStamp) {
         PrologQueryProxy bdgs = _pl.query(
                 "rdf_assert('" + _NAMESPACE + instance.get_class() + "_" + instance.get_name() + "','" + _NAMESPACE +
                 "hasTimeStamp','" + timeStamp.get_name() + "')");
-        /*(instance, hasTimeStamp, TimeStamp_x) */
-    }
+        /*(instance, hasTimeStamp, TimeStamp_x) 
+    }*/
 
     void PrologClient::delete_instance(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
@@ -128,9 +128,19 @@ namespace reasoning {
     }
 
     nonstd::optional<Instance> PrologClient::concealed_card_already_exists(const ConcealedCard &ConcealedCard) {
-        //TODO: check if position exists
-        //if it exists return instance of it
-        return nonstd::nullopt;
+
+        /*PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasCardPosition' ,CardPosition),
+                    owl_has(CardPosition,'" + _NAMESPACE + "hasXCoordinate','" + to_string(ConcealedCard.position._x) 
+                    + "'),owl_has(CardPosition,'" + _NAMESPACE + "hasYCoordinate','" + to_string(ConcealedCard.position._y) + "')");
+        */
+        
+        PrologQueryProxy bdgs=_pl.query("owl_has(Instance,'" + _NAMESPACE + "hasMarkerId' ,'" + to_string(ConcealedCard.id) + "')";        
+        if(bdgs.begin())==bdgs.end()){
+            return nonstd::nullopt;
+        }
+        Instance instance("Card",*(bdgs.begin())["Instance"]);
+        return instance;
+        
     }
 
     nonstd::optional<Instance> PrologClient::card_already_exists(const uint id) {
@@ -153,14 +163,14 @@ namespace reasoning {
         ObjectProperty card_position("hasPosition", card_pos);
         DataProperty x_pos("hasXCoordinate", concealed_card.position._x);
         DataProperty y_pos("hasYCoordinate", concealed_card.position._y);
-        save_property(card_position, x_pos);
-        save_property(card_position, y_pos);
+        save_property(card_pos, x_pos);
+        save_property(card_pos, y_pos);
         save_property(unknown_card_ins[concealed_card.id],card_position);   
     }
 
 
 
-    void PrologClient::associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance) {
+    /*void PrologClient::associate_turn_to_player(const Instance &Player_instance, const Instance &Turn_instance) {
         PrologQueryProxy bdgs = _pl.query(
                 "is_in_turn('" + _NAMESPACE + Player_instance.get_class(9) + "','" + _NAMESPACE + Turn_instance.get_class() + "')");
     }
@@ -197,7 +207,7 @@ namespace reasoning {
         round._current_turn = turn;
         ObjectProperty hasCurrentTurn("hasCurrentTurn", turn);
         save_property(round._round, hasCurrentTurn);
-    }
+    }*/
 
     PrologClient::PrologClient()
     : _ALLOWED_CHARS_FOR_RANDOM_NAMES_LEN(strlen(_ALLOWED_CHARS_FOR_RANDOM_NAMES))

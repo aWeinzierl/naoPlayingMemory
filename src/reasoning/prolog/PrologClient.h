@@ -21,7 +21,7 @@ namespace reasoning {
 
     class PrologClient {
         json_prolog::Prolog _pl;
-        //ObjectProperty;
+        
         static constexpr char _ALLOWED_CHARS_FOR_RANDOM_NAMES[] =
                 "abcdefghijklmnaoqrstuvwxyz"
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
