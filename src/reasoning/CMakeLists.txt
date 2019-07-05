@@ -3,7 +3,16 @@ project(reasoning)
 
 add_definitions(-std=c++11)
 
-add_executable(${PROJECT_NAME} main.cpp PrologClient.cpp)
+add_executable(${PROJECT_NAME} main.cpp
+        prolog/PrologClient.cpp
+        prolog/classes/Card.cpp
+        prolog/classes/Instance.cpp
+        prolog/ObjectProperty.cpp
+        prolog/classes/CardPosition.cpp
+        prolog/PrologEntities.h
+        prolog/DataProperty.cpp
+        prolog/ConcealedCard.cpp prolog/ConcealedCard.h prolog/ExposedCard.cpp prolog/ExposedCard.h)
+
 find_package(catkin REQUIRED COMPONENTS
         roscpp
         rospy
@@ -22,3 +31,6 @@ target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
 find_package(aruco REQUIRED)
 target_link_libraries(${PROJECT_NAME} ${aruco_LIBS})
+
+target_include_directories(${PROJECT_NAME}
+        PRIVATE ext/optional-lite/include)
