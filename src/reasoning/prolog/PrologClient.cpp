@@ -139,4 +139,16 @@ namespace reasoning {
         save_property(card_pos, y_pos);
         save_property(unknown_card_ins, card_position);
     }
+
+    void PrologClient::test_prolog_query() {
+        for (int i = 0; i < 3; ++i) {
+            auto ts = create_time_stamp(i);
+            save(ts);
+        }
+
+        PrologQueryProxy bdgs = _pl.query("all_times(Time)");
+        for (const auto& bdg: bdgs){
+            std::cout << bdg["Time"];
+        }
+    }
 }

@@ -23,9 +23,9 @@ using namespace reasoning;
 
 main(int argc, char **argv) {
     ros::init(argc, argv, "reasoning");
-    PrologClient pc();
+    PrologClient pc;
     
-    //pc.test_prolog_query();
+    pc.test_prolog_query();
     ros::spin();
 
 }
