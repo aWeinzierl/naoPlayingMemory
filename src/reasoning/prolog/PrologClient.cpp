@@ -9,8 +9,8 @@ namespace reasoning {
     //saves intance
     void PrologClient::save(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
-                "rdf_costom_instance_from_class('" + _NAMESPACE + instance.get_class() + ",_," + instance.get_name() +
-                "', ObjInst)");
+                "rdf_costom_instance_from_class('" + _NAMESPACE + instance.get_class() + "',_," + instance.get_name() +
+                ", ObjInst)");
     }
 
     void PrologClient::delete_instance(const Instance &instance) {
