@@ -69,6 +69,12 @@
         <ObjectProperty IRI="isAssociatedWith"/>
     </Declaration>
     <Declaration>
+        <Class IRI="Self"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="isBored"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="hasCoordinate"/>
     </Declaration>
     <Declaration>
@@ -149,6 +155,20 @@
         </ObjectExactCardinality>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="Self"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
+            <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Game"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Self"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="isBored"/>
+            <Datatype abbreviatedIRI="xsd:boolean"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="TurnCard"/>
         <Class IRI="TurnOneCard"/>
     </SubClassOf>
@@ -203,6 +223,10 @@
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="hasCard"/>
         <Class IRI="TurnCard"/>
     </ObjectPropertyDomain>
@@ -214,6 +238,10 @@
         <ObjectProperty IRI="isAssociatedWith"/>
         <Class abbreviatedIRI="owl:Thing"/>
     </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
+        <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Game"/>
+    </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="hasCard"/>
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
@@ -238,9 +266,16 @@
         <DataProperty IRI="hasYCoordinate"/>
         <DataProperty IRI="hasCoordinate"/>
     </SubDataPropertyOf>
+    <FunctionalDataProperty>
+        <DataProperty IRI="isBored"/>
+    </FunctionalDataProperty>
     <DataPropertyDomain>
         <DataProperty IRI="hasCoordinate"/>
         <Class IRI="CardPosition"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="isBored"/>
+        <Class IRI="Self"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#hasMarkerId"/>
@@ -249,6 +284,10 @@
     <DataPropertyRange>
         <DataProperty IRI="hasCoordinate"/>
         <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="isBored"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#hasMarkerId"/>
