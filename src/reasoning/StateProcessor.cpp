@@ -1,31 +1,35 @@
 #include "StateProcessor.h"
 #include "State.h"
 
+namespace reasoning {
 
-namespace reasoning{
-    void update_state()
+    void StateProcessor::process_new_state(const std::vector<ConcealedCard> &concealed_card,
+                                           const std::vector<ExposedCard> &exposed_card,
+                                           const std::vector<CardPosition> &unknown) {
 
-    void StateProcessor::process_new_state(const std::vector<ConcealedCard>& ConcealedCard,const std::vector<ExposedCard>& ExposedCard,const std::vector<CardPosition>& NoCards)
-
-        Actions actions;
+        ActionDetections actions;
         //analise State from cards
-        for(const auto card&: ExposedCard){
-            auto triggered =mapping.find(card.get_Position())->second.update(state::exposed)){
+        for (const auto &card: exposed_card) {
+            auto triggered = _position_to_filter.find(card.get_position())->second.update(State::EXPOSED);
             if (triggered) {
-                actions.turned_cards.emplace_back(card));
+                actions.reveal_card.emplace_back(card);
             }
         }
-        for(const auto card&: ConcealedCard){
-            auto triggered =mapping.find(card.get_Position())->second.update(state::concealed)){
+        for (const auto &card: concealed_card) {
+            auto triggered = _position_to_filter.find(card.get_position())->second.update(State::CONCEALED);
             if (triggered) {
-                actions.turned_cards.emplace_back(card));
+                actions.cover_card.emplace_back(card);
             }
         }
-        for(const auto card&: NoCard){
-            auto triggered =mapping.find(card.get_Position())->second.update(state::not_av)){
+        for (const auto &position: unknown) {
+            auto triggered = _position_to_filter.find(position)->second.update(State::UNKNOWN);
             if (triggered) {
-                actions.turned_cards.emplace_back(card));
+                actions.remove_card.emplace_back(position);
             }
         }
+    }
+
+    StateProcessor::StateProcessor() {
+        _position_to_filter = generate_filters();
     }
 }

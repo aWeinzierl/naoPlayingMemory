@@ -1,24 +1,24 @@
 #pragma once
+
 #include <boost/circular_buffer.hpp>
 #include "State.h"
 #include <nonstd/optional.hpp>
-#include "TurnCard.h"
 
-namespace reasoning{
+namespace reasoning {
 
 
-    class FilterRecognizeTurn{
-   
-        boost::circular_buffer<state> buffer;
-        state _last_state;
+    class FilterRecognizeTurn {
+
+        boost::circular_buffer<State> buffer;
+        State _last_state;
     public:
 
-        FilterRecognizeTurn(const unsigned int size) noexcept;
+        explicit FilterRecognizeTurn(unsigned int size, State initial_state) noexcept;
+
         //return optional from action
-        bool update(const state state);
-        
+        bool update(State state);
+
     };
 
-                    
 
 }

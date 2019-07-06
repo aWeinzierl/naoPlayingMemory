@@ -15,9 +15,6 @@ add_executable(${PROJECT_NAME} main.cpp
         prolog/ExposedCard.cpp 
         FilterRecognizeTurn.cpp
         StateProcessor.cpp
-        State.h
-        TurnCard.h
-        Action.h
         )
 
 find_package(catkin REQUIRED COMPONENTS
@@ -41,3 +38,7 @@ target_link_libraries(${PROJECT_NAME} ${aruco_LIBS})
 
 target_include_directories(${PROJECT_NAME}
         PRIVATE ext/optional-lite/include)
+
+find_package(Boost REQUIRED COMPONENTS system thread)
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
