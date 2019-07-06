@@ -122,9 +122,8 @@ public:
 
 main(int argc, char **argv) {
     ros::init(argc, argv, "speech");
-    ros::NodeHandle n;
+    /*ros::NodeHandle n;
 
-    /*
     std::vector<std::string> available_vocabulary;
     available_vocabulary.push_back("Yes");
     available_vocabulary.push_back("No");
@@ -145,5 +144,4 @@ main(int argc, char **argv) {
     SaySomething saySomethingAction("say_something");
 
     ros::spin();
-    return 0;
 }

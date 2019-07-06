@@ -4,6 +4,7 @@ add_compile_options(-std=c++11)
 
 add_executable(${PROJECT_NAME} main.cpp
         speech/SpeechRecognition.cpp
+        test_client.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS
