@@ -1,6 +1,6 @@
 :- consult('my_utils').
 
-:- module(my_utils,
+:- module(robot,
     [
         all_times/1,
     ]).
