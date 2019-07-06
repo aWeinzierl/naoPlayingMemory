@@ -1,4 +1,6 @@
-#include "classes/CardPosition.h"
+#pragma once
+
+#include "CardPosition.h"
 
 namespace reasoning {
     struct ConcealedCard {
