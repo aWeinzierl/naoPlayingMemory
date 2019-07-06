@@ -1,9 +1,24 @@
 #include "NodeManager.h"
 
-NodeManager::NodeManager() {
-   _sub = _n.subscribe("cards", 1000, &NodeManager::vision_callback, this);
 
+void NodeManager::tick() {
+
+    std::cout << "tick" << std::endl;
+
+    auto actions = _sp.retrieve_actions();
+
+
+    _timer.expires_at(_timer.expires_at() + _interval);
+    _timer.async_wait(boost::bind(&NodeManager::tick, this));
 }
+
+NodeManager::NodeManager()
+        : _interval(1), _timer(_io_service, _interval) {
+    _sub = _n.subscribe("cards", 1000, &NodeManager::vision_callback, this);
+
+    _timer.async_wait(boost::bind(&NodeManager::tick, this));
+}
+
 reasoning::CardPosition NodeManager::cardPositionMap(const nao_playing_memory::Position &position) {
     return {
             position.x,

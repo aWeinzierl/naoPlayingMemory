@@ -40,5 +40,4 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/local/lib/cmake")
 add_subdirectory(src/perception)
 add_subdirectory(src/speech)
 add_subdirectory(src/reasoning)
-add_subdirectory(src/action)
 

@@ -3,6 +3,7 @@
 #include <string>
 #include <queue>
 #include <unordered_map>
+#include <mutex>
 
 #include <boost/circular_buffer.hpp>
 
@@ -25,6 +26,10 @@ namespace reasoning {
     };
 
     class StateProcessor {
+
+        ActionDetections _actions;
+        std::mutex _actions_mutex;
+
         std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> _position_to_filter;
 
         std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> generate_filters() {
@@ -43,6 +48,8 @@ namespace reasoning {
         void process_new_state(const std::vector<ConcealedCard> &concealed_card,
                                const std::vector<ExposedCard> &exposed_card,
                                const std::vector<CardPosition> &unknown);
+
+        ActionDetections retrieve_actions();
 
     };
 

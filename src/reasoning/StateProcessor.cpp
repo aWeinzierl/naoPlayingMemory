@@ -7,29 +7,39 @@ namespace reasoning {
                                            const std::vector<ExposedCard> &exposed_card,
                                            const std::vector<CardPosition> &unknown) {
 
-        ActionDetections actions;
+        std::lock_guard<std::mutex> lockGuard(_actions_mutex);
         //analise State from cards
         for (const auto &card: exposed_card) {
             auto triggered = _position_to_filter.find(card.get_position())->second.update(State::EXPOSED);
             if (triggered) {
-                actions.reveal_card.emplace_back(card);
+                _actions.reveal_card.emplace_back(card);
             }
         }
         for (const auto &card: concealed_card) {
             auto triggered = _position_to_filter.find(card.get_position())->second.update(State::CONCEALED);
             if (triggered) {
-                actions.cover_card.emplace_back(card);
+                _actions.cover_card.emplace_back(card);
             }
         }
         for (const auto &position: unknown) {
             auto triggered = _position_to_filter.find(position)->second.update(State::UNKNOWN);
             if (triggered) {
-                actions.remove_card.emplace_back(position);
+                _actions.remove_card.emplace_back(position);
             }
         }
     }
 
     StateProcessor::StateProcessor() {
         _position_to_filter = generate_filters();
+    }
+
+    ActionDetections StateProcessor::retrieve_actions() {
+
+        {
+            std::lock_guard<std::mutex> lockGuard(_actions_mutex);
+            auto actions = _actions;
+            _actions = ActionDetections();
+        }
+        return _actions;
     }
 }

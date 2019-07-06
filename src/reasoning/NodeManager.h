@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ros/ros.h>
+#include <boost/asio.hpp>
 
 #include "nao_playing_memory/Cards.h"
 #include "nao_playing_memory/ConcealedCard.h"
@@ -17,6 +18,12 @@ private:
     ros::NodeHandle _n;
     reasoning::StateProcessor _sp;
     ros::Subscriber _sub;
+
+    boost::asio::io_service _io_service;
+    boost::posix_time::seconds _interval;
+    boost::asio::deadline_timer _timer;
+    void tick();
+
 public:
 
     NodeManager();
