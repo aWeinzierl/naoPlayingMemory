@@ -15,6 +15,9 @@
     <Prefix name="robot" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#"/>
     <Import>https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#</Import>
     <Declaration>
+        <DataProperty IRI="hasTime"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="hasXCoordinate"/>
     </Declaration>
     <Declaration>
@@ -33,6 +36,9 @@
         <Class IRI="TurnCard"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="isMostRecent"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="TurnOneKnown/UnknownCard"/>
     </Declaration>
     <Declaration>
@@ -45,10 +51,10 @@
         <Class IRI="ActionTimeStampAssociation"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="TurnEqualCards"/>
+        <Class IRI="ArucoIdToObjectMappings"/>
     </Declaration>
     <Declaration>
-        <Class IRI="ArucoIdToObjectMappings"/>
+        <NamedIndividual IRI="TurnEqualCards"/>
     </Declaration>
     <Declaration>
         <Class IRI="CardPosition"/>
@@ -90,10 +96,10 @@
         <DataProperty IRI="hasYCoordinate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="Class"/>
+        <NamedIndividual IRI="TurnTwoUnknownCards"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="TurnTwoUnknownCards"/>
+        <Class IRI="Class"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
@@ -165,6 +171,20 @@
         <Class IRI="Self"/>
         <DataExactCardinality cardinality="1">
             <DataProperty IRI="isBored"/>
+            <Datatype abbreviatedIRI="xsd:boolean"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="TimeStamp"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="hasTime"/>
+            <Datatype abbreviatedIRI="xsd:nonNegativeInteger"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="TimeStamp"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="isMostRecent"/>
             <Datatype abbreviatedIRI="xsd:boolean"/>
         </DataExactCardinality>
     </SubClassOf>
@@ -269,13 +289,24 @@
     <FunctionalDataProperty>
         <DataProperty IRI="isBored"/>
     </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="isMostRecent"/>
+    </FunctionalDataProperty>
     <DataPropertyDomain>
         <DataProperty IRI="hasCoordinate"/>
         <Class IRI="CardPosition"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="hasTime"/>
+        <Class IRI="TimeStamp"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="isBored"/>
         <Class IRI="Self"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="isMostRecent"/>
+        <Class IRI="TimeStamp"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#hasMarkerId"/>
@@ -286,7 +317,15 @@
         <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
     <DataPropertyRange>
+        <DataProperty IRI="hasTime"/>
+        <Datatype abbreviatedIRI="xsd:nonNegativeInteger"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
         <DataProperty IRI="isBored"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="isMostRecent"/>
         <Datatype abbreviatedIRI="xsd:boolean"/>
     </DataPropertyRange>
     <DataPropertyRange>
