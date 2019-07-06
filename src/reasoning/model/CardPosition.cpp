@@ -13,4 +13,9 @@ namespace reasoning {
     CardPosition::CardPosition(unsigned int x, unsigned int y) noexcept
             : _x(x), _y(y) {
     }
+
+    bool operator==(const CardPosition &a, const CardPosition &b) {
+        return a.get_x() == b.get_x() && b.get_y() == b.get_y();
+
+    }
 }

@@ -1,4 +1,7 @@
+#pragma once
+
 #include <string>
+
 #include "CardPosition.h"
 
 namespace reasoning {

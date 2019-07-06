@@ -13,4 +13,6 @@ namespace reasoning {
 
         unsigned int get_y() const noexcept;
     };
+
+    bool operator==(const CardPosition& a, const CardPosition& b);
 }

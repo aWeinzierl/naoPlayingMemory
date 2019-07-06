@@ -10,7 +10,7 @@
 #include "model/CardPosition.h"
 #include "model/ExposedCard.h"
 
-#include "prolog/StateProcessor.h"
+#include "StateProcessor.h"
 
 class NodeManager {
 private:

@@ -3,7 +3,7 @@
 #include <json_prolog/prolog.h>
 #include <nonstd/optional.hpp>
 
-#include "classes/Instance.h"
+#include "Instance.h"
 #include "ObjectProperty.h"
 #include "DataProperty.h"
 #include "../model/ExposedCard.h"
@@ -12,6 +12,11 @@
 using namespace json_prolog;
 
 namespace reasoning {
+
+    using RevealCardAction = ExposedCard;
+    using CoverCardAction = ConcealedCard;
+    using RemoveCardAction = CardPosition;
+
     class PrologClient {
         json_prolog::Prolog _pl;
 
@@ -46,7 +51,11 @@ namespace reasoning {
 
         void delete_instance(const Instance &instance);
 
-        void save_turn_card(const Instance &player, const ExposedCard &Exposed_Card, uint time_instant);
+        void save_action(const Instance &player, const RevealCardAction &reveal_card_action, unsigned int time_instant);
+
+        void save_action(const Instance &player, const CoverCardAction &cover_card_action, unsigned int time_instant);
+
+        void save_action(const Instance &player, const RemoveCardAction &remove_card_action, unsigned int time_instant);
 
         void save(const ConcealedCard &concealed_card);
 

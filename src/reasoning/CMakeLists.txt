@@ -5,16 +5,16 @@ add_definitions(-std=c++11)
 
 add_executable(${PROJECT_NAME} main.cpp
         prolog/PrologClient.cpp
-        prolog/classes/Card.cpp
-        prolog/classes/Instance.cpp
+        prolog/Instance.cpp
         prolog/ObjectProperty.cpp
-        prolog/PrologEntities.h
         prolog/DataProperty.cpp
         model/ConcealedCard.cpp
         model/ConcealedCard.h
         model/ExposedCard.cpp
         model/ExposedCard.h
         model/CardPosition.cpp
+        FilterRecognizeTurn.cpp
+        StateProcessor.cpp
         NodeManager.cpp
         )
 
@@ -39,3 +39,7 @@ target_link_libraries(${PROJECT_NAME} ${aruco_LIBS})
 
 target_include_directories(${PROJECT_NAME}
         PRIVATE ext/optional-lite/include)
+
+find_package(Boost REQUIRED COMPONENTS system thread)
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})

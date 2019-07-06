@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "classes/Instance.h"
+#include "Instance.h"
 
 namespace reasoning {
 
