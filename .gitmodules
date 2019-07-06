@@ -1,3 +1,6 @@
 [submodule "src/reasoning/ext/optional-lite"]
 	path = src/reasoning/ext/optional-lite
 	url = https://github.com/martinmoene/optional-lite
+[submodule "src/perception/ext/optional-lite"]
+	path = src/perception/ext/optional-lite
+	url = https://github.com/martinmoene/optional-lite
