@@ -7,6 +7,13 @@ find_package(
         rospy
         std_msgs
         message_generation
+        genmsg
+        actionlib_msgs
+)
+add_action_files(
+        FILES
+        AskQuestion.action
+        SaySomething.action
 )
 add_message_files(
         FILES
@@ -15,7 +22,11 @@ add_message_files(
         ExposedCard.msg
         Cards.msg
 )
+
 generate_messages(
+        DEPENDENCIES
+        actionlib_msgs
+        std_msgs
 )
 catkin_package(
         CATKIN_DEPENDS
