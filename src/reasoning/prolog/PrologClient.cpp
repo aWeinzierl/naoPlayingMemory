@@ -11,6 +11,7 @@ namespace reasoning {
         PrologQueryProxy bdgs = _pl.query(
                 "rdf_costom_instance_from_class('" + _NAMESPACE + instance.get_class() + "',_," + instance.get_name() +
                 ", ObjInst)");
+
     }
 
     void PrologClient::delete_instance(const Instance &instance) {
@@ -72,6 +73,8 @@ namespace reasoning {
         auto time_stamp = create_time_stamp(time_instant);
         if (!instance_already_exists(time_stamp)) {
             save(time_stamp);
+            DataProperty<unsigned int> time_stamp_prop("hasTime",time_instant);
+            save_property(time_stamp,time_stamp_prop);
         }
         //create action(TurnOneCard) instance
         const std::string turn_one_card_class = "TurnOneCard";
@@ -141,14 +144,33 @@ namespace reasoning {
     }
 
     void PrologClient::test_prolog_query() {
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 3; i > 0; --i) {
             auto ts = create_time_stamp(i);
             save(ts);
+            DataProperty<unsigned int> time_stamp("hasTime",i);
+            save_property(ts,time_stamp);
         }
 
         PrologQueryProxy bdgs = _pl.query("all_times(Time)");
-        for (const auto& bdg: bdgs){
-            std::cout << bdg["Time"];
+        for(PrologQueryProxy::iterator it=bdgs.begin();it != bdgs.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Time = "<< bdg["Time"] << std::endl;
         }
+
+        PrologQueryProxy bdgs1 = _pl.query("findall(Times, all_times(Times), List)");
+        std::cout<<"Hey there im here"<<std::endl;
+        for(PrologQueryProxy::iterator it=bdgs1.begin();it != bdgs1.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Most_Recent = "<< bdg["List"] << std::endl;
+        }
+        PrologQueryProxy bdgs2 = _pl.query("largest(List,Time)");
+        std::cout<<"Hey there im here"<<std::endl;
+        for(PrologQueryProxy::iterator it=bdgs2.begin();it != bdgs2.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Most_Recent = "<< bdg["Time"] << std::endl;
+        }
+
     }
+
+
 }

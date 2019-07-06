@@ -3,8 +3,6 @@
       rdf_costom_instance_from_class/4
     ]).
 
-
-
 %%%%%%%%% costom instance
 
 rdf_costom_instance_from_class(Class, SourceRef,Instance_ID, Instance) :-
@@ -21,4 +19,3 @@ rdf_costom_instance_from_class(Class, SourceRef,Instance_ID, Instance) :-
   ( ( nonvar(SourceRef), rdf_assert(Instance, rdf:type, T, SourceRef),!);
     ( rdf_assert(Instance, rdf:type, T)) 
 ).
-
