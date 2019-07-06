@@ -30,3 +30,5 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/local/lib/cmake")
 find_package(aruco REQUIRED )
 target_link_libraries(${PROJECT_NAME}  ${aruco_LIBS})
 
+target_include_directories(${PROJECT_NAME}
+        PRIVATE ext/optional-lite/include)
