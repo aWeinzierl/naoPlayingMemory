@@ -1,3 +1,5 @@
+#pragma once
+
 #include "classes/CardPosition.h"
 
 namespace reasoning {

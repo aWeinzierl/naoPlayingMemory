@@ -66,7 +66,7 @@ namespace reasoning {
 
     //creates instance of turn_Card action  
     void
-    PrologClient::save_turn_card(const Instance &player, const ExposedCard &Exposed_Card, uint time_instant) {
+    PrologClient::save_action(const Instance &player, const RevealCardAction &reveal_card_action, unsigned int time_instant) {
 
         //create time_stamp
         auto time_stamp = create_time_stamp(time_instant);
@@ -87,14 +87,14 @@ namespace reasoning {
 
         //link to card instance
         //search card instance
-        auto card = card_already_exists(Exposed_Card.get_id());
+        auto card = card_already_exists(reveal_card_action.get_id());
         if (!card.has_value()) {
             throw new std::logic_error("Card_already_exist");
         }
         //create class instance
 
         //associate class to card
-        DataProperty<std::string> class_prop("hasClass", Exposed_Card.get_class());
+        DataProperty<std::string> class_prop("hasClass", reveal_card_action.get_class());
         save_property(card.value(), class_prop);
 
         ObjectProperty card_prop("hasCard", card.value());
