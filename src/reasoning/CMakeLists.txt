@@ -11,7 +11,14 @@ add_executable(${PROJECT_NAME} main.cpp
         prolog/classes/CardPosition.cpp
         prolog/PrologEntities.h
         prolog/DataProperty.cpp
-        prolog/ConcealedCard.cpp prolog/ConcealedCard.h prolog/ExposedCard.cpp prolog/ExposedCard.h)
+        prolog/ConcealedCard.cpp 
+        prolog/ExposedCard.cpp 
+        FilterRecognizeTurn.cpp
+        StateProcessor.cpp
+        State.h
+        TurnCard.h
+        Action.h
+        )
 
 find_package(catkin REQUIRED COMPONENTS
         roscpp
