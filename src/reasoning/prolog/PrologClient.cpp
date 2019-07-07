@@ -208,37 +208,7 @@ namespace reasoning {
         return instance;
 
     }
-
-    void PrologClient::save_action(const std::string &player_name, const RemoveCardAction &remove_card_action,
-                                   unsigned int time_instant) {
-        auto card_instance = card_already_exists(remove_card_action);
-
-        auto player = player_already_exists(player_name).value();
-
-        //create time_stamp
-        auto time_stamp = create_time_stamp(time_instant);
-        if (!instance_already_exists(time_stamp)) {
-            save(time_stamp);
-        }
-        //create action(TurnOneCard) instance
-        Instance remove_card_instance("RemoveCard", generate_random_string(_RANDOM_NAME_LENGTH));
-        while (instance_already_exists(remove_card_instance)) {
-            remove_card_instance = Instance("StartGame", generate_random_string(_RANDOM_NAME_LENGTH));
-        }
-        save(remove_card_instance);
-
-        DataProperty<unsigned int> time_stamp_prop("hasTime", time_instant);
-        save_property(time_stamp, time_stamp_prop);
-
-
-        ObjectProperty player_has_action("hasAction", remove_card_instance);
-        save_property(player, player_has_action);
-
-        //TODO associate removed card
-    }
-
-
-        void PrologClient::test_prolog_query() {
+    void PrologClient::test_prolog_query() {
         for (int i = 11; i > 0; --i) {
             auto ts = create_time_stamp(i);
             save(ts);
@@ -301,20 +271,6 @@ namespace reasoning {
             std::cout<< "Card2 = "<< bdg["Card2"] << std::endl;
         }
         
-    }
-
-    nonstd::optional<Instance> PrologClient::player_already_exists(const std::string &player_name) {
-
-        PrologQueryProxy bdgs = _pl.query(
-                "owl_has(Instance,'" + _NAMESPACE + "hasName' ,'" + player_name + "'),"
-                                                                                  "rdfs_instance_of(Instance, Player)");
-        if (bdgs.begin() == bdgs.end()) {
-            return nonstd::nullopt;
-        }
-        auto instance_bdg = *(bdgs.begin());
-        Instance instance("Player", instance_bdg["Instance"]);
-        return instance;
-
     }
 
     void PrologClient::save_action(const std::string &player_name, const RemoveCardAction &remove_card_action,
