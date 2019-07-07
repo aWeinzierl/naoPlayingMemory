@@ -138,7 +138,7 @@ namespace reasoning {
             throw new std::logic_error("Card_already_exist");
             //exit function----->
         }
-        Instance unknown_card_ins("UnknownCard", "Card_" + std::to_string(concealed_card.get_id()));
+        Instance unknown_card_ins("UnknownCard", std::to_string(concealed_card.get_id()));
         save(unknown_card_ins);
         Instance card_pos("CardPosition", "CardPosition" + std::to_string(concealed_card.get_position().get_x()) +
                                           std::to_string(concealed_card.get_position().get_x()));
@@ -206,6 +206,18 @@ namespace reasoning {
         for(PrologQueryProxy::iterator it=bdgs2.begin();it != bdgs2.end(); it++){
             PrologBindings bdg= *it;
             std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
+        }
+
+        PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action)");
+        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Action = "<< bdg["Action"] << std::endl;
+        }
+
+        PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action)");
+        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Action = "<< bdg["Action"] << std::endl;
         }
         
     }
