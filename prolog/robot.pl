@@ -68,15 +68,24 @@ hasZeroAttempts(Player):-
     hasTurn(Player, Turn),
     not(rdf_has(Turn, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentAttempt', _)).
 
-findTwoEqualCards(C1, C2):-
-    rdfs_individual_of(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#KnownCard'),
-    rdfs_individual_of(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#KnownCard'),
-    (C1/==C2),
-    rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class),
-    rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class).
+findTwoEqualCards(Class1, Class2):-
+    rdfs_individual_of(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    rdfs_individual_of(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id1),
+    rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id2),
+    atom_number(Id1,Id1N),atom_number(Id2,Id2N),
+    (Id1N<Id2N),
+    rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class1),
+    rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class2).
+
+    
+   
+ 
+
+    
 
 
 
-
+    
 
 

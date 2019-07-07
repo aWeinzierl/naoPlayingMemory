@@ -35,7 +35,8 @@ namespace reasoning {
                 "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
                 "','" + _NAMESPACE + property.get_name() +
                 "','" + std::to_string(property.get_value()) + "')");
-        
+
+
     }
 
     void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty<std::string> &property) {
@@ -43,6 +44,10 @@ namespace reasoning {
                 "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
                 "','" + _NAMESPACE + property.get_name() +
                 "','" + property.get_value() + "')");
+
+        std::cout<<"rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
+                   "','" + _NAMESPACE + property.get_name() +
+                   "','" + property.get_value() + "')"<<std::endl;
     }
 
     bool PrologClient::instance_already_exists(const Instance &instance) {
@@ -125,15 +130,15 @@ namespace reasoning {
             return nonstd::nullopt;
         }
         auto instance_bdg = *(bdgs.begin());
-
-        Instance instance("Card", instance_bdg["Instance"]);
+        std::string card_name = instance_bdg["Instance"];
+        Instance instance("Card", card_name.erase(0,5+_NAMESPACE.length()));
         return instance;
     }
 
     nonstd::optional<Instance> PrologClient::card_already_exists(const CardPosition &card_position) {
         PrologQueryProxy bdgs = _pl.query(
                 "rdf_has(Position,'" + _NAMESPACE + "hasXCoordinate' ,'" + std::to_string(card_position.get_x()) + "'),"
-                                                                                                                   "owl_has(Position,'" +
+                                                                                                                   "rdf_has(Position,'" +
                 _NAMESPACE + "hasYCoordinate' ,'" + std::to_string(card_position.get_y()) + "'),"
                                                                                             "rdf_has(CardInstance, '" +
                 _NAMESPACE + "hasPosition" + "',Position)");
@@ -141,7 +146,8 @@ namespace reasoning {
             return nonstd::nullopt;
         }
         auto instance_bdg = *(bdgs.begin());
-        Instance instance("Card", instance_bdg["CardInstance"]);
+        std::string card_name = instance_bdg["CardInstance"];
+        Instance instance("Card", card_name.erase(0,5+_NAMESPACE.length()));
         return instance;
     }
 
@@ -150,10 +156,11 @@ namespace reasoning {
         auto card = card_already_exists(concealed_card.get_id());
 
         if (card.has_value()) {
+            std::cout<<"We are here"<<std::endl;
             throw new std::logic_error("Card_already_exist");
             //exit function----->
         }
-        Instance unknown_card_ins("UnknownCard", std::to_string(concealed_card.get_id()));
+        Instance unknown_card_ins("Card", std::to_string(concealed_card.get_id()));
         save(unknown_card_ins);
         Instance card_pos("CardPosition", std::to_string(concealed_card.get_position().get_x()) +
                                           std::to_string(concealed_card.get_position().get_y()));
@@ -203,8 +210,8 @@ namespace reasoning {
             return nonstd::nullopt;
         }
         auto instance_bdg = *(bdgs.begin());
-
-        Instance instance("Player", instance_bdg["Instance"]);
+        std::string player_str = instance_bdg["Instance"];
+        Instance instance("Player", player_str.erase(0,7+_NAMESPACE.length()));
         return instance;
 
     }
@@ -290,7 +297,7 @@ namespace reasoning {
         ExposedCard C1("banana",1, c1_pos);
         ExposedCard C2("banana",2, c2_pos);
         save_action("Nao",C1,7);
-        save_action("Nao",C1,9);
+        save_action("Nao",C2,9);
 
         std::cout<<"exposedcards were created"<<std::endl;
 
