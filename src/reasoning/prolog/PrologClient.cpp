@@ -12,7 +12,6 @@ namespace reasoning {
         PrologQueryProxy bdgs = _pl.query(
                 "rdf_costom_instance_from_class('" + _NAMESPACE + instance.get_class() + "',_," + instance.get_name() +
                 ", ObjInst)");
-
     }
 
     void PrologClient::delete_instance(const Instance &instance) {
@@ -36,6 +35,10 @@ namespace reasoning {
                 "rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
                 "','" + _NAMESPACE + property.get_name() +
                 "','" + std::to_string(property.get_value()) + "')");
+
+        std::cout<<"rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
+                "','" + _NAMESPACE + property.get_name() +
+                "','" + std::to_string(property.get_value()) + "')"<<std::endl;
     }
 
     void PrologClient::save_property(const Instance &instance_of_interest, const DataProperty<std::string> &property) {
@@ -185,7 +188,27 @@ namespace reasoning {
             PrologBindings bdg = *it;
             std::cout << "Time = " << bdg["Time"] << std::endl;
         }
+        //create Start game instance
+        Instance start_game("StartGame","1");
+        save(start_game);
+        auto ts = create_time_stamp(50);
+        save(ts);
 
+
+
+        DataProperty<unsigned int> time_stamp("hasTime",50);
+
+        save_property(ts,time_stamp);
+        ObjectProperty init("hasTimeStamp",ts);
+        std::cout<<"Im here4"<<std::endl;
+        save_property(start_game,init);
+
+
+        PrologQueryProxy bdgs2 = _pl.query("start_game(GameStatus)");
+        for(PrologQueryProxy::iterator it=bdgs2.begin();it != bdgs2.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
+        }
 
     }
 
