@@ -208,13 +208,6 @@ namespace reasoning {
             std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
         }
         
-
-        PrologQueryProxy bdgs3 = _pl.query("rdfs_individual_of(InstanceStartGame,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#StartGame'),rdf_has(InstanceStartGame,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasTimeStamp',TimeStartGame),rdf_has(TimeStartGame,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasTime',Time),atom_number(Time,TimeN),rdf_costom_instance_from_class('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#MemoryGameStatus',_,TimeN,GameStatus)");
-        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
-            PrologBindings bdg= *it;
-    
-            std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
-        }
     }
 
 
