@@ -139,4 +139,20 @@ namespace reasoning {
         save_property(card_pos, y_pos);
         save_property(unknown_card_ins, card_position);
     }
+
+    void
+    PrologClient::save_action(const Instance &placer, StartGameAction start_game_action, unsigned int time_instant) {
+
+        //create time_stamp
+        auto time_stamp = create_time_stamp(time_instant);
+        if (!instance_already_exists(time_stamp)) {
+            save(time_stamp);
+        }
+        //create action(TurnOneCard) instance
+        Instance start_game("StartGame", "StartGame_" + generate_random_string(_RANDOM_NAME_LENGTH));
+        while (instance_already_exists(start_game)) {
+            start_game = Instance("StartGame", "StartGame_" + generate_random_string(_RANDOM_NAME_LENGTH));
+        }
+        save(start_game);
+    }
 }
