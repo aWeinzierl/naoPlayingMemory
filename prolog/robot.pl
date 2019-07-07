@@ -10,19 +10,14 @@ all_times(Time) :-
     rdf_has(TimeInstances, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasTime', Time).
     
 
-
-
-most_recent_timestamp(Time) :-
+most_recent_timestamp(Vtime) :-
     findall(Times,all_times(Times), List),
-    largest(List,Time).
-
+    maplist(atom_number,List,List_n),
+    largest(List_n,Vtime).
 
 largest([X],X).
 largest([X|Xs],R) :-
    largest(Xs,Y),
    R is max(X,Y).
+   
 
-
-
-
-  

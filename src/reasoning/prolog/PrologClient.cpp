@@ -144,31 +144,21 @@ namespace reasoning {
     }
 
     void PrologClient::test_prolog_query() {
-        for (int i = 3; i > 0; --i) {
+        for (int i = 11; i >0; --i) {
             auto ts = create_time_stamp(i);
             save(ts);
             DataProperty<unsigned int> time_stamp("hasTime",i);
             save_property(ts,time_stamp);
         }
 
+        
         PrologQueryProxy bdgs = _pl.query("all_times(Time)");
         for(PrologQueryProxy::iterator it=bdgs.begin();it != bdgs.end(); it++){
             PrologBindings bdg= *it;
             std::cout<< "Time = "<< bdg["Time"] << std::endl;
         }
-
-        PrologQueryProxy bdgs1 = _pl.query("findall(Times, all_times(Times), List)");
-        std::cout<<"Hey there im here"<<std::endl;
-        for(PrologQueryProxy::iterator it=bdgs1.begin();it != bdgs1.end(); it++){
-            PrologBindings bdg= *it;
-            std::cout<< "Most_Recent = "<< bdg["List"] << std::endl;
-        }
-        PrologQueryProxy bdgs2 = _pl.query("largest(List,Time)");
-        std::cout<<"Hey there im here"<<std::endl;
-        for(PrologQueryProxy::iterator it=bdgs2.begin();it != bdgs2.end(); it++){
-            PrologBindings bdg= *it;
-            std::cout<< "Most_Recent = "<< bdg["Time"] << std::endl;
-        }
+  
+    
 
     }
 
