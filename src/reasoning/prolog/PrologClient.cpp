@@ -263,10 +263,9 @@ namespace reasoning {
         auto time_stamp = create_time_stamp(time_instant);
         if (!instance_already_exists(time_stamp)) {
             save(time_stamp);
+            DataProperty<unsigned int> time_stamp_prop("hasTime", time_instant);
+            save_property(time_stamp, time_stamp_prop);
         }
-        DataProperty<unsigned int> time_stamp_prop("hasTime", time_instant);
-        save_property(time_stamp, time_stamp_prop);
-
 
         //create action(TurnOneCard) instance
         Instance remove_card_instance("RemoveCard", generate_random_string(_RANDOM_NAME_LENGTH));
