@@ -21,8 +21,6 @@ namespace reasoning {
         json_prolog::Prolog _pl;
 
         static constexpr char _ALLOWED_CHARS_FOR_RANDOM_NAMES[] =
-                "abcdefghijklmnaoqrstuvwxyz"
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 "1234567890";
 
         static constexpr uint _RANDOM_NAME_LENGTH = 16;
