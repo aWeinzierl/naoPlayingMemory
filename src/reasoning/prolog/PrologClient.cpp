@@ -256,7 +256,6 @@ namespace reasoning {
 
     void PrologClient::save_action(const std::string &player_name, const RemoveCardAction &remove_card_action,
                                    unsigned int time_instant) {
-        auto card_instance = card_already_exists(remove_card_action);
 
         auto player = player_already_exists(player_name).value();
 
@@ -265,6 +264,10 @@ namespace reasoning {
         if (!instance_already_exists(time_stamp)) {
             save(time_stamp);
         }
+        DataProperty<unsigned int> time_stamp_prop("hasTime", time_instant);
+        save_property(time_stamp, time_stamp_prop);
+
+
         //create action(TurnOneCard) instance
         Instance remove_card_instance("RemoveCard", generate_random_string(_RANDOM_NAME_LENGTH));
         while (instance_already_exists(remove_card_instance)) {
@@ -272,13 +275,14 @@ namespace reasoning {
         }
         save(remove_card_instance);
 
-        DataProperty<unsigned int> time_stamp_prop("hasTime", time_instant);
-        save_property(time_stamp, time_stamp_prop);
+        ObjectProperty time_stamp_ob_prop("hasTimeStamp", time_stamp);
+        save_property(remove_card_instance, time_stamp_ob_prop);
 
+        auto card_instance = card_already_exists(remove_card_action).value();
+        ObjectProperty has_card_prop("hasCard", card_instance);
+        save_property(remove_card_instance, has_card_prop);
 
         ObjectProperty player_has_action("hasAction", remove_card_instance);
         save_property(player, player_has_action);
-
-        //TODO associate removed card
     }
 }
