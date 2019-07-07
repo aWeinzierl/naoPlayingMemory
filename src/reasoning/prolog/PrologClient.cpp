@@ -270,7 +270,7 @@ namespace reasoning {
         //create action(TurnOneCard) instance
         Instance remove_card_instance("RemoveCard", generate_random_string(_RANDOM_NAME_LENGTH));
         while (instance_already_exists(remove_card_instance)) {
-            remove_card_instance = Instance("StartGame", generate_random_string(_RANDOM_NAME_LENGTH));
+            remove_card_instance = Instance("RemoveCard", generate_random_string(_RANDOM_NAME_LENGTH));
         }
         save(remove_card_instance);
 
