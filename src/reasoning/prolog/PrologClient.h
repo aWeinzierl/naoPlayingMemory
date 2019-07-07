@@ -21,10 +21,7 @@ namespace reasoning {
     class PrologClient {
         json_prolog::Prolog _pl;
 
-        static constexpr char _ALLOWED_CHARS_FOR_RANDOM_NAMES[] =
-                "abcdefghijklmnaoqrstuvwxyz"
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                "1234567890";
+        static constexpr char _ALLOWED_CHARS_FOR_RANDOM_NAMES[] = "1234567890";
 
         static constexpr uint _RANDOM_NAME_LENGTH = 16;
 
@@ -47,6 +44,8 @@ namespace reasoning {
         void save_property(const Instance &instance_of_interest, const DataProperty<unsigned int> &property);
 
         nonstd::optional<Instance> card_already_exists(uint id);
+
+        nonstd::optional<Instance> player_already_exists(const std::string &player_name);
 
     public:
 
