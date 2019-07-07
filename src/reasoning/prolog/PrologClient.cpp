@@ -284,4 +284,32 @@ namespace reasoning {
         ObjectProperty player_has_action("hasAction", remove_card_instance);
         save_property(player, player_has_action);
     }
+
+    void PrologClient::save_action(const std::string &player_name, const CoverCardAction &cover_card_action,
+                                   unsigned int time_instant) {
+
+        auto time_stamp = create_time_stamp(time_instant);
+        if (!instance_already_exists(time_stamp)) {
+            save(time_stamp);
+            DataProperty<unsigned int> time_stamp_prop("hasTime", time_instant);
+            save_property(time_stamp, time_stamp_prop);
+        }
+
+        Instance cover_card_instance("CoverCard", generate_random_string(_RANDOM_NAME_LENGTH));
+        while (instance_already_exists(cover_card_instance)) {
+            cover_card_instance = Instance("CoverCard", generate_random_string(_RANDOM_NAME_LENGTH));
+        }
+        save(cover_card_instance);
+
+        ObjectProperty time_stamp_ob_prop("hasTimeStamp", time_stamp);
+        save_property(cover_card_instance, time_stamp_ob_prop);
+
+        auto card_instance = card_already_exists(cover_card_action.get_id()).value();
+        ObjectProperty has_card_prop("hasCard", card_instance);
+        save_property(cover_card_instance, has_card_prop);
+
+        auto player = player_already_exists(player_name).value();
+        ObjectProperty player_has_action("hasAction", cover_card_instance);
+        save_property(player, player_has_action);
+    }
 }
