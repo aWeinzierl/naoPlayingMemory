@@ -99,7 +99,7 @@ namespace reasoning {
         //search card instance
         auto card = card_already_exists(reveal_card_action.get_id());
         if (!card.has_value()) {
-            throw new std::logic_error("Card_already_exist");
+            throw new std::logic_error("Card does not exist");
         }
         //create class instance
 
@@ -127,6 +127,7 @@ namespace reasoning {
             return nonstd::nullopt;
         }
         auto instance_bdg = *(bdgs.begin());
+
         Instance instance("Card", instance_bdg["Instance"]);
         return instance;
     }
@@ -155,8 +156,8 @@ namespace reasoning {
         }
         Instance unknown_card_ins("UnknownCard", std::to_string(concealed_card.get_id()));
         save(unknown_card_ins);
-        Instance card_pos("CardPosition", "CardPosition" + std::to_string(concealed_card.get_position().get_x()) +
-                                          std::to_string(concealed_card.get_position().get_x()));
+        Instance card_pos("CardPosition", std::to_string(concealed_card.get_position().get_x()) +
+                                          std::to_string(concealed_card.get_position().get_y()));
         ObjectProperty card_position("hasPosition", card_pos);
         DataProperty<unsigned int> x_pos("hasXCoordinate", concealed_card.get_position().get_x());
         DataProperty<unsigned int> y_pos("hasYCoordinate", concealed_card.get_position().get_y());
@@ -190,65 +191,18 @@ namespace reasoning {
         save_property(player, player_has_action);
     }
 
-    void PrologClient::test_prolog_query() {
-        for (int i = 11; i > 0; --i) {
-            auto ts = create_time_stamp(i);
-            save(ts);
-            DataProperty<unsigned int> time_stamp("hasTime", i);
-            save_property(ts, time_stamp);
-        }
 
-
-        PrologQueryProxy bdgs = _pl.query("all_times(Time)");
-        for (PrologQueryProxy::iterator it = bdgs.begin(); it != bdgs.end(); it++) {
-            PrologBindings bdg = *it;
-            std::cout << "Time = " << bdg["Time"] << std::endl;
-        }
-        //create Start game instance
-        Instance start_game("StartGame","1");
-        save(start_game);
-        auto ts = create_time_stamp(50);
-        save(ts);
-
-
-
-        DataProperty<unsigned int> time_stamp("hasTime",50);
-
-        save_property(ts,time_stamp);
-        ObjectProperty init("hasTimeStamp",ts);
-        std::cout<<"Im here4"<<std::endl;
-        save_property(start_game,init);
-
-
-        PrologQueryProxy bdgs2 = _pl.query("start_game(GameStatus)");
-        for(PrologQueryProxy::iterator it=bdgs2.begin();it != bdgs2.end(); it++){
-            PrologBindings bdg= *it;
-            std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
-        }
-
-        PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action)");
-        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
-            PrologBindings bdg= *it;
-            std::cout<< "Action = "<< bdg["Action"] << std::endl;
-        }
-
-        PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action)");
-        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
-            PrologBindings bdg= *it;
-            std::cout<< "Action = "<< bdg["Action"] << std::endl;
-        }
-        
-    }
 
     nonstd::optional<Instance> PrologClient::player_already_exists(const std::string &player_name) {
 
         PrologQueryProxy bdgs = _pl.query(
-                "owl_has(Instance,'" + _NAMESPACE + "hasName' ,'" + player_name + "'),"
-                                                                                  "rdfs_instance_of(Instance, Player)");
+                "rdfs_individual_of(Instance, '" + _NAMESPACE + "Player'),"
+                "rdf_has(Instance,'" + _NAMESPACE + "hasName' ," + player_name + ")");
         if (bdgs.begin() == bdgs.end()) {
             return nonstd::nullopt;
         }
         auto instance_bdg = *(bdgs.begin());
+
         Instance instance("Player", instance_bdg["Instance"]);
         return instance;
 
@@ -280,5 +234,72 @@ namespace reasoning {
         save_property(player, player_has_action);
 
         //TODO associate removed card
+    }
+
+
+        void PrologClient::test_prolog_query() {
+        for (int i = 11; i > 0; --i) {
+            auto ts = create_time_stamp(i);
+            save(ts);
+            DataProperty<unsigned int> time_stamp("hasTime", i);
+            save_property(ts, time_stamp);
+        }
+
+
+        PrologQueryProxy bdgs = _pl.query("all_times(Time)");
+        for (PrologQueryProxy::iterator it = bdgs.begin(); it != bdgs.end(); it++) {
+            PrologBindings bdg = *it;
+            std::cout << "Time = " << bdg["Time"] << std::endl;
+        }
+        //create Start game instance
+        Instance start_game("StartGame","1");
+        save(start_game);
+        auto ts = create_time_stamp(5);
+        save(ts);
+
+
+
+        DataProperty<unsigned int> time_stamp("hasTime",5);
+
+        save_property(ts,time_stamp);
+        ObjectProperty init("hasTimeStamp",ts);
+        std::cout<<"Im here4"<<std::endl;
+        save_property(start_game,init);
+
+
+        PrologQueryProxy bdgs2 = _pl.query("start_game(GameStatus)");
+        for(PrologQueryProxy::iterator it=bdgs2.begin();it != bdgs2.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
+        }
+
+        PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action)");
+        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Action = "<< bdg["Action"] << std::endl;
+        }
+        CardPosition c1_pos(1,2);
+        CardPosition c2_pos(2,3);
+        ConcealedCard C1_c(1,c1_pos);
+        ConcealedCard C2_c(2,c2_pos);
+        save(C1_c);
+        save(C2_c);
+
+        std::cout<<"concealed cards were created"<<std::endl;
+
+        ExposedCard C1("banana",1, c1_pos);
+        ExposedCard C2("banana",2, c2_pos);
+        save_action("Nao",C1,7);
+        save_action("Nao",C1,9);
+
+        std::cout<<"exposedcards were created"<<std::endl;
+
+        PrologQueryProxy bdgs4 = _pl.query("findTwoEqualCards(Card1, Card2)");
+        for(PrologQueryProxy::iterator it=bdgs4.begin();it != bdgs4.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Card1 = "<< bdg["Card1"] << std::endl;
+            std::cout<< "Card2 = "<< bdg["Card2"] << std::endl;
+        }
+        
     }
 }
