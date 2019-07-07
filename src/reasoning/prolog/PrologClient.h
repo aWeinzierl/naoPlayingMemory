@@ -58,7 +58,7 @@ namespace reasoning {
 
         void save_action(const Instance &player, const RemoveCardAction &remove_card_action, unsigned int time_instant);
 
-        void save_action(const Instance &placer, StartGameAction start_game_action, unsigned int time_instant);
+        void save_action(const Instance &player, StartGameAction start_game_action, unsigned int time_instant);
 
         void save(const ConcealedCard &concealed_card);
 

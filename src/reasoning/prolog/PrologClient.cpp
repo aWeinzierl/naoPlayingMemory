@@ -145,7 +145,7 @@ namespace reasoning {
     }
 
     void
-    PrologClient::save_action(const Instance &placer, StartGameAction start_game_action, unsigned int time_instant) {
+    PrologClient::save_action(const Instance &player, StartGameAction start_game_action, unsigned int time_instant) {
 
         //create time_stamp
         auto time_stamp = create_time_stamp(time_instant);
@@ -158,6 +158,12 @@ namespace reasoning {
             start_game = Instance("StartGame", "StartGame_" + generate_random_string(_RANDOM_NAME_LENGTH));
         }
         save(start_game);
+
+        DataProperty<unsigned int> time_stamp_prop("hasTime",time_instant);
+        save_property(time_stamp,time_stamp_prop);
+
+        ObjectProperty player_has_action("hasAction", start_game);
+        save_property(player, player_has_action);
     }
 
     void PrologClient::test_prolog_query() {
