@@ -131,6 +131,21 @@ namespace reasoning {
         return instance;
     }
 
+    nonstd::optional<Instance> PrologClient::card_already_exists(const CardPosition &card_position) {
+        PrologQueryProxy bdgs = _pl.query(
+                "owl_has(Position,'" + _NAMESPACE + "hasXCoordinate' ,'" + std::to_string(card_position.get_x()) + "'),"
+                                                                                                                   "owl_has(Position,'" +
+                _NAMESPACE + "hasYCoordinate' ,'" + std::to_string(card_position.get_y()) + "'),"
+                                                                                            "rdf_has(CardInstance, '" +
+                _NAMESPACE + "hasPosition" + "',Position)");
+        if (bdgs.begin() == bdgs.end()) {
+            return nonstd::nullopt;
+        }
+        auto instance_bdg = *(bdgs.begin());
+        Instance instance("Card", instance_bdg["CardInstance"]);
+        return instance;
+    }
+
     void PrologClient::save(const ConcealedCard &concealed_card) {
 
         auto card = card_already_exists(concealed_card.get_id());
@@ -151,7 +166,8 @@ namespace reasoning {
     }
 
     void
-    PrologClient::save_action(const std::string &player_name, StartGameAction start_game_action, unsigned int time_instant) {
+    PrologClient::save_action(const std::string &player_name, StartGameAction start_game_action,
+                              unsigned int time_instant) {
 
         auto player = player_already_exists(player_name).value();
 
@@ -216,7 +232,7 @@ namespace reasoning {
 
         PrologQueryProxy bdgs = _pl.query(
                 "owl_has(Instance,'" + _NAMESPACE + "hasName' ,'" + player_name + "'),"
-                "rdfs_instance_of(Instance, Player)");
+                                                                                  "rdfs_instance_of(Instance, Player)");
         if (bdgs.begin() == bdgs.end()) {
             return nonstd::nullopt;
         }
@@ -224,5 +240,33 @@ namespace reasoning {
         Instance instance("Player", instance_bdg["Instance"]);
         return instance;
 
+    }
+
+    void PrologClient::save_action(const std::string &player_name, const RemoveCardAction &remove_card_action,
+                                   unsigned int time_instant) {
+        auto card_instance = card_already_exists(remove_card_action);
+
+        auto player = player_already_exists(player_name).value();
+
+        //create time_stamp
+        auto time_stamp = create_time_stamp(time_instant);
+        if (!instance_already_exists(time_stamp)) {
+            save(time_stamp);
+        }
+        //create action(TurnOneCard) instance
+        Instance remove_card_instance("RemoveCard", generate_random_string(_RANDOM_NAME_LENGTH));
+        while (instance_already_exists(remove_card_instance)) {
+            remove_card_instance = Instance("StartGame", generate_random_string(_RANDOM_NAME_LENGTH));
+        }
+        save(remove_card_instance);
+
+        DataProperty<unsigned int> time_stamp_prop("hasTime", time_instant);
+        save_property(time_stamp, time_stamp_prop);
+
+
+        ObjectProperty player_has_action("hasAction", remove_card_instance);
+        save_property(player, player_has_action);
+
+        //TODO associate removed card
     }
 }

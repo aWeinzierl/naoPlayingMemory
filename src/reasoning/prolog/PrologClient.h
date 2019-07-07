@@ -45,13 +45,15 @@ namespace reasoning {
 
         nonstd::optional<Instance> card_already_exists(uint id);
 
+        nonstd::optional<Instance> card_already_exists(const CardPosition &card_position);
+
         nonstd::optional<Instance> player_already_exists(const std::string &player_name);
 
     public:
 
         void delete_instance(const Instance &instance);
 
-        void save_action(const Instance &player, const RevealCardAction &reveal_card_action, unsigned int time_instant);
+        void save_action(const std::string &player_name, const RevealCardAction &reveal_card_action, unsigned int time_instant);
 
         void save_action(const std::string &player_name, const CoverCardAction &cover_card_action, unsigned int time_instant);
 
