@@ -2,6 +2,7 @@
 
 #include <string>
 #include <exception>
+#include <iostream>
 
 namespace reasoning {
     constexpr char PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES[];
