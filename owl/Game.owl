@@ -1,516 +1,632 @@
 <?xml version="1.0"?>
-<Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"
+<rdf:RDF xmlns="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"
+     xml:base="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl"
+     xmlns:game="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#">
-    <Prefix name="" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"/>
-    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
-    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
-    <Prefix name="game" IRI="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"/>
-    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Declaration>
-        <ObjectProperty IRI="hasRule"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasTurns"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="isActionOf"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasCondition"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasAttempt"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="isStatusOf"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="plays"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="GameFinished"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasPlayerNodeSequence"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="WinGame"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="currentRound"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="roundNumber"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasObject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Card"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasEvent"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Condition"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="PlayerNode"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="TakeCards"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="isEqualTo"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="cardDrawn"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="associatedToPlayer"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="MemoryGameStatus"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="DifferentCards"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="ExtraAttempt"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Rule"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="PlayerWins"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="isObjectOf"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="hasPosition"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="associatedToCard"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="PlayerHasMostCards"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="ItsThePlayersTurn"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Round"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasCurrentTurn"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasRound"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="isRule"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="CardsEmpty"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Attempt"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasCurrentAttempt"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="CardCollection"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="isPlayedOf"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Player"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasPlayerNode"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="EqualCards"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasCardCollections"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Event"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="FinishRound"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Turn"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="FinishTurn"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Action"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasPlayer"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="hasAction"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Game"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="hasDrawnCard"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Object"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="TurnCard"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="MustFinishTurn"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="MemoryGame"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="WinCards"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="Status"/>
-    </Declaration>
-    <SubClassOf>
-        <Class IRI="Attempt"/>
-        <ObjectAllValuesFrom>
-            <ObjectProperty IRI="hasEvent"/>
-            <Class IRI="Event"/>
-        </ObjectAllValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Card"/>
-        <Class IRI="Object"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Card"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="isEqualTo"/>
-            <Class IRI="Card"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="CardCollection"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="associatedToCard"/>
-            <Class IRI="Card"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="CardCollection"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="associatedToPlayer"/>
-            <Class IRI="Player"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGame"/>
-        <Class IRI="Game"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGame"/>
-        <ObjectAllValuesFrom>
-            <ObjectProperty IRI="hasStatus"/>
-            <Class IRI="MemoryGameStatus"/>
-        </ObjectAllValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGameStatus"/>
-        <Class IRI="Status"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGameStatus"/>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="hasRound"/>
-            <Class IRI="Round"/>
-        </ObjectSomeValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGameStatus"/>
-        <ObjectAllValuesFrom>
-            <ObjectProperty IRI="hasCardCollections"/>
-            <Class IRI="CardCollection"/>
-        </ObjectAllValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGameStatus"/>
-        <ObjectMinCardinality cardinality="2">
-            <ObjectProperty IRI="hasPlayer"/>
-            <Class IRI="Player"/>
-        </ObjectMinCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGameStatus"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="currentRound"/>
-            <Class IRI="Round"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGameStatus"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="hasPlayerNodeSequence"/>
-            <Class IRI="PlayerNode"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="MemoryGameStatus"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="isStatusOf"/>
-            <Class IRI="MemoryGameStatus"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="PlayerNode"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="hasPlayer"/>
-            <Class IRI="Player"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="PlayerNode"/>
-        <ObjectMaxCardinality cardinality="1">
-            <ObjectProperty IRI="hasPlayerNode"/>
-            <Class IRI="PlayerNode"/>
-        </ObjectMaxCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Round"/>
-        <ObjectAllValuesFrom>
-            <ObjectProperty IRI="hasTurns"/>
-            <Class IRI="Turn"/>
-        </ObjectAllValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Round"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="hasCurrentTurn"/>
-            <Class IRI="Turn"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Rule"/>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="hasCondition"/>
-            <Class IRI="Condition"/>
-        </ObjectSomeValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Turn"/>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="hasAttempt"/>
-            <Class IRI="Attempt"/>
-        </ObjectSomeValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Turn"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="associatedToPlayer"/>
-            <Class IRI="Player"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="Turn"/>
-        <ObjectExactCardinality cardinality="1">
-            <ObjectProperty IRI="hasCurrentAttempt"/>
-            <Class IRI="Attempt"/>
-        </ObjectExactCardinality>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="hasDrawnCard"/>
-        <Class IRI="Event"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="hasDrawnCard"/>
-        <ObjectAllValuesFrom>
-            <ObjectProperty IRI="cardDrawn"/>
-            <Class IRI="Card"/>
-        </ObjectAllValuesFrom>
-    </SubClassOf>
-    <ClassAssertion>
-        <Class IRI="Condition"/>
-        <NamedIndividual IRI="CardsEmpty"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Condition"/>
-        <NamedIndividual IRI="DifferentCards"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Condition"/>
-        <NamedIndividual IRI="EqualCards"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Rule"/>
-        <NamedIndividual IRI="ExtraAttempt"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Action"/>
-        <NamedIndividual IRI="FinishRound"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Action"/>
-        <NamedIndividual IRI="FinishTurn"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Rule"/>
-        <NamedIndividual IRI="GameFinished"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Condition"/>
-        <NamedIndividual IRI="ItsThePlayersTurn"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Rule"/>
-        <NamedIndividual IRI="MustFinishTurn"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Condition"/>
-        <NamedIndividual IRI="PlayerHasMostCards"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Rule"/>
-        <NamedIndividual IRI="PlayerWins"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Action"/>
-        <NamedIndividual IRI="TakeCards"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Rule"/>
-        <NamedIndividual IRI="WinCards"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="Action"/>
-        <NamedIndividual IRI="WinGame"/>
-    </ClassAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="hasCondition"/>
-        <NamedIndividual IRI="ExtraAttempt"/>
-        <NamedIndividual IRI="EqualCards"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="hasCondition"/>
-        <NamedIndividual IRI="GameFinished"/>
-        <NamedIndividual IRI="CardsEmpty"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="hasCondition"/>
-        <NamedIndividual IRI="MustFinishTurn"/>
-        <NamedIndividual IRI="DifferentCards"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="hasCondition"/>
-        <NamedIndividual IRI="PlayerWins"/>
-        <NamedIndividual IRI="PlayerHasMostCards"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="hasCondition"/>
-        <NamedIndividual IRI="WinCards"/>
-        <NamedIndividual IRI="EqualCards"/>
-    </ObjectPropertyAssertion>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="associatedToCard"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="associatedToPlayer"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="cardDrawn"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="hasCurrentTurn"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="hasPlayerNodeSequence"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="isStatusOf"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="plays"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <InverseObjectProperties>
-        <ObjectProperty IRI="hasAction"/>
-        <ObjectProperty IRI="isActionOf"/>
-    </InverseObjectProperties>
-    <InverseObjectProperties>
-        <ObjectProperty IRI="isPlayedOf"/>
-        <ObjectProperty IRI="plays"/>
-    </InverseObjectProperties>
-    <InverseObjectProperties>
-        <ObjectProperty IRI="isStatusOf"/>
-        <ObjectProperty IRI="isStatusOf"/>
-    </InverseObjectProperties>
-    <FunctionalObjectProperty>
-        <ObjectProperty IRI="hasStatus"/>
-    </FunctionalObjectProperty>
-    <FunctionalObjectProperty>
-        <ObjectProperty IRI="isEqualTo"/>
-    </FunctionalObjectProperty>
-    <SymmetricObjectProperty>
-        <ObjectProperty IRI="isActionOf"/>
-    </SymmetricObjectProperty>
-    <SymmetricObjectProperty>
-        <ObjectProperty IRI="isStatusOf"/>
-    </SymmetricObjectProperty>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="isEqualTo"/>
-        <Class IRI="Card"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="plays"/>
-        <Class IRI="Player"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="hasAction"/>
-        <Class IRI="Action"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="hasObject"/>
-        <Class IRI="Object"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="hasStatus"/>
-        <Class IRI="Status"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="isEqualTo"/>
-        <Class IRI="Card"/>
-    </ObjectPropertyRange>
-    <DataPropertyDomain>
-        <DataProperty IRI="roundNumber"/>
-        <Class IRI="Round"/>
-    </DataPropertyDomain>
-</Ontology>
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToCard -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToCard">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#cardDrawn -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#cardDrawn">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#currentRound -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#currentRound"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAction -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAction">
+        <owl:inverseOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isActionOf"/>
+        <rdfs:range rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAttempt -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAttempt"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCardCollections -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCardCollections"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentAttempt -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentAttempt"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentTurn -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentTurn">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasEvent -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasEvent"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasObject -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasObject">
+        <rdfs:range rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayer -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayer"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNode -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNode"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNodeSequence -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNodeSequence">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRound -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRound"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRule -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRule"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasStatus -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasStatus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Status"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasTurns -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasTurns"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isActionOf -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isActionOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
+        <rdfs:range rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isObjectOf -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isObjectOf"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isPlayedOf -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isPlayedOf">
+        <owl:inverseOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isRule -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isRule"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:inverseOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#plays">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPosition -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPosition"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#roundNumber -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#roundNumber">
+        <rdfs:domain rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasEvent"/>
+                <owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Event"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card">
+        <rdfs:subClassOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Object"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isEqualTo"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardCollection -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardCollection">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToCard"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Event -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Event"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Game -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Game"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGame -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGame">
+        <rdfs:subClassOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Game"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasStatus"/>
+                <owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus">
+        <rdfs:subClassOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Status"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasRound"/>
+                <owl:someValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCardCollections"/>
+                <owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardCollection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayer"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#currentRound"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNodeSequence"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#isStatusOf"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MemoryGameStatus"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Object -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Object"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayer"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasPlayerNode"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerNode"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Round">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasTurns"/>
+                <owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentTurn"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCondition"/>
+                <owl:someValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Status -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Status"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Turn">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasAttempt"/>
+                <owl:someValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#associatedToPlayer"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Player"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasCurrentAttempt"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Attempt"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasDrawnCard -->
+
+    <owl:Class rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#hasDrawnCard">
+        <rdfs:subClassOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Event"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#cardDrawn"/>
+                <owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Card"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardsEmpty -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardsEmpty">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#DifferentCards -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#DifferentCards">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ExtraAttempt -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ExtraAttempt">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <hasCondition rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishRound -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishRound">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishTurn -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#FinishTurn">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#GameFinished -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#GameFinished">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <hasCondition rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#CardsEmpty"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ItsThePlayersTurn -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#ItsThePlayersTurn">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MustFinishTurn -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#MustFinishTurn">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <hasCondition rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#DifferentCards"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerHasMostCards -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerHasMostCards">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Condition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerWins -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerWins">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <hasCondition rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#PlayerHasMostCards"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#TakeCards -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#TakeCards">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#TurnCard -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#TurnCard"/>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#WinCards -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#WinCards">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Rule"/>
+        <hasCondition rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#EqualCards"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#WinGame -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#WinGame">
+        <rdf:type rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Game.owl#Action"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
 
 
 

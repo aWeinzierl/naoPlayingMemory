@@ -62,6 +62,7 @@ namespace reasoning {
 
         void save(const ConcealedCard &concealed_card);
 
+        void test_prolog_query();
     };
 
 

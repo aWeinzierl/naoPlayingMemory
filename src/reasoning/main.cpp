@@ -4,8 +4,8 @@
 
 main(int argc, char **argv) {
     ros::init(argc, argv, "reasoning");
-
-    NodeManager nm;
-
+    PrologClient pc;
+    
+    pc.test_prolog_query();
     ros::spin();
 }

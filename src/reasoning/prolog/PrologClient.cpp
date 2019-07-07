@@ -2,6 +2,7 @@
 
 #include <string>
 #include <exception>
+#include <iostream>
 
 namespace reasoning {
     constexpr char PrologClient::_ALLOWED_CHARS_FOR_RANDOM_NAMES[];
@@ -9,8 +10,9 @@ namespace reasoning {
     //saves intance
     void PrologClient::save(const Instance &instance) {
         PrologQueryProxy bdgs = _pl.query(
-                "rdf_costom_instance_from_class('" + _NAMESPACE + instance.get_class() + ",_," + instance.get_name() +
-                "', ObjInst)");
+                "rdf_costom_instance_from_class('" + _NAMESPACE + instance.get_class() + "',_," + instance.get_name() +
+                ", ObjInst)");
+
     }
 
     void PrologClient::delete_instance(const Instance &instance) {
@@ -72,6 +74,8 @@ namespace reasoning {
         auto time_stamp = create_time_stamp(time_instant);
         if (!instance_already_exists(time_stamp)) {
             save(time_stamp);
+            DataProperty<unsigned int> time_stamp_prop("hasTime",time_instant);
+            save_property(time_stamp,time_stamp_prop);
         }
         //create action(TurnOneCard) instance
         const std::string turn_one_card_class = "TurnOneCard";
@@ -155,4 +159,25 @@ namespace reasoning {
         }
         save(start_game);
     }
+
+    void PrologClient::test_prolog_query() {
+        for (int i = 11; i >0; --i) {
+            auto ts = create_time_stamp(i);
+            save(ts);
+            DataProperty<unsigned int> time_stamp("hasTime",i);
+            save_property(ts,time_stamp);
+        }
+
+
+        PrologQueryProxy bdgs = _pl.query("all_times(Time)");
+        for(PrologQueryProxy::iterator it=bdgs.begin();it != bdgs.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Time = "<< bdg["Time"] << std::endl;
+        }
+
+
+
+    }
+
+
 }
