@@ -375,8 +375,9 @@
 
 <rdf:Description rdf:nodeID="genid3">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasEvent"/>
-	<owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Event"/>
+	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasAction"/>
+	<owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+	<owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Action"/>
 </rdf:Description>
 <!--  -->
 <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card -->
@@ -469,12 +470,6 @@
 <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Condition -->
 
 <rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Condition">
-	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-</rdf:Description>
-<!--  -->
-<!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Event -->
-
-<rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Event">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
 </rdf:Description>
 <!--  -->
@@ -582,7 +577,7 @@
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isStatusOf"/>
 	<owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
-	<owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#MemoryGameStatus"/>
+	<owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#MemoryGame"/>
 </rdf:Description>
 <!--  -->
 <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Object -->
@@ -649,16 +644,6 @@
 
 <rdf:Description rdf:nodeID="genid23">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasTurns"/>
-	<owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Turn"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Round">
-	<rdfs:subClassOf rdf:nodeID="genid24"/>
-</rdf:Description>
-
-<rdf:Description rdf:nodeID="genid24">
-	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentTurn"/>
 	<owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
 	<owl:onClass rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Turn"/>
@@ -668,10 +653,10 @@
 
 <rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Rule">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:nodeID="genid25"/>
+	<rdfs:subClassOf rdf:nodeID="genid24"/>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="genid25">
+<rdf:Description rdf:nodeID="genid24">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCondition"/>
 	<owl:someValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Condition"/>
@@ -706,20 +691,20 @@
 
 <rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Turn">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:nodeID="genid26"/>
+	<rdfs:subClassOf rdf:nodeID="genid25"/>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="genid26">
+<rdf:Description rdf:nodeID="genid25">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasAttempt"/>
 	<owl:someValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Attempt"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Turn">
-	<rdfs:subClassOf rdf:nodeID="genid27"/>
+	<rdfs:subClassOf rdf:nodeID="genid26"/>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="genid27">
+<rdf:Description rdf:nodeID="genid26">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#associatedToPlayer"/>
 	<owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
@@ -727,10 +712,10 @@
 </rdf:Description>
 
 <rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Turn">
-	<rdfs:subClassOf rdf:nodeID="genid28"/>
+	<rdfs:subClassOf rdf:nodeID="genid27"/>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="genid28">
+<rdf:Description rdf:nodeID="genid27">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentAttempt"/>
 	<owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
@@ -763,10 +748,10 @@
 <rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#TurnOneCard">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
 	<rdfs:subClassOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Action"/>
-	<rdfs:subClassOf rdf:nodeID="genid29"/>
+	<rdfs:subClassOf rdf:nodeID="genid28"/>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="genid29">
+<rdf:Description rdf:nodeID="genid28">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
 	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCard"/>
 	<owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
@@ -785,20 +770,6 @@
 <rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#UnknownCard">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
 	<rdfs:subClassOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card"/>
-</rdf:Description>
-<!--  -->
-<!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasDrawnCard -->
-
-<rdf:Description rdf:about="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasDrawnCard">
-	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Event"/>
-	<rdfs:subClassOf rdf:nodeID="genid30"/>
-</rdf:Description>
-
-<rdf:Description rdf:nodeID="genid30">
-	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-	<owl:onProperty rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#cardDrawn"/>
-	<owl:allValuesFrom rdf:resource="https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card"/>
 </rdf:Description>
 <!--  -->
 <!-- https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#TurnOneKnown/UnknownCard -->

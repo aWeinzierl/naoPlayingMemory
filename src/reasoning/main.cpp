@@ -7,10 +7,10 @@ main(int argc, char **argv) {
     ros::init(argc, argv, "reasoning");
 
     reasoning::PrologClient pc;
-
-    NodeManager nm;
-    
     pc.test_prolog_query();
+
+    //NodeManager nm;
+
 
     ros::spin();
 }
