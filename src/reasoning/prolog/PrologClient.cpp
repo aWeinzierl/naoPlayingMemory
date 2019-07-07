@@ -68,8 +68,10 @@ namespace reasoning {
 
     //creates instance of turn_Card action  
     void
-    PrologClient::save_action(const Instance &player, const RevealCardAction &reveal_card_action,
+    PrologClient::save_action(const std::string &player_name, const RevealCardAction &reveal_card_action,
                               unsigned int time_instant) {
+
+        auto player = player_already_exists(player_name).value();
 
         //create time_stamp
         auto time_stamp = create_time_stamp(time_instant);
@@ -146,7 +148,9 @@ namespace reasoning {
     }
 
     void
-    PrologClient::save_action(const Instance &player, StartGameAction start_game_action, unsigned int time_instant) {
+    PrologClient::save_action(const std::string &player_name, StartGameAction start_game_action, unsigned int time_instant) {
+
+        auto player = player_already_exists(player_name).value();
 
         //create time_stamp
         auto time_stamp = create_time_stamp(time_instant);
