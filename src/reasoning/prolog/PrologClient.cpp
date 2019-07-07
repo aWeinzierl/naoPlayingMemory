@@ -45,9 +45,7 @@ namespace reasoning {
                 "','" + _NAMESPACE + property.get_name() +
                 "','" + property.get_value() + "')");
 
-        std::cout<<"rdf_assert('" + _NAMESPACE + instance_of_interest.get_class() + "_" + instance_of_interest.get_name() +
-                   "','" + _NAMESPACE + property.get_name() +
-                   "','" + property.get_value() + "')"<<std::endl;
+
     }
 
     bool PrologClient::instance_already_exists(const Instance &instance) {
@@ -232,12 +230,12 @@ namespace reasoning {
         //create Start game instance
         Instance start_game("StartGame","1");
         save(start_game);
-        auto ts = create_time_stamp(5);
+        auto ts = create_time_stamp(11);
         save(ts);
 
 
 
-        DataProperty<unsigned int> time_stamp("hasTime",5);
+        DataProperty<unsigned int> time_stamp("hasTime",11);
 
         save_property(ts,time_stamp);
         ObjectProperty init("hasTimeStamp",ts);
@@ -250,17 +248,26 @@ namespace reasoning {
             std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
         }
 
-        PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action)");
-        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
-            PrologBindings bdg= *it;
-            std::cout<< "Action = "<< bdg["Action"] << std::endl;
-        }
         CardPosition c1_pos(1,2);
         CardPosition c2_pos(2,3);
         ConcealedCard C1_c(1,c1_pos);
         ConcealedCard C2_c(2,c2_pos);
         save(C1_c);
         save(C2_c);
+
+        PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action, Card)");
+        for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<< "Action = "<< bdg["Action"] << std::endl;
+            std::cout<<"Card: "<<bdg["Card"]<<std::endl;
+            break;
+
+        }
+        ExposedCard C1("banana",1, c1_pos);
+        save_action("Nao",C1,7);
+
+
+        /*
 
         std::cout<<"concealed cards were created"<<std::endl;
 
@@ -276,7 +283,7 @@ namespace reasoning {
             PrologBindings bdg= *it;
             std::cout<< "Card1 = "<< bdg["Card1"] << std::endl;
             std::cout<< "Card2 = "<< bdg["Card2"] << std::endl;
-        }
+        }*/
         
     }
 
