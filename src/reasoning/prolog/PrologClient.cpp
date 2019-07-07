@@ -150,6 +150,28 @@ namespace reasoning {
         save_property(unknown_card_ins, card_position);
     }
 
+    void
+    PrologClient::save_action(const Instance &player, StartGameAction start_game_action, unsigned int time_instant) {
+
+        //create time_stamp
+        auto time_stamp = create_time_stamp(time_instant);
+        if (!instance_already_exists(time_stamp)) {
+            save(time_stamp);
+        }
+        //create action(TurnOneCard) instance
+        Instance start_game("StartGame", "StartGame_" + generate_random_string(_RANDOM_NAME_LENGTH));
+        while (instance_already_exists(start_game)) {
+            start_game = Instance("StartGame", "StartGame_" + generate_random_string(_RANDOM_NAME_LENGTH));
+        }
+        save(start_game);
+
+        DataProperty<unsigned int> time_stamp_prop("hasTime",time_instant);
+        save_property(time_stamp,time_stamp_prop);
+
+        ObjectProperty player_has_action("hasAction", start_game);
+        save_property(player, player_has_action);
+    }
+
     void PrologClient::test_prolog_query() {
         for (int i = 11; i >0; --i) {
             auto ts = create_time_stamp(i);
@@ -158,7 +180,7 @@ namespace reasoning {
             save_property(ts,time_stamp);
         }
 
-        
+
         PrologQueryProxy bdgs = _pl.query("all_times(Time)");
         for(PrologQueryProxy::iterator it=bdgs.begin();it != bdgs.end(); it++){
             PrologBindings bdg= *it;
@@ -169,6 +191,8 @@ namespace reasoning {
         save(start_game);
         auto ts = create_time_stamp(50);
         save(ts);
+
+
 
         DataProperty<unsigned int> time_stamp("hasTime",50);
         
