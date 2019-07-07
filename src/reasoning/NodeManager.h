@@ -17,6 +17,7 @@ class NodeManager {
 private:
     ros::NodeHandle _n;
     reasoning::StateProcessor _sp;
+    reasoning::PrologClient _pc;
     ros::Subscriber _sub;
 
     boost::asio::io_service _io_service;

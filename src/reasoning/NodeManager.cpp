@@ -8,6 +8,7 @@ void NodeManager::tick() {
     auto actions = _sp.retrieve_actions();
 
 
+
     _timer.expires_at(_timer.expires_at() + _interval);
     _timer.async_wait(boost::bind(&NodeManager::tick, this));
 }
