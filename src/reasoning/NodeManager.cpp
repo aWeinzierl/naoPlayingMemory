@@ -1,10 +1,8 @@
-#include <utility>
-
 #include "NodeManager.h"
 
 #include <tuple>
+#include <utility>
 
-#include "NaoState.h"
 #include "model/ConcealedCard.h"
 #include "CardStateRetriever.h"
 
@@ -67,25 +65,30 @@ void NodeManager::vision_callback(const nao_playing_memory::Cards::ConstPtr &msg
 
 void NodeManager::surrect() {
     ros::Rate rate(30);
-    NaoState nao_state;
 
+    auto nao_is_bored = true;
     while (true) {
-        while (nao_state._is_bored) {
+        while (nao_is_bored) {
             auto wants_play = ask_to_play();
             if (wants_play) {
-                nao_state._is_bored = false;
+                nao_is_bored = false;
             }
             ros::Duration(5).sleep();
         }
 
         if (!initialize_game_board()){
             say_synchronous("leg the fucking cards onto the board correctly");
-            nao_state._is_bored=true;
+            nao_is_bored = true;
         }
 
-        _pc.reset();
+        auto nao_is_in_charge = true;
 
-
+        auto game_is_running = true;
+        while(game_is_running){
+            if (nao_is_in_charge){
+                auto value = _pc.decide_action();
+            }
+        }
     }
 }
 
@@ -123,6 +126,8 @@ bool NodeManager::initialize_game_board() {
     if (!std::get<1>(cards).empty() && !std::get<2>(cards).empty()){
         return false;
     }
+
+    _pc.reset();
 
     for ( auto const & card : std::get<0>(cards)){
         _pc.save(card);

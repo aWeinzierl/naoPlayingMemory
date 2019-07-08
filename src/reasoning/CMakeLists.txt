@@ -16,6 +16,7 @@ add_executable(${PROJECT_NAME} main.cpp
         FilterRecognizeTurn.cpp
         StateProcessor.cpp
         NodeManager.cpp
+        CardStateRetriever.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS
@@ -25,6 +26,7 @@ find_package(catkin REQUIRED COMPONENTS
         cv_bridge
         image_transport
         json_prolog
+        actionlib
         )
 include_directories(
         ${catkin_INCLUDE_DIRS}

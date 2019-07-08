@@ -1,4 +1,3 @@
-#include <dialog.h>
 #include "CardStateRetriever.h"
 
 AllCards CardStateRetriever::retrieve_current_state() {
