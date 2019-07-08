@@ -2,15 +2,25 @@
 
 namespace reasoning {
     FilterRecognizeTurn::FilterRecognizeTurn(const unsigned int size, State initial_state) noexcept
-            : buffer(size), _last_state(initial_state) {
+            : _buffer(size), _last_state(initial_state) {
     }
 
     bool FilterRecognizeTurn::update(const State state) {
         //filter auf die que laufen lassen
-        buffer.push_back(state);
-        State comparator = buffer[0];
-        for (int i = 1; i < 5; i++) {
-            if (comparator != buffer[i]) {
+        _buffer.push_back(state);
+
+        if (all_states_are_equal()
+            && _last_state != _buffer[0]) {
+            return true;
+        }
+
+        _last_state = _buffer[0];
+    }
+
+    bool FilterRecognizeTurn::all_states_are_equal() {
+        State first_state = _buffer[0];
+        for (const auto &state: _buffer) {
+            if (state != first_state) {
                 return false;
             }
         }
