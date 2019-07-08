@@ -1,0 +1,26 @@
+        /*bool MyTurn=TRUE; //TRUE means NA0, False means oponent
+        int validGame=1;
+        while(validGame){
+            if(MyTurn){
+                //observe and act and store data
+                //Look into memory for equal cards-->Prolog(Rule:findTwoEqualCards) gives back one of two actions
+                    //if YES turn them-->Prolog gives back action turnCards 1&2-->Prolog(Rule:findTwoEqualCards(True)-->turnBothCards)
+                        //add them to card collection
+                    //if No turn 1 card with no class-->Prolog(Rule:findTwoEqualCards(False)-->FindOneUnknownCard)
+                        //search for cards with no class-->Prolog-->give back 1 Card
+                        // TurnCard 1--> Observe result
+                            //if we have EQUAL Card in memory ,choose it and take it -->(Prolog:doIHavePair(True)-->turnPair)
+                            //if NOT , choose antoher unknown card--> Prolog comparisson, check if by luck, they have the same class -->(Prolog:doIHavePair(False)-->turnRand)
+
+                //If WON cards--> Play again
+                //if Not, go to next Player--> update MyTurn to False
+            }else{
+                //observe and store data
+                //Observe the two cards choosen by player
+                // If are equal, tremove from memory
+                //if not store them in memory
+                //(optional(if we have time, probalby not): if not equal and disapear--> Cheating)
+
+            }
+            //Check for GameStatus (who is winning)--> Has he won?
+        }*/

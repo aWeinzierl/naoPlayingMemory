@@ -52,11 +52,13 @@ start_game(GameStatus):-
 canPlayAttempt(Player,  'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#turnOneCard', Card):- 
     rdfs_individual_of(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
     not(findTwoEqualCards(C1,C2)),
-    hasZeroAttempts(Player),
-    most_recent_time(Time),
-    rdf_costom_instance_from_class('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Attempt',_, Time, Attempt),
-    rdf_assert(Turn, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentAttempt', Attempt),
-    rdf_assert(Attempt, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasAction', 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#turnOneCard').
+    not(rdf_has(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class)),
+    hasZeroAttempts(Player).
+    #most_recent_time(Time),
+    #rdf_costom_instance_from_class('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Attempt',_, Time, Attempt),
+    #hasTurn(Player,Turn),
+    #rdf_assert(Turn, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentAttempt', Attempt),
+    #rdf_assert(Attempt, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasAction', 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#turnOneCard').
 
 most_recent_time_stamp(TimeStamp):-
     most_recent_time(TimeN),
@@ -86,6 +88,9 @@ findTwoEqualCards(C1, C2):-
     rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class1),
     rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class2).
 
+UpdateGameStatusTurnCardAction(Action):-
+    most_recent_time_stamp(TimeStamp),
+    CopyGameStatus().
 
 
     

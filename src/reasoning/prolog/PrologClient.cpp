@@ -227,16 +227,13 @@ namespace reasoning {
             PrologBindings bdg = *it;
             std::cout << "Time = " << bdg["Time"] << std::endl;
         }
-        //create Start game instance
+
+        //create Start game instance with a Tim
         Instance start_game("StartGame","1");
         save(start_game);
         auto ts = create_time_stamp(11);
         save(ts);
-
-
-
         DataProperty<unsigned int> time_stamp("hasTime",11);
-
         save_property(ts,time_stamp);
         ObjectProperty init("hasTimeStamp",ts);
         save_property(start_game,init);
@@ -247,14 +244,14 @@ namespace reasoning {
             PrologBindings bdg= *it;
             std::cout<< "GameStatus = "<< bdg["GameStatus"] << std::endl;
         }
-
+     
         CardPosition c1_pos(1,2);
         CardPosition c2_pos(2,3);
         ConcealedCard C1_c(1,c1_pos);
         ConcealedCard C2_c(2,c2_pos);
         save(C1_c);
         save(C2_c);
-
+        
         PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action, Card)");
         for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
             PrologBindings bdg= *it;
@@ -263,8 +260,7 @@ namespace reasoning {
             break;
 
         }
-        ExposedCard C1("banana",1, c1_pos);
-        save_action("Nao",C1,7);
+        std::cout<<"Im here now"<<std::endl;
 
 
         /*

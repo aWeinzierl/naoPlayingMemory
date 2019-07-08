@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "prolog/PrologClient.h"
-#include "NodeManager.h"
+//#include "NodeManager.h"
 
 
 main(int argc, char **argv) {
