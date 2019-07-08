@@ -16,7 +16,7 @@
         act_id_pos/6,
         pickRandomCard/1,
         pickRandomCard_Class_Or_Without/1,
-        pickRandomCard_id_pos/4,
+        pickRandomCard_pos/3,
         %unknownCardInstanciation/2,
         %knownCardInstanciation/2,
         findPosition/3
@@ -145,9 +145,9 @@ act_id_pos(C1id,C1X,C1Y,C2id,C2X,C2Y):-
 
 
 findPosition(X,Y,Card):-
-    rdf_has(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCardPosition',CardPosition),
+    rdf_has(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasPosition',CardPosition),
     rdf_has(CardPosition,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate',X),
-    rdf_has(CardPosition,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate',Y).
+    rdf_has(CardPosition,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasYCoordinate',Y).
     
 
 
@@ -168,7 +168,7 @@ pickRandomCard_Class_Or_Without(Card):-
         not(findTwoEqualCards(Card,Card2))
     ).
 
-pickRandomCard_id_pos(C1,C1id,C1X,C1Y):-
+pickRandomCard_pos(C1,C1X,C1Y):-
     pickRandomCard(C1),
     findPosition(C1X,C1Y,C1).
 

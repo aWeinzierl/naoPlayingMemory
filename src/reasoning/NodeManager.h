@@ -38,6 +38,8 @@ private:
 
     void say_synchronous(std::string text);
 
+    void say_it_is_your_turn();
+
     bool ask_to_play();
 
     void ask_to_turn_card(reasoning::ConcealedCard card);

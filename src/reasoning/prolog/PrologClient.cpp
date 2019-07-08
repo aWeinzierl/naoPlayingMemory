@@ -344,9 +344,34 @@ namespace reasoning {
         }*/
         std::cout << "----- Finished ----- Testing pickRandomCard_Class_Or_Without(Card)---------" << std::endl;
 
-        std::cout << "-----------testing instance creation---------------" << std::endl;
+        std::cout << "-----------testing Position asking---------------" << std::endl;
 
-        std::string test_card_name = "50";
+        auto bdgs10 = _pl.once("rdfs_individual_of(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),findPosition(C1Y,C1X,C1)");
+        std::cout << "" << std::endl;
+        std::cout << "X= " << bdgs10["C1X"] << std::endl;
+        std::cout << "Y= " << bdgs10["C1Y"] << std::endl;
+
+        std::cout << "-----------testing find two equal cards mit Position asking---------------" << std::endl;
+
+        auto bdgs11 = _pl.once("rdfs_individual_of(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),findTwoEqualCards_pos(C1,C2,C2id,C2X,C2Y)");
+        std::cout << "" << std::endl;
+        std::cout << "C2X= " << bdgs11["C2X"] << std::endl;
+        std::cout << "C2Y= " << bdgs11["C2Y"] << std::endl;
+
+        //pickRandomCard_id_pos(C1,C1id,CX,CY)
+        std::cout << "-----------testing find pickRandomCard mit Position asking---------------" << std::endl;
+
+        auto bdgs12 = _pl.query("pickRandomCard_pos(C,CX,CY)");
+        PrologBindings bdg122= *bdgs12.begin();
+        if(bdgs12.begin()!=bdgs12.end())(
+            std::cout << "" << std::endl;
+            std::cout << "CX= " << bdg122["CX"] << std::endl;
+            std::cout << "CY= " << bdg122["CY"] << std::endl;
+        )
+
+        std::cout << "-----------Finished Testing---------------" << std::endl;
+
+
 
         /*
         PrologQueryProxy bdgs9 = _pl.query("unknownCardInstanciation("+ test_card_name +",CardInstance)");
@@ -432,8 +457,11 @@ namespace reasoning {
     std::vector<reasoning::ConcealedCard> PrologClient::decide_action() {
         std::cout << "Im gonna decide which action to do" << std::endl;
         auto bdg = _pl.once("act_id_pos(C1id,C1X,C1Y,C2id,C2X,C2Y)");
+        std::cout<<"Cards1:"<<bdg["C1id"]<<std::endl;
+        std::cout<<"Cards2:"<<bdg["C2id"]<<std::endl;
         std::string card2_id = bdg["C2id"];
         std::string card1_id = bdg["C1id"];
+
 
 
         if (card2_id[0] == '_') {

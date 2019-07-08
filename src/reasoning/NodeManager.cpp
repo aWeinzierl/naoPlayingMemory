@@ -79,7 +79,7 @@ void NodeManager::surrect() {
         }
 
         if (!initialize_game_board()) {
-            say_synchronous("leg the fucking cards onto the board correctly");
+            say_synchronous("Please put the cards correctly onto the board");
             nao_is_bored = true;
         }
 
@@ -119,12 +119,20 @@ void NodeManager::surrect() {
                 }
 
                 if(!nao_is_in_charge){
+                    say_it_is_your_turn();
+
+
 
                 }
             }
         }
     }
 }
+
+void NodeManager::say_it_is_your_turn() {
+    say_synchronous("It is your turn !");
+}
+
 
 void NodeManager::ask_to_turn_card(reasoning::ConcealedCard card) {
     say_synchronous("Turn card at position" +

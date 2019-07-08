@@ -6,9 +6,11 @@
 
 main(int argc, char **argv) {
     ros::init(argc, argv, "reasoning");
-
-    NodeManager nm;
-    nm.surrect();
+    reasoning::PrologClient pc;
+    pc.test_prolog_query();
+    pc.decide_action();
+    /*NodeManager nm;
+    nm.surrect();*/
 
 }
     //bool MyTurn=true; //TRUE means NA0, False means opponent
