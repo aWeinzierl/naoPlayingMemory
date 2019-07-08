@@ -51,6 +51,8 @@ namespace reasoning {
 
         ActionDetections retrieve_actions();
 
+        void reset_found_actions();
+
     };
 
 

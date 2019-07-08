@@ -221,12 +221,15 @@ namespace reasoning {
             save_property(ts, time_stamp);
         }
 
+        _
+
 
         PrologQueryProxy bdgs = _pl.query("all_times(Time)");
         for (PrologQueryProxy::iterator it = bdgs.begin(); it != bdgs.end(); it++) {
             PrologBindings bdg = *it;
             std::cout << "Time = " << bdg["Time"] << std::endl;
         }
+
 
         //create Start game instance with a Tim
         Instance start_game("StartGame","1");
@@ -251,7 +254,8 @@ namespace reasoning {
         ConcealedCard C2_c(2,c2_pos);
         save(C1_c);
         save(C2_c);
-        
+        std::cout<<"---------Testing CanPlayAttempt ---------"<<std::endl;
+
         PrologQueryProxy bdgs3 = _pl.query("canPlayAttempt('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#1', Action, Card)");
         for(PrologQueryProxy::iterator it=bdgs3.begin();it != bdgs3.end(); it++){
             PrologBindings bdg= *it;
@@ -260,28 +264,111 @@ namespace reasoning {
             break;
 
         }
-        std::cout<<"Im here now"<<std::endl;
 
-
-        /*
-
-        std::cout<<"concealed cards were created"<<std::endl;
+        
+        std::cout<<"---------Testing Act ---------"<<std::endl;
+        std::cout<<"Testing act(Card1,Card2) with only  Unknown Cards"<<std::endl;
+        PrologQueryProxy bdgs4 = _pl.query("act(Card1,Card2)");
+        for(PrologQueryProxy::iterator it=bdgs4.begin();it != bdgs4.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<<"Possible Cards"<< std::endl;
+            std::cout<<"Card1 = "<< bdg["Card1"] << std::endl;
+            std::cout<<"Card2 = "<< bdg["Card2"] << std::endl;
+            
+            
+        }   
 
         ExposedCard C1("banana",1, c1_pos);
         ExposedCard C2("banana",2, c2_pos);
         save_action("Nao",C1,7);
         save_action("Nao",C2,9);
 
-        std::cout<<"exposedcards were created"<<std::endl;
-
-        PrologQueryProxy bdgs4 = _pl.query("findTwoEqualCards(Card1, Card2)");
-        for(PrologQueryProxy::iterator it=bdgs4.begin();it != bdgs4.end(); it++){
+        std::cout<<"Testing act(Card1,Card2) with only  Known Cards"<<std::endl;
+        PrologQueryProxy bdgs5 = _pl.query("act(Card1,Card2)");
+        for(PrologQueryProxy::iterator it=bdgs5.begin();it != bdgs5.end(); it++){
             PrologBindings bdg= *it;
-            std::cout<< "Card1 = "<< bdg["Card1"] << std::endl;
-            std::cout<< "Card2 = "<< bdg["Card2"] << std::endl;
+            std::cout<<"Possible Cards"<< std::endl;
+            std::cout<<"Card1 = "<< bdg["Card1"] << std::endl;
+            std::cout<<"Card2 = "<< bdg["Card2"] << std::endl;
+                 
+        }
+
+        CardPosition c3_pos(3,2);
+        CardPosition c4_pos(1,3);
+        ConcealedCard C3_c(3,c3_pos);
+        ConcealedCard C4_c(4,c4_pos);
+        save(C3_c);
+        save(C4_c);
+
+        std::cout<<"Testing act(Card1,Card2) with both  Known and Unknown Cards"<<std::endl;
+        auto bdgs6 = _pl.once("act(Card1,Card2)");
+        std::cout<<"1: "<<bdgs6["Card1"]<<std::endl;
+        std::cout<<"2: "<<bdgs6["Card2"]<<std::endl;
+        /*for(PrologQueryProxy::iterator it=bdgs6.begin();it != bdgs6.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<<"Possible Cards"<< std::endl;
+            std::cout<<"Card1 = "<< bdg["Card1"] << std::endl;
+            std::cout<<"Card2 = "<< bdg["Card2"] << std::endl;
+            break;
+        }*/
+        ExposedCard C3("apple",3, c3_pos);
+        save_action("Nao",C3,9);
+
+
+        std::cout<<"---------Finished Act ---------"<<std::endl;
+        std::cout<<"-----Testing pickRandomCard_Class_Or_Without(Card)---------"<<std::endl;
+        std::cout<<"Testing with 1 pair, one known and one unknown"<<std::endl;       
+        auto bdgs7 = _pl.once("pickRandomCard_Class_Or_Without(Card)");
+        std::cout<<"Possible Card"<< std::endl;
+        std::cout<<"Random Card = "<< bdgs7["Card"] << std::endl;
+        /*for(PrologQueryProxy::iterator it=bdgs7.begin();it != bdgs7.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<<"Possible Cards"<< std::endl;
+            std::cout<<"Random Card = "<< bdg["Card"] << std::endl;
+    
         }*/
         
+        ExposedCard C4("mango",4, c4_pos);
+        save_action("Nao",C4,10);
+
+        std::cout<<"Testing with 1 pair and 2 known "<<std::endl;
+        auto bdgs8 = _pl.once("pickRandomCard_Class_Or_Without(Card)");
+        std::cout<<"Possible Card"<< std::endl;
+        std::cout<<"Random Card = "<< bdgs8["Card"] << std::endl;
+
+        /*for(PrologQueryProxy::iterator it=bdgs8.begin();it != bdgs8.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<<"Possible Cards"<< std::endl;
+            std::cout<<"Random Card = "<< bdg["Card"] << std::endl;
+    
+        
+        }*/
+        std::cout<<"----- Finished ----- Testing pickRandomCard_Class_Or_Without(Card)---------"<<std::endl;
+
+        std::cout<<"-----------testing instance creation---------------"<<std::endl;
+
+        std::string test_card_name = "50";
+
+        /*
+        PrologQueryProxy bdgs9 = _pl.query("unknownCardInstanciation("+ test_card_name +",CardInstance)");
+        for (PrologQueryProxy::iterator it = bdgs9.begin(); it != bdgs9.end(); it++) {
+            PrologBindings bdg = *it;
+            std::cout << "Instance = " << bdg["CardInstance"] << std::endl;
+        }*/
+        
+        /*
+        Results:
+        -----Testing pickRandomCard(Card)---------
+        Testing with 1 pair, one known and one unknown
+        Possible Cards
+        Random Card = https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card_4
+        Testing with 1 pair and 2 known                                                                 //it can't choose a card that has a class......!!!!!!!!
+        ----- Finished ----- Testing pickRandomCard(Card)---------
+        */
+
+        
     }
+
 
     void PrologClient::save_action(const std::string &player_name, const RemoveCardAction &remove_card_action,
                                    unsigned int time_instant) {
@@ -340,5 +427,33 @@ namespace reasoning {
         auto player = player_already_exists(player_name).value();
         ObjectProperty player_has_action("hasAction", cover_card_instance);
         save_property(player, player_has_action);
+    }
+     
+   
+    std::vector<unsigned int> PrologClient::decide_action()
+    {
+        std::cout<<"Im gonna decide which action to do"<<std::endl;
+        //TODO  try ONCE instead of query
+        PrologQueryProxy bdgs6 = _pl.query("act_id(Card1_id,Card2_id)");
+        for(PrologQueryProxy::iterator it=bdgs6.begin();it != bdgs6.end(); it++){
+            PrologBindings bdg= *it;
+            std::cout<<"Possible Cards"<< std::endl;
+            std::cout<<"Card1 = "<< bdg["Card1_id"] << std::endl;
+            std::string card1_id = bdg["Card1_id"];
+                //return this Card to the Nao
+            std::cout<<"Card2 = "<< bdg["Card2_id"] << std::endl;
+            std::string card2_id = bdg["CarCard2_idd2"];
+            /*if(card2_id[0].compare("_")){ //check if card is give back or empty ex:"_16"
+                //return this Card to the Nao
+                std::cout<<"THe second card dosen't exist"<<std::endl;
+            }*/
+
+            //TODO give back the value of both cards
+
+        }
+    }
+
+    void PrologClient::reset() {
+        _pl = json_prolog::Prolog();
     }
 }

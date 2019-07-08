@@ -9,7 +9,13 @@
         canPlayAttempt/3,
         hasTurn/2,
         hasZeroAttempts/1,
-        findTwoEqualCards/2
+        findTwoEqualCards/2,
+        act/2,
+        act_id/2,
+        pickRandomCard/1,
+        pickRandomCard_Class_Or_Without/1,
+        %unknownCardInstanciation/2,
+        knownCardInstanciation/2
     ]).
 
 all_times(Time) :- 
@@ -51,15 +57,10 @@ start_game(GameStatus):-
 
 canPlayAttempt(Player,  'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#turnOneCard', Card):- 
     rdfs_individual_of(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
-    not(findTwoEqualCards(C1,C2)),
-    not(rdf_has(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class)),
+    not(findTwoEqualCards(_,_)), % not(findTwoEqualCards(C1,C2)),
+    not(rdf_has(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', _)), % _ =Class
     hasZeroAttempts(Player).
-    #most_recent_time(Time),
-    #rdf_costom_instance_from_class('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Attempt',_, Time, Attempt),
-    #hasTurn(Player,Turn),
-    #rdf_assert(Turn, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentAttempt', Attempt),
-    #rdf_assert(Attempt, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasAction', 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#turnOneCard').
-
+    
 most_recent_time_stamp(TimeStamp):-
     most_recent_time(TimeN),
     atom_number(Time,TimeN),
@@ -78,19 +79,90 @@ hasZeroAttempts(Player):-
     hasTurn(Player, Turn),
     not(rdf_has(Turn, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCurrentAttempt', _)).
 
+
+% Important Query!! Decision1
 findTwoEqualCards(C1, C2):-
     rdfs_individual_of(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
     rdfs_individual_of(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
     rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id1),
     rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id2),
     atom_number(Id1,Id1N),atom_number(Id2,Id2N),
-    (Id1N<Id2N),
-    rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class1),
-    rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class2).
+    ((Id1N<Id2N);(Id2N<Id1N)),
+    rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class),
+    rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class).
 
-UpdateGameStatusTurnCardAction(Action):-
+
+
+pickRandomCard(Card):- 
+    rdfs_individual_of(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    not(rdf_has(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class)).
+
+
+
+
+
+act(C1,C2):-
+    findTwoEqualCards(C1,C2);
+    pickRandomCard(C1).
+
+
+act_id(C1id,C2id):-
+    (
+        findTwoEqualCards(C1,C2),
+        rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',C1id),
+        rdf_has(C2,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',C2id)
+    );(
+        pickRandomCard(C1),
+        rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',C1id)
+    ).
+
+
+/*hasPair(Card):-
+    rdfs_individual_of(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    rdfs_individual_of(Card2,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    rdf_has(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class),
+    rdf_has(Card2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class).
+*/
+
+
+pickRandomCard_Class_Or_Without(Card):-
+    (
+        pickRandomCard(Card)
+    );(
+        rdfs_individual_of(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+        not(findTwoEqualCards(Card,Card2))
+    ).
+
+
+/*
+unknownCardInstanciation(ardPositionName,CardPositionX ,CardPositionY,MarkerId,CardInstance):-
+    rdf_costom_instance_from_class('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card',_,MarkerId,CardInstance),
+    rdf_assert(CardInstance,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',MarkerId),
+    rdf_costom_instance_from_class('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#CardPosition',_,CardPositionName,CardPositionInstance),
+    rdf_assert(CardPositionInstance,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate',CardPositionX),
+    rdf_assert(CardPositionInstance,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasYCoordinate',CardPositionY),
+    rdf_assert(CardInstance,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasPosition',CardPositionInstance).*/
+
+
+
+knownCardInstanciation(UnknownCardInstance,Class):-
     most_recent_time_stamp(TimeStamp),
-    CopyGameStatus().
+    rdf_assert(CardInstance,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card',TimeStamp),
+    rdf_assert(UnknownCardInstance,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasYCoordinate',Class).
+
+    
+    
+
+
+
+
+
+    
+
+
+
+    
+
 
 
     

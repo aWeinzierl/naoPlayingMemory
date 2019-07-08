@@ -42,4 +42,8 @@ namespace reasoning {
         }
         return _actions;
     }
+
+    void StateProcessor::reset_found_actions() {
+        _actions = ActionDetections();
+    }
 }

@@ -9,7 +9,7 @@ namespace reasoning {
 
     class FilterRecognizeTurn {
 
-        boost::circular_buffer<State> buffer;
+        boost::circular_buffer<State> _buffer;
         State _last_state;
     public:
 
@@ -18,6 +18,7 @@ namespace reasoning {
         //return optional from action
         bool update(State state);
 
+        bool all_states_are_equal();
     };
 
 

@@ -2,6 +2,9 @@
 
 #include <ros/ros.h>
 #include <boost/asio.hpp>
+#include <actionlib/client/simple_action_client.h>
+#include <nao_playing_memory/AskQuestionAction.h>
+#include <nao_playing_memory/SaySomethingAction.h>
 
 #include "nao_playing_memory/Cards.h"
 #include "nao_playing_memory/ConcealedCard.h"
@@ -20,16 +23,28 @@ private:
     reasoning::PrologClient _pc;
     ros::Subscriber _sub;
 
+    actionlib::SimpleActionClient<nao_playing_memory::AskQuestionAction> _question_node;
+    actionlib::SimpleActionClient<nao_playing_memory::SaySomethingAction> _voice_node;
+
     boost::asio::io_service _io_service;
     boost::posix_time::seconds _interval;
     boost::asio::deadline_timer _timer;
-    void tick();
+    void execute_every_second();
+
+    static reasoning::CardPosition cardPositionMap(const nao_playing_memory::Position &position);
+
+    void vision_callback(const nao_playing_memory::Cards::ConstPtr &msg);
+
+    void say_synchronous(std::string text);
+
+    bool ask_to_play();
 
 public:
 
     NodeManager();
 
-    static reasoning::CardPosition cardPositionMap(const nao_playing_memory::Position &position);
+    void surrect();
 
-    void vision_callback(const nao_playing_memory::Cards::ConstPtr &msg);
+
+    bool initialize_game_board();
 };
