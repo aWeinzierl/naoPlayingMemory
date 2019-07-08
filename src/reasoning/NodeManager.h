@@ -3,6 +3,7 @@
 #include <ros/ros.h>
 #include <boost/asio.hpp>
 #include <actionlib/client/simple_action_client.h>
+#include <actionlib/client/terminal_state.h>
 #include <nao_playing_memory/AskQuestionAction.h>
 #include <nao_playing_memory/SaySomethingAction.h>
 
@@ -44,7 +45,6 @@ public:
     NodeManager();
 
     void surrect();
-
 
     bool initialize_game_board();
 };

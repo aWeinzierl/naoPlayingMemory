@@ -7,7 +7,7 @@ add_executable(${PROJECT_NAME} main.cpp
         vision/Card.cpp
         vision/GridElement.cpp
         vision/GridBoard.cpp
-        ../reasoning/NaoState.cpp ../reasoning/NaoState.h ../reasoning/CardStateRetriever.cpp ../reasoning/CardStateRetriever.h)
+)
 
 find_package(catkin REQUIRED COMPONENTS
         roscpp

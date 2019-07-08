@@ -221,9 +221,6 @@ namespace reasoning {
             save_property(ts, time_stamp);
         }
 
-        _
-
-
         PrologQueryProxy bdgs = _pl.query("all_times(Time)");
         for (PrologQueryProxy::iterator it = bdgs.begin(); it != bdgs.end(); it++) {
             PrologBindings bdg = *it;
