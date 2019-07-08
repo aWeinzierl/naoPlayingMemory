@@ -65,7 +65,11 @@ namespace reasoning {
 
         void test_prolog_query();
 
-        std::vector<unsigned int> decide_action();
+        std::vector<ConcealedCard> decide_action();
+
+        nonstd::optional<ConcealedCard> search_paired_card(const ConcealedCard& concealed_card);
+
+        ConcealedCard search_random_card();
 
         void reset();
     };

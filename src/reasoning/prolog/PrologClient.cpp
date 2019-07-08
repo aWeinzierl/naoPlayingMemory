@@ -429,24 +429,78 @@ namespace reasoning {
     }
 
 
-    std::vector<unsigned int> PrologClient::decide_action() {
+    std::vector<reasoning::ConcealedCard> PrologClient::decide_action() {
         std::cout << "Im gonna decide which action to do" << std::endl;
-        //TODO  try ONCE instead of query
-        auto bdg = _pl.once("act_id(Card1_id,Card2_id)");
-        std::string card1_id = bdg["Card1_id"];
-        std::string card2_id = bdg["Card2_id"];
+        auto bdg = _pl.once("act_id_pos(C1id,C1X,C1Y,C2id,C2X,C2Y)");
+        std::string card2_id = bdg["C2id"];
+        std::string card1_id = bdg["C1id"];
+
 
         if (card2_id[0] == '_') {
             return {
-                    (unsigned int) (std::stoi(card1_id)),
+                    ConcealedCard((unsigned int) std::stoi(card1_id),
+                                  CardPosition(
+                                          (unsigned int) std::stoi(bdg["C1X"].toString()),
+                                          (unsigned int) std::stoi(bdg["C1Y"].toString())))
             };
         } else {
             return {
-                    (unsigned int) (std::stoi(card1_id)),
-                    (unsigned int) (std::stoi(card2_id)),
+                    ConcealedCard((unsigned int) std::stoi(card1_id),
+                                  CardPosition(
+                                          (unsigned int) std::stoi(bdg["C1X"].toString()),
+                                          (unsigned int) std::stoi(bdg["C1Y"].toString()))),
+                    ConcealedCard((unsigned int) std::stoi(card2_id),
+                                  CardPosition(
+                                          (unsigned int) std::stoi(bdg["C2X"].toString()),
+                                          (unsigned int) std::stoi(bdg["C2Y"].toString())))
+
             };
         }
     }
+    //findTwoEqualCards(C1, C2)
+    //findTwoEqualCards_pos(C1, C2,Id2,C2X,C2Y)
+
+    nonstd::optional<ConcealedCard> PrologClient::search_paired_card(const ConcealedCard &concealed_card) {
+        std::cout << "Im gonna search for a paired Card" << std::endl;
+        auto bdgs = _pl.query("findTwoEqualCards(" + _NAMESPACE + "_" + std::to_string(concealed_card.get_id()) +
+                              ", C2,C2id,C2X,C2Y)");
+
+        if (bdgs.begin() == bdgs.end()) {
+            return {};
+        }
+
+
+        auto bdg = *(bdgs.begin());
+        std::string card2_id = bdg["C2id"];
+
+        return nonstd::optional<ConcealedCard>({
+                                                       (unsigned int) std::stoi(card2_id),
+                                                       CardPosition(
+                                                               (unsigned int) std::stoi(bdg["C2X"].toString()),
+                                                               (unsigned int) std::stoi(bdg["C2Y"].toString()))
+                                               });
+
+
+    }
+
+    ConcealedCard PrologClient::search_random_card() {
+        std::cout << "Im gonna search for a random Card" << std::endl;
+        auto bdg = _pl.once("pickRandomCard_id_pos(C1,C1id,CX,CY)");
+        std::string card2_id = bdg["C1id"];
+
+        return {
+                (unsigned int) std::stoi(card2_id),
+                CardPosition(
+                        (unsigned int) std::stoi(bdg["C2X"].toString()),
+                        (unsigned int) std::stoi(bdg["C2Y"].toString()))
+        };
+
+
+    }
+
+
+    //pickRandomCard_id_pos
+
 
     void PrologClient::reset() {
         _pl = json_prolog::Prolog();

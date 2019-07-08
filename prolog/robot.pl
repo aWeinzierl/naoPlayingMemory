@@ -10,12 +10,16 @@
         hasTurn/2,
         hasZeroAttempts/1,
         findTwoEqualCards/2,
+        findTwoEqualCards_pos/5,
         act/2,
         act_id/2,
+        act_id_pos/6,
         pickRandomCard/1,
         pickRandomCard_Class_Or_Without/1,
+        pickRandomCard_id_pos/4,
         %unknownCardInstanciation/2,
-        knownCardInstanciation/2
+        %knownCardInstanciation/2,
+        findPosition/3
     ]).
 
 all_times(Time) :- 
@@ -97,7 +101,16 @@ pickRandomCard(Card):-
     rdfs_individual_of(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
     not(rdf_has(Card, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class)).
 
-
+findTwoEqualCards_pos(C1, C2,Id2,C2X,C2Y):-
+    rdfs_individual_of(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    rdfs_individual_of(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id1),
+    rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id2),
+    atom_number(Id1,Id1N),atom_number(Id2,Id2N),
+    ((Id1N<Id2N);(Id2N<Id1N)),
+    rdf_has(C1, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class),
+    rdf_has(C2, 'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass', Class),
+    findPosition(C2X,C2Y,C2).
 
 
 
@@ -117,6 +130,28 @@ act_id(C1id,C2id):-
     ).
 
 
+act_id_pos(C1id,C1X,C1Y,C2id,C2X,C2Y):-
+    (
+        findTwoEqualCards(C1,C2),
+        rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',C1id),
+        findPosition(C1X,C1Y,C1),
+        rdf_has(C2,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',C2id),
+        findPosition(C2X,C2Y,C2)
+    );(
+        pickRandomCard(C1),
+        rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',C1id),
+        findPosition(C1X,C1Y,C1)
+    ).
+
+
+findPosition(X,Y,Card):-
+    rdf_has(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasCardPosition',CardPosition),
+    rdf_has(CardPosition,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate',X),
+    rdf_has(CardPosition,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate',Y).
+    
+
+
+
 /*hasPair(Card):-
     rdfs_individual_of(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
     rdfs_individual_of(Card2,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
@@ -133,6 +168,9 @@ pickRandomCard_Class_Or_Without(Card):-
         not(findTwoEqualCards(Card,Card2))
     ).
 
+pickRandomCard_id_pos(C1,C1id,C1X,C1Y):-
+    pickRandomCard(C1),
+    findPosition(C1X,C1Y,C1).
 
 /*
 unknownCardInstanciation(ardPositionName,CardPositionX ,CardPositionY,MarkerId,CardInstance):-

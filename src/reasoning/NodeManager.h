@@ -14,6 +14,7 @@
 #include "model/CardPosition.h"
 #include "model/ExposedCard.h"
 
+#include "ActionBlocker.h"
 #include "StateProcessor.h"
 
 class NodeManager {
@@ -39,6 +40,8 @@ private:
 
     bool ask_to_play();
 
+    void ask_to_turn_card(reasoning::ConcealedCard card);
+
 public:
 
     NodeManager();
@@ -47,4 +50,8 @@ public:
 
 
     bool initialize_game_board();
+
+    void ask_to_collect_cards();
+
+    void ask_to_collect_cards(const std::vector<reasoning::ConcealedCard> &cards);
 };

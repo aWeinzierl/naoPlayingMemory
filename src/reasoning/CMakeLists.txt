@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME} main.cpp
         StateProcessor.cpp
         NodeManager.cpp
         CardStateRetriever.cpp
+        ActionBlocker.cpp
         )
 
 find_package(catkin REQUIRED COMPONENTS
