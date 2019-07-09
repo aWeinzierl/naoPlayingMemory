@@ -112,6 +112,7 @@ public:
         r.sleep();
 
         if(success){
+            answer.pop_back();
             ask_result.answer = answer;
             ROS_INFO("%s: Succeeded", action_name_1.c_str());
             ask_srv.setSucceeded(ask_result);

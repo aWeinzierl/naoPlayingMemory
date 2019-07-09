@@ -1,9 +1,11 @@
 #include "CardStateRetriever.h"
 
 AllCards CardStateRetriever::retrieve_current_state() {
-    auto sub = _n.subscribe("cards", 1000, &CardStateRetriever::vision_callback, this);
+    ros::Subscriber sub = _n.subscribe("/cards", 1, &CardStateRetriever::vision_callback, this);
+
     while(!_cards.has_value()){
         _ros_rate.sleep();
+        ros::spinOnce();
     }
 
     return _cards.value();
@@ -11,13 +13,14 @@ AllCards CardStateRetriever::retrieve_current_state() {
 
 void CardStateRetriever::vision_callback(const nao_playing_memory::Cards::ConstPtr &msg) {
 
+    std::cout<<"Print in Vision Callback"<<std::endl;
     std::vector<reasoning::ConcealedCard> concealed_cards;
     concealed_cards.reserve(msg->concealed_card_list.size());
 
     for (const auto &card : msg->concealed_card_list) {
         concealed_cards.emplace_back(card.id, reasoning::CardPosition(card.position.x, card.position.y));
     }
-
+    std::cout<<"pritn number 2"<<std::endl;
     std::vector<reasoning::ExposedCard> exposed_cards;
     exposed_cards.reserve(msg->exposed_card_list.size());
 

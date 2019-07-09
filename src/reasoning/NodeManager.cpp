@@ -33,17 +33,19 @@ void NodeManager::surrect() {
     while (true) {
         while (nao_is_bored) {
             rate.sleep();
+            ros::Duration(5).sleep();
             auto wants_play = ask_to_play();
             if (wants_play) {
                 nao_is_bored = false;
                 opponent_points = 0;
                 nao_points = 0;
-
+                std::cout<<"I will play a game"<<std::endl;
             }
-            ros::Duration(5).sleep();
+
         }
 
         if (!initialize_game_board()) {
+            std::cout<<"The board looks like shit"<<std::endl;
             say_synchronous("Please put the cards correctly onto the board");
             nao_is_bored = true;
         }
@@ -52,8 +54,10 @@ void NodeManager::surrect() {
 
         auto game_is_running = true;
         while (game_is_running) {
+            std::cout<<"Game is Running"<<std::endl;
             rate.sleep();
             if (nao_is_in_charge) {
+                std::cout<<"It is my turn"<<std::endl;
                 auto cards_to_turn = _pc.decide_action();
 
                 if (cards_to_turn.size() == 2) {
@@ -66,10 +70,14 @@ void NodeManager::surrect() {
                     //Added point counter
                     nao_points += 1;
                 } else {
+                    std::cout<<"i choose one card: "<<std::to_string(cards_to_turn[0].get_id())<<std::endl;
                     auto random_card = cards_to_turn[0];
                     ask_to_turn_card(random_card);
-                    ActionBlocker(30, 5).wait_until_card_is_revealed(random_card.get_id());
+                    std::cout<<"i choose one card1"<<std::endl;
+                    ActionBlocker(30, 10).wait_until_card_is_revealed(random_card.get_id());
+                    std::cout<<"i choose one card2"<<std::endl;
                     ros::Duration(0.1).sleep();
+                    std::cout<<"i choose one card3"<<std::endl;
                     auto card = _pc.search_paired_card(random_card);
                     if (card.has_value()) {
                         ask_to_turn_card(card.value());
@@ -176,8 +184,9 @@ bool NodeManager::ask_to_play() {
     if (finished_before_timeout) {
         actionlib::SimpleClientGoalState state = _question_node.getState();
         ROS_INFO("Ask Action finished: %s", state.toString().c_str());
-        std::cout <<"print: "<< state.getText()<< "  end"<< std::cout;
-        return state.getText() == "Yes";
+        auto result = _question_node.getResult();
+        std::cout << "\"" <<result->answer << "\"?=" << "Yes" << (result->answer == "Yes") <<  std::endl;
+        return result->answer == "Yes";
 
     } else {
         return false;
@@ -193,12 +202,12 @@ bool NodeManager::initialize_game_board() {
     if (!std::get<1>(cards).empty() && !std::get<2>(cards).empty()) {
         return false;
     }
-
     _pc.reset();
 
     for (auto const &card : std::get<0>(cards)) {
         _pc.save(card);
     }
+    return true;
 }
 
 void NodeManager::say_synchronous(std::string text) {

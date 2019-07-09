@@ -2,6 +2,8 @@
 
 #include <tuple>
 #include <vector>
+#include <mutex>
+
 #include <ros/subscriber.h>
 #include <nao_playing_memory/Cards.h>
 #include <ros/node_handle.h>
@@ -22,7 +24,7 @@ class CardStateRetriever {
     ros::NodeHandle _n;
     ros::Rate _ros_rate;
     nonstd::optional<AllCards> _cards;
-
+    std::mutex _cards_mutex;
 
     void vision_callback(const nao_playing_memory::Cards::ConstPtr &msg);
 

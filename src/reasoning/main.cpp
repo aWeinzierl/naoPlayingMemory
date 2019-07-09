@@ -12,6 +12,16 @@ main(int argc, char **argv) {
     pc.search_random_card();
     std::cout<<"Finished Testing the core dump is not Henriques problem "<<std::endl;*/
     NodeManager nm;
+
+    boost::circular_buffer<reasoning::State> test(5);
+    std::cout<<"First"<<std::endl;
+    test.push_back(reasoning::State::EXPOSED)  ;
+    test.push_back(reasoning::State::EXPOSED)  ;
+    test.push_back(reasoning::State::EXPOSED)  ;
+    test.push_back(reasoning::State::EXPOSED)  ;
+    test.push_back(reasoning::State::EXPOSED)  ;
+    test.push_back(reasoning::State::EXPOSED)  ;
+    std::cout<<"Test done"<<std::endl;
     nm.surrect();
 
 }

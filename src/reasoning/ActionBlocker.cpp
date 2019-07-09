@@ -5,24 +5,31 @@
 
 
 void ActionBlocker::wait_until_card_is_revealed(unsigned int card_id) {
-    auto sub = _n.subscribe("cards", 1000, &ActionBlocker::vision_callback, this);
+    auto sub = _n.subscribe("/cards", 1000, &ActionBlocker::vision_callback, this);
+    std::cout<<"I am waiting until a card is revealed"<<std::endl;
     while (true) {
+        std::cout<<"waiting"<<std::endl;
         _ros_rate.sleep();
+        ros::spinOnce();
         auto actions = _sp.retrieve_actions();
+        std::cout << "retrieved actions" << std::endl;
         if (std::find_if(
                 actions.reveal_card.begin(), actions.reveal_card.end(),
                 [card_id](const reasoning::RevealCardAction &action) {
-                    return true;
+                    std::cout << "compare" << std::endl;
+                    return action.get_id()==card_id;
                 }) != actions.reveal_card.end()) {
+            std::cout<<"I am returning"<<std::endl;
             return;
         }
     }
 }
 
 reasoning::ExposedCard ActionBlocker::wait_until_any_card_is_revealed() {
-    auto sub = _n.subscribe("cards", 1000, &ActionBlocker::vision_callback, this);
+    auto sub = _n.subscribe("/cards", 1000, &ActionBlocker::vision_callback, this);
     while (true) {
         _ros_rate.sleep();
+        ros::spinOnce();
         auto actions = _sp.retrieve_actions();
         if (!actions.reveal_card.empty()) {
             if (actions.reveal_card.size()!=1){
@@ -57,6 +64,7 @@ AllCards map_card_state(const nao_playing_memory::Cards::ConstPtr &msg) {
 
 void ActionBlocker::vision_callback(const nao_playing_memory::Cards::ConstPtr &msg) {
     auto states = map_card_state((msg));
+    std::cout<<"I am in the actionblocker vision callback before processing new state"<<std::endl;
     _sp.process_new_state(std::get<0>(states), std::get<1>(states), std::get<2>(states));
 }
 
@@ -66,9 +74,10 @@ ActionBlocker::ActionBlocker(unsigned int ros_rate, unsigned int persistence) :
 }
 
 void ActionBlocker::wait_until_card_is_removed(const reasoning::CardPosition &card_position) {
-    auto sub = _n.subscribe("cards", 1000, &ActionBlocker::vision_callback, this);
+    auto sub = _n.subscribe("/cards", 1000, &ActionBlocker::vision_callback, this);
     while (true) {
         _ros_rate.sleep();
+        ros::spinOnce();
         auto actions = _sp.retrieve_actions();
         if (std::find(
                 actions.remove_card.begin(), actions.remove_card.end(), card_position)
@@ -79,10 +88,11 @@ void ActionBlocker::wait_until_card_is_removed(const reasoning::CardPosition &ca
 }
 
 void ActionBlocker::wait_until_cards_removed(const std::vector<reasoning::CardPosition> &card_positions) {
-    auto sub = _n.subscribe("cards", 1000, &ActionBlocker::vision_callback, this);
+    auto sub = _n.subscribe("/cards", 1000, &ActionBlocker::vision_callback, this);
     auto local_card_positions = card_positions;
     while (!local_card_positions.empty()) {
         _ros_rate.sleep();
+        ros::spinOnce();
         auto actions = _sp.retrieve_actions();
         for(auto const& card : actions.remove_card){
             std::remove(local_card_positions.begin(),local_card_positions.end(), card); // NOLINT(bugprone-unused-return-value)
