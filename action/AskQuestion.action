@@ -1,6 +1,6 @@
 string question
 string[] possible_answers
 ---
-bool question_asked
----
 string answer
+---
+bool question_asked

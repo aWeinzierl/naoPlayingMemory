@@ -8,25 +8,27 @@
 #include "model/ConcealedCard.h"
 #include "model/CardPosition.h"
 
+#include "StateProcessor.h"
+
 class ActionBlocker {
 
     ros::Subscriber _sub;
     ros::NodeHandle _n;
     ros::Rate _ros_rate;
 
-    reasoning::ConcealedCard _object_of_desire;
-    bool _has_found_action;
+    reasoning::StateProcessor _sp;
 
-    void reveal_card_callback(const nao_playing_memory::Cards::ConstPtr &msg);
-
-    void remove_card_callback(const nao_playing_memory::Cards::ConstPtr &msg);
-
+    void vision_callback(const nao_playing_memory::Cards::ConstPtr &msg);
 
 public:
 
-    ActionBlocker(unsigned int ros_rate);
+    ActionBlocker(unsigned int ros_rate, unsigned int persistence);
 
     void wait_until_card_is_revealed(unsigned int card_id);
 
-    void wait_until_card_is_removed(reasoning::CardPosition card_position);
+    void wait_until_card_is_removed(const reasoning::CardPosition& card_position);
+
+    void wait_until_cards_removed(const std::vector<reasoning::CardPosition>& card_positions);
+
+    reasoning::ExposedCard wait_until_any_card_is_revealed();
 };

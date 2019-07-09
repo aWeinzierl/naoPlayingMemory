@@ -29,8 +29,8 @@ namespace reasoning {
         }
     }
 
-    StateProcessor::StateProcessor() {
-        _position_to_filter = generate_filters();
+    StateProcessor::StateProcessor(unsigned int persistence) {
+        _position_to_filter = generate_filters(persistence);
     }
 
     ActionDetections StateProcessor::retrieve_actions() {

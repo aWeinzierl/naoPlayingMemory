@@ -51,7 +51,7 @@ namespace reasoning {
 
     public:
 
-        void delete_instance(const Instance &instance);
+        void delete_cards(unsigned int id1, unsigned int id2);
 
         void save_action(const std::string &player_name, const RevealCardAction &reveal_card_action, unsigned int time_instant);
 
@@ -69,7 +69,9 @@ namespace reasoning {
 
         nonstd::optional<ConcealedCard> search_paired_card(const ConcealedCard& concealed_card);
 
-        ConcealedCard search_random_card();
+        nonstd::optional<ConcealedCard> search_random_card();
+
+        bool are_cards_equal( unsigned int id1,const unsigned int id2);
 
         void reset();
     };

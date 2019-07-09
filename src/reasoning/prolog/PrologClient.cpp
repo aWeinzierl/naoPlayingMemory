@@ -14,11 +14,7 @@ namespace reasoning {
                 ", ObjInst)");
     }
 
-    void PrologClient::delete_instance(const Instance &instance) {
-        PrologQueryProxy bdgs = _pl.query(
-                "del('" + _NAMESPACE + instance.get_class() + "','" + _NAMESPACE + instance.get_class() + "',[])");
 
-    }
 
 
     //Creates ObjectProperty
@@ -327,8 +323,8 @@ namespace reasoning {
     
         }*/
 
-        ExposedCard C4("mango", 4, c4_pos);
-        save_action("Nao", C4, 10);
+        /*ExposedCard C4("mango", 4, c4_pos);
+        save_action("Nao", C4, 10);*/
 
         std::cout << "Testing with 1 pair and 2 known " << std::endl;
         auto bdgs8 = _pl.once("pickRandomCard_Class_Or_Without(Card)");
@@ -361,13 +357,21 @@ namespace reasoning {
         //pickRandomCard_id_pos(C1,C1id,CX,CY)
         std::cout << "-----------testing find pickRandomCard mit Position asking---------------" << std::endl;
 
-        auto bdgs12 = _pl.query("pickRandomCard_pos(C,CX,CY)");
+        /*auto bdgs12 = _pl.query("pickRandomCard_pos(C,CX,CY)");
         PrologBindings bdg122= *bdgs12.begin();
-        if(bdgs12.begin()!=bdgs12.end())(
+        if(bdgs12.begin()!=bdgs12.end()) {
             std::cout << "" << std::endl;
             std::cout << "CX= " << bdg122["CX"] << std::endl;
             std::cout << "CY= " << bdg122["CY"] << std::endl;
-        )
+        }*/
+        std::cout << "-----------Test deletion---------------" << std::endl;
+        //auto bdgs13 = _pl.once("delete_cards(" + std::to_string(1)+ "," + std::to_string(2)+ ")");
+        //auto bdgs13 = _pl.once("delete_cards('" + std::to_string(3)+ "','" + std::to_string(4)+ "')");
+        //delete_cards(const unsigned int id1, const unsigned int id2)
+        delete_cards(2,4);
+        std::cout << "-----------Test iffnm f sefsefse---------------" << std::endl;
+        auto bdgs14 = _pl.once("rdf_has(C,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isDeleted',true)");
+        std::cout << "Deleted card= " << bdgs14["C"] << std::endl;
 
         std::cout << "-----------Finished Testing---------------" << std::endl;
 
@@ -511,23 +515,44 @@ namespace reasoning {
 
     }
 
-    ConcealedCard PrologClient::search_random_card() {
+    nonstd::optional<ConcealedCard> PrologClient::search_random_card() {
         std::cout << "Im gonna search for a random Card" << std::endl;
-        auto bdg = _pl.once("pickRandomCard_id_pos(C1,C1id,CX,CY)");
-        std::string card2_id = bdg["C1id"];
+        auto bdgs = _pl.query("pickRandomCard_pos(C1,CX,CY)");
+        PrologBindings bdg= *(bdgs.begin());
+        std::string card2_id = bdg["C1"].toString().erase(0, _NAMESPACE.length() + 5);
 
-        return {
+        std::cout<<"The random card is: "<<bdg["C1"]<<std::endl;
+        std::cout<<"x: "<<bdg["CX"]<<std::endl;
+        std::cout<<"y: "<<bdg["CY"]<<std::endl;
+        std::cout << card2_id << std::endl;
+
+
+        if(bdg.begin() != bdg.end()){
+            return nonstd::optional<ConcealedCard>({
                 (unsigned int) std::stoi(card2_id),
                 CardPosition(
-                        (unsigned int) std::stoi(bdg["C2X"].toString()),
-                        (unsigned int) std::stoi(bdg["C2Y"].toString()))
-        };
-
-
+                        (unsigned int) std::stoi(bdg["CX"].toString()),
+                        (unsigned int) std::stoi(bdg["CY"].toString()))
+            });
+        }else{
+            return {};
+        }
     }
 
+    bool PrologClient::are_cards_equal(const unsigned int id1,const unsigned int id2){
+        //findTwoEqualCards_with_id(C1id,C2id,C1,C2)
+        std::cout<<"I am comparring the opponets turned cards"<<std::endl;
+        auto bdgs = _pl.query("findTwoEqualCards_with_id('" + std::to_string(id1) + "','" + std::to_string(id2) + "',C1,C2)");
+        if (bdgs.begin() == bdgs.end()){
+            return false;
+        }
+        return true;
+    }
 
-    //pickRandomCard_id_pos
+    void PrologClient::delete_cards(const unsigned int id1, const unsigned int id2) {
+        PrologQueryProxy bdgs = _pl.query("delete_cards('" + std::to_string(id1)  + "','" +std::to_string(id2) + "')");
+        //auto bdgs13 = _pl.once("delete_cards('2','3')");
+    }
 
 
     void PrologClient::reset() {

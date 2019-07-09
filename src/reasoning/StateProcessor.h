@@ -32,18 +32,18 @@ namespace reasoning {
 
         std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> _position_to_filter;
 
-        std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> generate_filters() {
+        std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> generate_filters(unsigned int persistence) {
             for (unsigned int i = 0; i < 3; ++i) {
                 for (unsigned int j = 0; j < 4; ++j) {
                     auto cardPosition = CardPosition(i, j);
-                    auto filter = FilterRecognizeTurn(5, State::CONCEALED);
+                    auto filter = FilterRecognizeTurn(persistence, State::CONCEALED);
                     _position_to_filter.insert({cardPosition, filter});
                 }
             }
         }
 
     public:
-        StateProcessor();
+        StateProcessor(unsigned int persistence);
 
         void process_new_state(const std::vector<ConcealedCard> &concealed_card,
                                const std::vector<ExposedCard> &exposed_card,

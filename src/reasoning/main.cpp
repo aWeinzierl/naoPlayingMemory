@@ -7,10 +7,12 @@
 main(int argc, char **argv) {
     ros::init(argc, argv, "reasoning");
     reasoning::PrologClient pc;
-    pc.test_prolog_query();
+    /*pc.test_prolog_query();
     pc.decide_action();
-    /*NodeManager nm;
-    nm.surrect();*/
+    pc.search_random_card();
+    std::cout<<"Finished Testing the core dump is not Henriques problem "<<std::endl;*/
+    NodeManager nm;
+    nm.surrect();
 
 }
     //bool MyTurn=true; //TRUE means NA0, False means opponent

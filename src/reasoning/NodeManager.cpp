@@ -8,25 +8,9 @@
 
 void ask_to_turn_card(reasoning::CardPosition card_position);
 
-void NodeManager::execute_every_second() {
-
-    std::cout << "tick" << std::endl;
-
-    auto actions = _sp.retrieve_actions();
-
-
-    _timer.expires_at(_timer.expires_at() + _interval);
-    _timer.async_wait(boost::bind(&NodeManager::execute_every_second, this));
-}
-
 NodeManager::NodeManager()
-        : _interval(1),
-          _timer(_io_service, _interval),
-          _question_node("ask_question", true),
-          _voice_node("say_something", true) {
-    _sub = _n.subscribe("cards", 1000, &NodeManager::vision_callback, this);
-    _timer.async_wait(boost::bind(&NodeManager::execute_every_second, this));
-
+        : _question_node("ask_question", true),
+          _voice_node("say_something", true){
 
     _question_node.waitForServer();
     _voice_node.waitForServer();
@@ -39,41 +23,22 @@ reasoning::CardPosition NodeManager::cardPositionMap(const nao_playing_memory::P
     };
 }
 
-void NodeManager::vision_callback(const nao_playing_memory::Cards::ConstPtr &msg) {
-    std::vector<reasoning::ConcealedCard> concealed_cards;
-    concealed_cards.reserve(msg->concealed_card_list.size());
-
-    for (const auto &card : msg->concealed_card_list) {
-        concealed_cards.emplace_back(card.id, cardPositionMap(card.position));
-    }
-
-    std::vector<reasoning::ExposedCard> exposed_cards;
-    exposed_cards.reserve(msg->exposed_card_list.size());
-
-    for (const auto &card: msg->exposed_card_list) {
-        exposed_cards.emplace_back(card.class_type, card.id, cardPositionMap(card.position));
-    }
-
-    std::vector<reasoning::CardPosition> invalid_positions;
-    invalid_positions.reserve(msg->no_card_list.size());
-
-    std::transform(msg->no_card_list.begin(), msg->no_card_list.end(), std::back_inserter(invalid_positions),
-                   [](const nao_playing_memory::Position &key_value_pair) {
-                       return cardPositionMap(key_value_pair);
-                   });
-
-    _sp.process_new_state(concealed_cards, exposed_cards, invalid_positions);
-}
-
 void NodeManager::surrect() {
     ros::Rate rate(30);
+    unsigned int nao_points=0;
+    unsigned int opponent_points=0;
+    //TODO Initialize max_num of points one can achieve depending on the number of init cards
 
     auto nao_is_bored = true;
     while (true) {
         while (nao_is_bored) {
+            rate.sleep();
             auto wants_play = ask_to_play();
             if (wants_play) {
                 nao_is_bored = false;
+                opponent_points = 0;
+                nao_points = 0;
+
             }
             ros::Duration(5).sleep();
         }
@@ -87,6 +52,7 @@ void NodeManager::surrect() {
 
         auto game_is_running = true;
         while (game_is_running) {
+            rate.sleep();
             if (nao_is_in_charge) {
                 auto cards_to_turn = _pc.decide_action();
 
@@ -95,39 +61,91 @@ void NodeManager::surrect() {
                         ask_to_turn_card(card);
                     }
                     ask_to_collect_cards(cards_to_turn);
+                    //TODO remove  instances from prolog
+                    _pc.delete_cards(cards_to_turn[0].get_id(),cards_to_turn[1].get_id());
+                    //Added point counter
+                    nao_points += 1;
                 } else {
                     auto random_card = cards_to_turn[0];
                     ask_to_turn_card(random_card);
-                    ActionBlocker(30).wait_until_card_is_revealed(random_card.get_id());
+                    ActionBlocker(30, 5).wait_until_card_is_revealed(random_card.get_id());
                     ros::Duration(0.1).sleep();
                     auto card = _pc.search_paired_card(random_card);
                     if (card.has_value()) {
                         ask_to_turn_card(card.value());
-                        ask_to_collect_cards({random_card,card.value()});
+                        ask_to_collect_cards({random_card, card.value()});
+                        //TODO remove  instances from prolog
+                        _pc.delete_cards(random_card.get_id(),card.value().get_id());
+                        //Added point counter
+                        nao_points += 1;
                     } else {
                         auto second_random_card = _pc.search_random_card();
-                        ask_to_turn_card(second_random_card);
-                        ActionBlocker(30).wait_until_card_is_revealed(second_random_card.get_id());
+                        if (!second_random_card.has_value()){
+                            say_someone_cheated();
+                            //TODO decide what to do
+                            game_is_running=false;
+                            break;
+                        }
+                        ask_to_turn_card(second_random_card.value());
+                        ActionBlocker(30, 5).wait_until_card_is_revealed(second_random_card.value().get_id());
                         ros::Duration(0.1).sleep();
                         _pc.search_paired_card(random_card);
-                        if (random_card.get_id() == second_random_card.get_id()) {
-                            ask_to_collect_cards({random_card, second_random_card});
+                        if (random_card.get_id() == second_random_card.value().get_id()) {
+                            ask_to_collect_cards({random_card, second_random_card.value()});
+                            //TODO remove  instances from prolog
+                            _pc.delete_cards(random_card.get_id(),second_random_card.value().get_id());
+                            //Added point counter
+                            nao_points += 1;
                         } else {
                             nao_is_in_charge = false;
                         }
                     }
                 }
+            }
+            //TODO check game state
+            if(!nao_is_in_charge){
+                say_it_is_your_turn();
 
-                if(!nao_is_in_charge){
-                    say_it_is_your_turn();
+                auto card1 = ActionBlocker(30, 3).wait_until_any_card_is_revealed();
+                auto card2 = ActionBlocker(30, 3).wait_until_any_card_is_revealed();
 
 
 
+                bool equal_cards = _pc.are_cards_equal(card1.get_id(),card2.get_id());
+                if(equal_cards){
+                    //TODO remove  instances from prolog
+                    //TODO WAIT UNTIL CARDS ARE REMOVED
+                    ActionBlocker(30, 5).wait_until_cards_removed({
+                        card1.get_position(),
+                        card2.get_position()
+                    });
+                    _pc.delete_cards(card1.get_id(),card2.get_id());
+                    opponent_points += 1;
+                }else{
+                    nao_is_in_charge = true;
+                    say_synchronous("ahah no success for you");
+                }
+            }
+
+            if(opponent_points > 3 || nao_points > 3 || nao_points+opponent_points>=6){
+                game_is_running = false;
+                nao_is_bored = true;
+                if (opponent_points > 3) {
+                    say_synchronous("good job");
+                } else if (nao_points > 3 ){
+                    say_synchronous("looser! There is no shame in loosing against the master!");
+                } else{
+                    say_synchronous("I could not bring it over me to beat you.");
                 }
             }
         }
     }
 }
+
+void NodeManager::say_someone_cheated() {
+    say_synchronous("You cheated and I did not notice!");
+}
+
 
 void NodeManager::say_it_is_your_turn() {
     say_synchronous("It is your turn !");
@@ -158,7 +176,7 @@ bool NodeManager::ask_to_play() {
     if (finished_before_timeout) {
         actionlib::SimpleClientGoalState state = _question_node.getState();
         ROS_INFO("Ask Action finished: %s", state.toString().c_str());
-
+        std::cout <<"print: "<< state.getText()<< "  end"<< std::cout;
         return state.getText() == "Yes";
 
     } else {
@@ -203,6 +221,6 @@ void NodeManager::ask_to_collect_cards(const std::vector<reasoning::ConcealedCar
         + " "+
         std::to_string(card.get_position().get_y()) + "!");
 
-        ActionBlocker(30).wait_until_card_is_removed(card.get_position());
+        ActionBlocker(30, 5).wait_until_card_is_removed(card.get_position());
     }
 }

@@ -99,7 +99,8 @@ public:
         speech::SpeechRecognitionClient RecogClient(nh_);
 
         RecogClient.request_response_block(possible_answers,question,answer);
-
+        ask_feedback.question_asked = true;
+        ask_srv.publishFeedback(ask_feedback);
 
 
         if(ask_srv.isPreemptRequested() || !ros::ok()){
@@ -107,12 +108,11 @@ public:
             ask_srv.setPreempted();
             success = false;
         }
-        ask_feedback.answer = answer;
-        ask_srv.publishFeedback(ask_feedback);
+
         r.sleep();
 
         if(success){
-            ask_result.question_asked = true;
+            ask_result.answer = answer;
             ROS_INFO("%s: Succeeded", action_name_1.c_str());
             ask_srv.setSucceeded(ask_result);
         }

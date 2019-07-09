@@ -19,22 +19,12 @@
 
 class NodeManager {
 private:
-    ros::NodeHandle _n;
-    reasoning::StateProcessor _sp;
     reasoning::PrologClient _pc;
-    ros::Subscriber _sub;
 
     actionlib::SimpleActionClient<nao_playing_memory::AskQuestionAction> _question_node;
     actionlib::SimpleActionClient<nao_playing_memory::SaySomethingAction> _voice_node;
 
-    boost::asio::io_service _io_service;
-    boost::posix_time::seconds _interval;
-    boost::asio::deadline_timer _timer;
-    void execute_every_second();
-
     static reasoning::CardPosition cardPositionMap(const nao_playing_memory::Position &position);
-
-    void vision_callback(const nao_playing_memory::Cards::ConstPtr &msg);
 
     void say_synchronous(std::string text);
 
@@ -44,16 +34,17 @@ private:
 
     void ask_to_turn_card(reasoning::ConcealedCard card);
 
+    void say_someone_cheated();
+
 public:
 
     NodeManager();
 
     void surrect();
 
-
     bool initialize_game_board();
 
-    void ask_to_collect_cards();
+    //void ask_to_collect_cards();
 
     void ask_to_collect_cards(const std::vector<reasoning::ConcealedCard> &cards);
 };

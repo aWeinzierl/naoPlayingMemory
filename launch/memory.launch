@@ -1,5 +1,11 @@
 <launch>
+  <include file="$(find nao_bringup)/launch/nao_full_py.launch"/>
+  <include file="$(find nao_apps)/launch/speech.launch"/>
   <param name="initial_package" type="string" value="nao_playing_memory" />
   <param name="initial_goal" type="string" value="owl_parse('package://nao_playing_memory/owl/Nao_computables.owl')" />
   <node name="json_prolog" pkg="json_prolog" type="json_prolog_node" cwd="node" output="screen" />
+  <!--<node name="speech" pkg="nao_playing_memory" type="speech_node"/>-->
+  <!--<node name="reasoning" pkg="nao_playing_memory" type = "reasoning_node"/>
+  <node name="vision" pkg="nao_playing_memory" type = "vision_node"/>-->
 </launch>
+
