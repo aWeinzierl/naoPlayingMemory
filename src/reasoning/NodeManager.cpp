@@ -58,6 +58,7 @@ void NodeManager::surrect() {
             std::cout<<"Game is Running"<<std::endl;
             rate.sleep();
             if (nao_is_in_charge) {
+                //say_synchronous("It is my turn");
                 std::cout<<"It is my turn"<<std::endl;
                 auto cards_to_turn = _pc.decide_action();
 
@@ -71,6 +72,7 @@ void NodeManager::surrect() {
                     //Added point counter
                     nao_points += 1;
                 } else {
+
                     std::cout<<"i choose  card: "<<std::to_string(cards_to_turn[0].get_id())<<std::endl;
                     auto random_card = cards_to_turn[0];
                     ask_to_turn_card(random_card);
@@ -78,8 +80,9 @@ void NodeManager::surrect() {
                     _pc.save_action(revealed_card);
                     ros::Duration(2).sleep();
                     auto card = _pc.search_paired_card(random_card);
-                    //std::cout<<"Card:"<<card.value().get_id()<<std::endl;
+
                     if (card.has_value()) {
+
                         std::cout<<"Card:"<<card.value().get_id()<<std::endl;
                         ask_to_turn_card(card.value());
                         ask_to_collect_cards({random_card, card.value()});
@@ -87,7 +90,9 @@ void NodeManager::surrect() {
                         _pc.delete_cards(random_card.get_id(),card.value().get_id());
                         //Added point counter
                         nao_points += 1;
+
                     } else {
+
                         std::cout<<"I dont know any card with the same class"<<std::endl;
                         auto second_random_card = _pc.search_random_card();
                         if (!second_random_card.has_value()){
@@ -97,39 +102,50 @@ void NodeManager::surrect() {
                             break;
                         }
                         ask_to_turn_card(second_random_card.value());
-                        ActionBlocker(30, 5).wait_until_card_is_revealed(second_random_card.value().get_position());
+                        auto revealed_card2 = ActionBlocker(30, 5).wait_until_card_is_revealed(second_random_card.value().get_position());
+                        _pc.save_action(revealed_card2);
                         ros::Duration(0.5).sleep();
-                        _pc.search_paired_card(random_card);
-                        if (random_card.get_id() == second_random_card.value().get_id()) {
+                        auto card3 =_pc.search_paired_card(second_random_card.value());
+                        if(card3.has_value()){
                             ask_to_collect_cards({random_card, second_random_card.value()});
                             std::cout<<"i am waiting for someone to collect the cards"<<std::endl;
-                            //TODO remove  instances from prolog
                             _pc.delete_cards(random_card.get_id(),second_random_card.value().get_id());
                             //Added point counter
                             nao_points += 1;
                         } else {
+                            say_synchronous("No Luck for me");
                             nao_is_in_charge = false;
                         }
                     }
                 }
             }
-            //TODO check game state
+            if(opponent_points > 3 || nao_points > 3 || nao_points+opponent_points>=6){
+                game_is_running = false;
+                nao_is_bored = true;
+                if (opponent_points > 3) {
+                    say_synchronous("good job");
+                } else if (nao_points > 3 ){
+                    say_synchronous("looser! There is no shame in loosing against the master!");
+                } else{
+                    say_synchronous("I could not bring it over me to beat you.");
+                }
+            }
             if(!nao_is_in_charge){
                 say_it_is_your_turn();
 
                 auto card1 = ActionBlocker(30, 3).wait_until_any_card_is_revealed();
                 auto card2 = ActionBlocker(30, 3).wait_until_any_card_is_revealed();
-
+                _pc.save_action(card1);
+                _pc.save_action(card2);
 
 
                 bool equal_cards = _pc.are_cards_equal(card1.get_id(),card2.get_id());
                 if(equal_cards){
-                    //TODO remove  instances from prolog
-                    //TODO WAIT UNTIL CARDS ARE REMOVED
-                    ActionBlocker(30, 5).wait_until_cards_removed({
+                    ActionBlocker(30, 15).wait_until_cards_removed({
                         card1.get_position(),
                         card2.get_position()
                     });
+                    say_synchronous("Take your Cards");
                     _pc.delete_cards(card1.get_id(),card2.get_id());
                     opponent_points += 1;
                 }else{
@@ -227,12 +243,15 @@ void NodeManager::say_synchronous(std::string text) {
 }
 
 void NodeManager::ask_to_collect_cards(const std::vector<reasoning::ConcealedCard> &cards) {
-    for (const auto &card : cards) {
-        say_synchronous("Please give me the card " +
-        std::to_string(card.get_position().get_x())
-        + " "+
-        std::to_string(card.get_position().get_y()) + "!");
 
-        ActionBlocker(30, 5).wait_until_card_is_removed(card.get_position());
-    }
+        say_synchronous("Please give me the card " +
+        std::to_string(cards[0].get_position().get_x())
+        + " "+
+        std::to_string(cards[0].get_position().get_y()) + " and the card" +
+        std::to_string(cards[1].get_position().get_x())+ " "+
+        std::to_string(cards[1].get_position().get_y()) +
+        "!");
+
+        ActionBlocker(30, 5).wait_until_cards_removed({cards[0].get_position() , cards[1].get_position()});
+
 }

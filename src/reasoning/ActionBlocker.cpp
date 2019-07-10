@@ -60,6 +60,10 @@ AllCards map_card_state(const nao_playing_memory::Cards::ConstPtr &msg) {
     std::vector<reasoning::CardPosition> invalid_positions;
     invalid_positions.reserve(msg->no_card_list.size());
 
+    for (const auto &position: msg->no_card_list) {
+        invalid_positions.emplace_back(position.x, position.y);
+    }
+
     return std::make_tuple(concealed_cards, exposed_cards, invalid_positions);
 }
 
@@ -88,15 +92,18 @@ void ActionBlocker::wait_until_card_is_removed(const reasoning::CardPosition &ca
 
 void ActionBlocker::wait_until_cards_removed(const std::vector<reasoning::CardPosition> &card_positions) {
     auto local_card_positions = card_positions;
+    std::cout << "im gonna wait for removal" << std::endl;
     while (!local_card_positions.empty()) {
         spin();
         auto actions = _sp.retrieve_actions();
         for (auto const &card : actions.remove_card) {
-            std::remove(local_card_positions.begin(), // NOLINT(bugprone-unused-return-value)
-                        local_card_positions.end(),
-                        card);
+            std::cout << "remove card " << card.get_x() << " " << card.get_y();
+            local_card_positions.erase(std::remove(local_card_positions.begin(),
+                                                   local_card_positions.end(),
+                                                   card), local_card_positions.end());
         }
     }
+    std::cout << "they have been removed" << std::endl;
 }
 
 void ActionBlocker::wait_until_card_is_covered(const unsigned int card_id) {
