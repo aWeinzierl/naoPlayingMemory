@@ -63,7 +63,7 @@ namespace reasoning {
     ActionDetections StateProcessor::retrieve_actions() {
 
 
-        //std::lock_guard<std::mutex> lockGuard(_actions_mutex);
+        std::lock_guard<std::mutex> lockGuard(_actions_mutex);
         std::cout << "start retrieving"<<std::endl;
         auto actions = _actions;
         std::cout << "end retrieving" << std::endl;
