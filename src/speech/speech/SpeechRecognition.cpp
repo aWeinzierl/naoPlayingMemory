@@ -65,15 +65,28 @@ void speech::SpeechRecognitionClient::listen(std::vector<std::string> &available
 
 void speech::SpeechRecognitionClient::speech_recognition_callback(
         const naoqi_bridge_msgs::WordRecognized::ConstPtr &msg) {
-    for (int i = 0; i < msg->words.size(); i++) {
+
+    if (msg->words.empty()){
+        return;
+    }
+
+    std::string word_with_highest_confidence = msg->words[0];
+    float highest_confidence = msg->confidence_values[0];
+
+    for (int i = 1; i < msg->words.size(); i++) {
 
         std::string log_msg = "MATCHED INPUT TO WORD " +
                               msg->words[i] + " WITH " + patch::to_string(int(100 * msg->confidence_values[i])) +
                               "% CONFIDENCE";
         std::cout << log_msg << std::endl;
-        _matches.push_back(msg->words[i]);
 
+        if (highest_confidence<msg->confidence_values[i]){
+            word_with_highest_confidence = msg->words[i];
+            highest_confidence = msg->confidence_values[i];
+        }
     }
+
+    std::cout << "Selecting most probable answer" << std::endl;
 }
 
 void speech::SpeechRecognitionClient::publish_vocab(std::vector<std::string> &vocab) {
