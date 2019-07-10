@@ -86,6 +86,8 @@ void speech::SpeechRecognitionClient::speech_recognition_callback(
         }
     }
 
+    _matches.push_back(word_with_highest_confidence);
+
     std::cout << "Selecting most probable answer" << std::endl;
 }
 
