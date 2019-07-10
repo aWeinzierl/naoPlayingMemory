@@ -38,6 +38,7 @@ namespace perception{
         GridBoard grid_board;
         std::unordered_set<unsigned int> top_ids;
         std::unordered_map<unsigned int, string> card_classes;
+        std::unordered_map<unsigned int, unsigned int> top_back_map;
 
 
 
