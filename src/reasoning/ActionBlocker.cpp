@@ -12,8 +12,9 @@ reasoning::ExposedCard ActionBlocker::wait_until_card_is_revealed(const reasonin
         auto correct_action = std::find_if(
                 actions.reveal_card.begin(), actions.reveal_card.end(),
                 [card_pos](const reasoning::RevealCardAction &action) {
-                    std::cout << "compare: " << action.get_position().get_x()<<action.get_position().get_y()<<" to: "<<card_pos.get_x()<<card_pos.get_y()<<std::endl;
-                    return action.get_position()==card_pos;
+                    std::cout << "compare: " << action.get_position().get_x() << action.get_position().get_y()
+                              << " to: " << card_pos.get_x() << card_pos.get_y() << std::endl;
+                    return action.get_position() == card_pos;
                 });
 
         if (correct_action != actions.reveal_card.end()) {
@@ -95,6 +96,19 @@ void ActionBlocker::wait_until_cards_removed(const std::vector<reasoning::CardPo
             std::remove(local_card_positions.begin(), // NOLINT(bugprone-unused-return-value)
                         local_card_positions.end(),
                         card);
+        }
+    }
+}
+
+void ActionBlocker::wait_until_card_is_covered(const unsigned int card_id) {
+    while (true) {
+        spin();
+        auto actions = _sp.retrieve_actions();
+
+        for (auto const &card : actions.cover_card) {
+            if (card_id == card.get_id()) {
+                return;
+            }
         }
     }
 }
