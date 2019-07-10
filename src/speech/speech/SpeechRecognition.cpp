@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <naoqi_bridge_msgs/SpeechWithFeedbackActionGoal.h>
 #include <naoqi_bridge_msgs/SetSpeechVocabularyActionGoal.h>
+#include <std_msgs/String.h>
 #include <std_srvs/Empty.h>
 #include "SpeechRecognition.h"
 #include <string>
@@ -17,6 +18,7 @@ namespace patch {
 }
 
 speech::SpeechRecognitionClient::SpeechRecognitionClient(ros::NodeHandle &nodeHandle) {
+    _chatter_pub = nodeHandle.advertise<std_msgs::String>("speech",1);
     _speech_pub = nodeHandle.advertise<naoqi_bridge_msgs::SpeechWithFeedbackActionGoal>("/speech_action/goal", 1);
     _vocab_pub = nodeHandle.advertise<naoqi_bridge_msgs::SetSpeechVocabularyActionGoal>(
             "/speech_vocabulary_action/goal", 1);
@@ -158,4 +160,18 @@ void speech::SpeechRecognitionClient::request_response_block(std::vector<std::st
     // Wait for the answer. Fills the response parameter is the command was understood
     // Now we listen
     listen(vocabulary, response, 3);
+}
+
+void speech::SpeechRecognitionClient::say_something(std::string text_to_say) {
+    ros::Rate _r_sleep(10);
+
+    while(!_chatter_pub.getNumSubscribers()){
+        _r_sleep.sleep();
+    }
+
+    std_msgs::String msg;
+    msg.data = text_to_say;
+
+    _chatter_pub.publish(msg);
+
 }
