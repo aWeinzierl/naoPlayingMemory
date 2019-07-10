@@ -223,7 +223,7 @@ delete_cards(Id1,Id2):-
 
 check_deletion(Id1):-
     rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id1),
-    rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',true).
+    rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isDeleted',true).
 
 giveClass_pos(CX,CY,Class):-
     rdfs_individual_of(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
