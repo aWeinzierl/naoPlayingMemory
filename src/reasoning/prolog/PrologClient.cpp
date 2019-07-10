@@ -420,6 +420,16 @@ namespace reasoning {
 
 
     std::vector<reasoning::ConcealedCard> PrologClient::decide_action() {
+        std::cout << "Print out DeletedCards " << std::endl;
+        PrologQueryProxy bdgs5 = _pl.query("rdf_has(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isDeleted',true)");
+        for (PrologQueryProxy::iterator it = bdgs5.begin(); it != bdgs5.end(); it++) {
+            PrologBindings bdg = *it;
+            std::cout << "Card1 = " << bdg["Card"] << std::endl;
+
+        }
+
+
+
         std::cout << "Im gonna decide which action to do" << std::endl;
         auto bdg = _pl.once("act_id_pos(C1id,C1X,C1Y,C2id,C2X,C2Y)");
         std::cout<<"Cards1:"<<bdg["C1id"]<<std::endl;
@@ -526,8 +536,8 @@ namespace reasoning {
     }
     void PrologClient::save_action( const RevealCardAction &reveal_card_action) {
         //giveClass_pos(CX,CY,Class):-
-        std::cout<<"giveClass_pos('" + std::to_string(reveal_card_action.get_position().get_x()) + "','" + std::to_string(reveal_card_action.get_position().get_y()) + "','" + reveal_card_action.get_class() + "')"<<std::endl;
-        std::cout<<"here i am creating the class"<<reveal_card_action.get_class()<<"  "<<reveal_card_action.get_position().get_x()<<reveal_card_action.get_position().get_y()<<std::endl;
+        //std::cout<<"giveClass_pos('" + std::to_string(reveal_card_action.get_position().get_x()) + "','" + std::to_string(reveal_card_action.get_position().get_y()) + "','" + reveal_card_action.get_class() + "')"<<std::endl;
+        //std::cout<<"here i am creating the class"<<reveal_card_action.get_class()<<"  "<<reveal_card_action.get_position().get_x()<<reveal_card_action.get_position().get_y()<<std::endl;
         PrologQueryProxy bdgs = _pl.query("giveClass_pos('" + std::to_string(reveal_card_action.get_position().get_x()) + "','" + std::to_string(reveal_card_action.get_position().get_y()) + "','" + reveal_card_action.get_class() + "')");
 
 
