@@ -30,22 +30,15 @@ namespace reasoning {
         ActionDetections _actions;
         std::mutex _actions_mutex;
 
-        std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> _position_to_filter;
 
-        std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> generate_filters(unsigned int persistence) {
-            for (unsigned int i = 1; i < 5; ++i) {
-                for (unsigned int j = 1; j < 4; ++j) {
-                    auto cardPosition = CardPosition(i, j);
-                    std::cout<<"Test pos::"<<cardPosition.get_x()<<cardPosition.get_y()<<std::endl;
-                    auto filter = FilterRecognizeTurn(persistence, State::CONCEALED);
-                    _position_to_filter.insert({cardPosition, filter});
-                }
-            }
-        }
+
+        std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> generate_filters(unsigned int persistence);
         bool state_update_triggers_filter(const CardPosition& card_position, State state);
 
     public:
-        StateProcessor(unsigned int persistence);
+        explicit StateProcessor(unsigned int persistence);
+
+        std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> _position_to_filter;
 
         void process_new_state(const std::vector<ConcealedCard> &concealed_card,
                                const std::vector<ExposedCard> &exposed_card,

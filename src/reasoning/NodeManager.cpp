@@ -33,7 +33,7 @@ void NodeManager::surrect() {
     while (true) {
         while (nao_is_bored) {
             rate.sleep();
-            ros::Duration(5).sleep();
+            ros::Duration(3).sleep();
             auto wants_play = ask_to_play();
             if (wants_play) {
                 nao_is_bored = false;
@@ -75,10 +75,12 @@ void NodeManager::surrect() {
                     auto random_card = cards_to_turn[0];
                     ask_to_turn_card(random_card);
                     std::cout<<"i choose one card1"<<std::endl;
-                    ActionBlocker test(30,5);
-                    test.wait_until_card_is_revealed(random_card.get_id());
+                    ;
+                    auto revealed_card = ActionBlocker(30,5).wait_until_card_is_revealed(random_card.get_position());
+                    _pc.save_action(revealed_card);
+
                     std::cout<<"i choose one card2"<<std::endl;
-                    ros::Duration(10).sleep();
+                    ros::Duration(2).sleep();
                     std::cout<<"i choose one card3"<<std::endl;
                     auto card = _pc.search_paired_card(random_card);
                     std::cout<<"Card:"<<card.value().get_id()<<std::endl;
@@ -98,7 +100,7 @@ void NodeManager::surrect() {
                             break;
                         }
                         ask_to_turn_card(second_random_card.value());
-                        ActionBlocker(30, 5).wait_until_card_is_revealed(second_random_card.value().get_id());
+                        ActionBlocker(30, 5).wait_until_card_is_revealed(second_random_card.value().get_position());
                         ros::Duration(0.1).sleep();
                         _pc.search_paired_card(random_card);
                         if (random_card.get_id() == second_random_card.value().get_id()) {

@@ -53,7 +53,7 @@ namespace reasoning {
 
         void delete_cards(unsigned int id1, unsigned int id2);
 
-        void save_action(const std::string &player_name, const RevealCardAction &reveal_card_action, unsigned int time_instant);
+        void save_action(/*const std::string &player_name,*/ const RevealCardAction &reveal_card_action/*, unsigned int time_instant*/);
 
         void save_action(const std::string &player_name, const CoverCardAction &cover_card_action, unsigned int time_instant);
 
@@ -63,7 +63,7 @@ namespace reasoning {
 
         void save(const ConcealedCard &concealed_card);
 
-        void test_prolog_query();
+        //void test_prolog_query();
 
         std::vector<ConcealedCard> decide_action();
 

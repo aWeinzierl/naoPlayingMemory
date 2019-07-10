@@ -20,6 +20,7 @@
         pickRandomCard_pos/3,
         delete_cards/2,
         check_deletion/1,
+        giveClass_pos/3,
         %unknownCardInstanciation/2,
         %knownCardInstanciation/2,
         findPosition/3
@@ -224,9 +225,12 @@ check_deletion(Id1):-
     rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',Id1),
     rdf_has(C1,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasMarkerId',true).
 
-
-    
-
+giveClass_pos(CX,CY,Class):-
+    rdfs_individual_of(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card'),
+    rdf_has(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasPosition',CardPosition),
+    rdf_has(CardPosition,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasXCoordinate',CX),
+    rdf_has(CardPosition,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasYCoordinate',CY),
+    rdf_assert(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass',Class).
 
 
     

@@ -4,25 +4,23 @@
 #include "CardStateRetriever.h"
 
 
-void ActionBlocker::wait_until_card_is_revealed(unsigned int card_id) {
-    auto sub = _n.subscribe("/cards", 1000, &ActionBlocker::vision_callback, this);
-    std::cout<<"I am waiting until a card is revealed"<<std::endl;
+reasoning::ExposedCard ActionBlocker::wait_until_card_is_revealed(const  reasoning::CardPosition &card_pos) {
+    _sub = _n.subscribe("/cards", 1000, &ActionBlocker::vision_callback, this);
     while (true) {
-        std::cout<<"waiting"<<std::endl;
         _ros_rate.sleep();
         ros::spinOnce();
         auto actions = _sp.retrieve_actions();
-        std::cout << "retrieved actions" << std::endl;
-        if (std::find_if(
+        //std::cout << "retrieved actions" << std::endl;
+        auto correct_action = std::find_if(
                 actions.reveal_card.begin(), actions.reveal_card.end(),
-                [card_id](const reasoning::RevealCardAction &action) {
-                    std::cout << "compare" << std::endl;
-                    return action.get_id()==card_id;
-                    return action.get_id()==card_id;
-                }) != actions.reveal_card.end()) {
-            sub.shutdown();
-            std::cout<<"I am returning"<<std::endl;
-            return;
+                [card_pos](const reasoning::RevealCardAction &action) {
+                    std::cout << "compare: " << action.get_id()<<" to: "<<card_pos.get_x()<<card_pos.get_y()<<std::endl;
+                    return action.get_position()==card_pos;
+                });
+
+        if (correct_action != actions.reveal_card.end()) {
+            _sub.shutdown();
+            return *correct_action;
         }
     }
 }
@@ -66,9 +64,7 @@ AllCards map_card_state(const nao_playing_memory::Cards::ConstPtr &msg) {
 
 void ActionBlocker::vision_callback(const nao_playing_memory::Cards::ConstPtr &msg) {
     auto states = map_card_state((msg));
-    std::cout<<"I am in the actionblocker vision callback before processing new state"<<std::endl;
     _sp.process_new_state(std::get<0>(states), std::get<1>(states), std::get<2>(states));
-
 }
 
 ActionBlocker::ActionBlocker(unsigned int ros_rate, unsigned int persistence) :

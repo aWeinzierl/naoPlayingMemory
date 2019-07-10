@@ -4,8 +4,10 @@
 namespace reasoning {
 
     bool StateProcessor::state_update_triggers_filter(const CardPosition& card_position, State state){
+
+
         auto filter = _position_to_filter.find(card_position);
-        std::cout<<"Test111111 pos::"<<card_position.get_x()<<card_position.get_y()<<"Filter: "<<filter->first.get_x()<<filter->first.get_y()<<std::endl;
+
         if (filter==_position_to_filter.end()){
             throw new std::logic_error("position does not exist");
         }
@@ -17,43 +19,32 @@ namespace reasoning {
                                            const std::vector<ExposedCard> &exposed_card,
                                            const std::vector<CardPosition> &unknown) {
 
+
         std::lock_guard<std::mutex> lockGuard(_actions_mutex);
-        //analise State from cards
-        std::cout << "code1" <<std::endl;
-        std::cout << concealed_card.size() << std::endl;
-        std::cout << "code2" <<std::endl;
 
 
-        std::cout << "start updating"<<std::endl;
+
         for (const auto &card: exposed_card) {
-            std::cout << "1" <<std::endl;
             auto triggered = state_update_triggers_filter(card.get_position(),State::EXPOSED);
-            std::cout << "2" <<std::endl;
             if (triggered) {
-                std::cout << "3" <<std::endl;
                 _actions.reveal_card.emplace_back(card);
-                std::cout << "exposed"<<std::endl;
+
+
             }
         }
         for (const auto &card: concealed_card) {
-            std::cout << "1" <<std::endl;
-            std::cout<<"_card position: "<<card.get_position().get_x()<<" , "<< card.get_position().get_y()<<std::endl;
+            //auto triggered =_position_to_filter.find(card.get_position())->second.update(State::CONCEALED);
             auto triggered = state_update_triggers_filter(card.get_position(),State::CONCEALED);
-            std::cout << "2" <<std::endl;
             if (triggered) {
-                std::cout << "3" <<std::endl;
                 _actions.cover_card.emplace_back(card);
-                std::cout << "concealed"<<std::endl;
             }
         }
         for (const auto &position: unknown) {
             auto triggered = state_update_triggers_filter(position, State::UNKNOWN);
             if (triggered) {
                 _actions.remove_card.emplace_back(position);
-                std::cout << "remove"<<std::endl;
             }
         }
-        std::cout << "end updating"<<std::endl;
     }
 
     StateProcessor::StateProcessor(unsigned int persistence) {
@@ -63,11 +54,9 @@ namespace reasoning {
 
     ActionDetections StateProcessor::retrieve_actions() {
 
-
         std::lock_guard<std::mutex> lockGuard(_actions_mutex);
-        std::cout << "start retrieving"<<std::endl;
         auto actions = _actions;
-        std::cout << "end retrieving" << std::endl;
+        //std::cout << "retrieving" << std::endl;
         _actions = ActionDetections();
 
         return actions;
@@ -76,4 +65,20 @@ namespace reasoning {
     void StateProcessor::reset_found_actions() {
         _actions = ActionDetections();
     }
+
+    std::unordered_map<CardPosition, FilterRecognizeTurn, Hash>StateProcessor::generate_filters(unsigned int persistence) {
+        {
+            for (unsigned int i = 1; i < 5; ++i) {
+                for (unsigned int j = 1; j < 4; ++j) {
+                    auto cardPosition = CardPosition(i, j);
+                    auto filter = FilterRecognizeTurn(persistence, State::CONCEALED);
+                    _position_to_filter.insert({cardPosition, filter});
+                }
+            }
+
+            return _position_to_filter;
+        }
+    }
+
+
 }

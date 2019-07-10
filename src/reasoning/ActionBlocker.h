@@ -24,7 +24,7 @@ public:
 
     ActionBlocker(unsigned int ros_rate, unsigned int persistence);
 
-    void wait_until_card_is_revealed(unsigned int card_id);
+    reasoning::ExposedCard wait_until_card_is_revealed(const reasoning::CardPosition &card_pos);
 
     void wait_until_card_is_removed(const reasoning::CardPosition& card_position);
 
