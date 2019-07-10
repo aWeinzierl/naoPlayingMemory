@@ -474,8 +474,8 @@ namespace reasoning {
 
 
         std::cout << "Im gonna search for a paired Card for " <<concealed_card.get_position().get_x()<<concealed_card.get_position().get_x() <<std::endl;
-        auto bdgs = _pl.query("findTwoEqualCards_pos(" + _NAMESPACE + "Card_" + std::to_string(concealed_card.get_id()) +
-                              ", C2,C2id,C2X,C2Y)");
+        auto bdgs = _pl.query("findTwoEqualCards_pos('" + _NAMESPACE + "Card_" + std::to_string(concealed_card.get_id()) +
+                              "', C2,C2id,C2X,C2Y)");
 
         if (bdgs.begin() == bdgs.end()) {
             std::cout<<"its gonna crash"<<std::endl;
@@ -503,9 +503,7 @@ namespace reasoning {
         std::string card2_id = bdg["C1"].toString().erase(0, _NAMESPACE.length() + 5);
 
         std::cout<<"The random card is: "<<bdg["C1"]<<std::endl;
-        std::cout<<"x: "<<bdg["CX"]<<std::endl;
-        std::cout<<"y: "<<bdg["CY"]<<std::endl;
-        std::cout << card2_id << std::endl;
+        std::cout<<"x: "<<bdg["CX"]<<"  y: "<<bdg["CY"]<<std::endl;
 
 
         if(bdg.begin() != bdg.end()){
