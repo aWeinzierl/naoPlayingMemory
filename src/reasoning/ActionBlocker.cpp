@@ -60,6 +60,10 @@ AllCards map_card_state(const nao_playing_memory::Cards::ConstPtr &msg) {
     std::vector<reasoning::CardPosition> invalid_positions;
     invalid_positions.reserve(msg->no_card_list.size());
 
+    for (const auto &position: msg->no_card_list) {
+        invalid_positions.emplace_back(position.x, position.y);
+    }
+
     return std::make_tuple(concealed_cards, exposed_cards, invalid_positions);
 }
 
