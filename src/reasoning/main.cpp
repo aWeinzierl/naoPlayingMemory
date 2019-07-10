@@ -21,7 +21,9 @@ main(int argc, char **argv) {
     test.push_back(reasoning::State::EXPOSED)  ;
     test.push_back(reasoning::State::EXPOSED)  ;
     test.push_back(reasoning::State::EXPOSED)  ;
-    std::cout<<"Test done"<<std::endl;
+    if (*test.begin() == reasoning::State::EXPOSED){
+    std::cout<<"Test done lelel"<<std::endl;
+    }
     nm.surrect();
 
 }

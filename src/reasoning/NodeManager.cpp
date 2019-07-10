@@ -74,11 +74,13 @@ void NodeManager::surrect() {
                     auto random_card = cards_to_turn[0];
                     ask_to_turn_card(random_card);
                     std::cout<<"i choose one card1"<<std::endl;
-                    ActionBlocker(30, 10).wait_until_card_is_revealed(random_card.get_id());
+                    ActionBlocker test(30,5);
+                    test.wait_until_card_is_revealed(random_card.get_id());
                     std::cout<<"i choose one card2"<<std::endl;
-                    ros::Duration(0.1).sleep();
+                    ros::Duration(10).sleep();
                     std::cout<<"i choose one card3"<<std::endl;
                     auto card = _pc.search_paired_card(random_card);
+                    std::cout<<"Card:"<<card.value().get_id()<<std::endl;
                     if (card.has_value()) {
                         ask_to_turn_card(card.value());
                         ask_to_collect_cards({random_card, card.value()});

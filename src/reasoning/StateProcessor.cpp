@@ -27,7 +27,9 @@ namespace reasoning {
         }
         for (const auto &card: concealed_card) {
             std::cout << "1" <<std::endl;
+            std::cout<<"_card position: "<<card.get_position().get_x()<<" , "<< card.get_position().get_y()<<std::endl;
             auto triggered = _position_to_filter.find(card.get_position())->second.update(State::CONCEALED);
+
             std::cout << "2" <<std::endl;
             if (triggered) {
                 std::cout << "3" <<std::endl;
@@ -47,6 +49,7 @@ namespace reasoning {
 
     StateProcessor::StateProcessor(unsigned int persistence) {
         _position_to_filter = generate_filters(persistence);
+        //std::cout<<"Filter map: "<<_position_to_filter<<std::endl;
     }
 
     ActionDetections StateProcessor::retrieve_actions() {

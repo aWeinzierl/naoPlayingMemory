@@ -18,7 +18,9 @@ void ActionBlocker::wait_until_card_is_revealed(unsigned int card_id) {
                 [card_id](const reasoning::RevealCardAction &action) {
                     std::cout << "compare" << std::endl;
                     return action.get_id()==card_id;
+                    return action.get_id()==card_id;
                 }) != actions.reveal_card.end()) {
+            sub.shutdown();
             std::cout<<"I am returning"<<std::endl;
             return;
         }
@@ -66,6 +68,7 @@ void ActionBlocker::vision_callback(const nao_playing_memory::Cards::ConstPtr &m
     auto states = map_card_state((msg));
     std::cout<<"I am in the actionblocker vision callback before processing new state"<<std::endl;
     _sp.process_new_state(std::get<0>(states), std::get<1>(states), std::get<2>(states));
+
 }
 
 ActionBlocker::ActionBlocker(unsigned int ros_rate, unsigned int persistence) :

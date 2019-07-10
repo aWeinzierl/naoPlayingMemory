@@ -493,8 +493,8 @@ namespace reasoning {
     //findTwoEqualCards_pos(C1, C2,Id2,C2X,C2Y)
 
     nonstd::optional<ConcealedCard> PrologClient::search_paired_card(const ConcealedCard &concealed_card) {
-        std::cout << "Im gonna search for a paired Card" << std::endl;
-        auto bdgs = _pl.query("findTwoEqualCards(" + _NAMESPACE + "_" + std::to_string(concealed_card.get_id()) +
+        std::cout << "Im gonna search for a paired Card for " <<concealed_card.get_position().get_x()<<concealed_card.get_position().get_x() <<std::endl;
+        auto bdgs = _pl.query("findTwoEqualCards_pos(" + _NAMESPACE + "Card_" + std::to_string(concealed_card.get_id()) +
                               ", C2,C2id,C2X,C2Y)");
 
         if (bdgs.begin() == bdgs.end()) {

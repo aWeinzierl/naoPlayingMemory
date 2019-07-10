@@ -1,8 +1,10 @@
 #pragma once
 
 #include <boost/circular_buffer.hpp>
+#include <boost/asio.hpp>
 #include "State.h"
 #include <nonstd/optional.hpp>
+//#include "CardStateRetriever.h"
 
 namespace reasoning {
 
