@@ -71,20 +71,16 @@ void NodeManager::surrect() {
                     //Added point counter
                     nao_points += 1;
                 } else {
-                    std::cout<<"i choose one card: "<<std::to_string(cards_to_turn[0].get_id())<<std::endl;
+                    std::cout<<"i choose  card: "<<std::to_string(cards_to_turn[0].get_id())<<std::endl;
                     auto random_card = cards_to_turn[0];
                     ask_to_turn_card(random_card);
-                    std::cout<<"i choose one card1"<<std::endl;
-                    ;
                     auto revealed_card = ActionBlocker(30,5).wait_until_card_is_revealed(random_card.get_position());
                     _pc.save_action(revealed_card);
-
-                    std::cout<<"i choose one card2"<<std::endl;
                     ros::Duration(2).sleep();
-                    std::cout<<"i choose one card3"<<std::endl;
                     auto card = _pc.search_paired_card(random_card);
-                    std::cout<<"Card:"<<card.value().get_id()<<std::endl;
+                    //std::cout<<"Card:"<<card.value().get_id()<<std::endl;
                     if (card.has_value()) {
+                        std::cout<<"Card:"<<card.value().get_id()<<std::endl;
                         ask_to_turn_card(card.value());
                         ask_to_collect_cards({random_card, card.value()});
                         //TODO remove  instances from prolog
@@ -92,6 +88,7 @@ void NodeManager::surrect() {
                         //Added point counter
                         nao_points += 1;
                     } else {
+                        std::cout<<"I dont know any card with the same class"<<std::endl;
                         auto second_random_card = _pc.search_random_card();
                         if (!second_random_card.has_value()){
                             say_someone_cheated();
