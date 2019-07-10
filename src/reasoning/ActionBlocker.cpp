@@ -14,7 +14,7 @@ reasoning::ExposedCard ActionBlocker::wait_until_card_is_revealed(const  reasoni
         auto correct_action = std::find_if(
                 actions.reveal_card.begin(), actions.reveal_card.end(),
                 [card_pos](const reasoning::RevealCardAction &action) {
-                    std::cout << "compare: " << action.get_position().get_x()<<action.get_position().get_y()<<" to: "<<card_pos.get_x()<<card_pos.get_y()<<std::endl;
+                    //std::cout << "compare: " << action.get_position().get_x()<<action.get_position().get_y()<<" to: "<<card_pos.get_x()<<card_pos.get_y()<<std::endl;
                     return action.get_position()==card_pos;
                 });
 
