@@ -31,4 +31,6 @@ public:
     void wait_until_cards_removed(const std::vector<reasoning::CardPosition>& card_positions);
 
     reasoning::ExposedCard wait_until_any_card_is_revealed();
+
+    void spin();
 };
