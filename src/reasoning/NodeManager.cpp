@@ -10,10 +10,25 @@ void ask_to_turn_card(reasoning::CardPosition card_position);
 
 NodeManager::NodeManager()
         : _question_node("ask_question", true),
-          _voice_node("say_something", true) {
+          _voice_node("say_something2", true) {
 
     _question_node.waitForServer();
     _voice_node.waitForServer();
+
+    card_classes = {
+            {15, "Strawberry"},
+            {16, "Strawberry"},
+            {17, "Pizza"},
+            {18, "Pizza"},
+            {25, "Ninja"},
+            {26, "Ninja"},
+            {20, "Penguin"},
+            {19, "Penguin"},
+            {23, "Octopus"},
+            {24, "Octopus"},
+            {21, "Nao"},
+            {22, "Nao"},
+    };
 }
 
 reasoning::CardPosition NodeManager::cardPositionMap(const nao_playing_memory::Position &position) {
@@ -45,7 +60,7 @@ void NodeManager::surrect() {
         }
 
         if (!initialize_game_board()) {
-            std::cout << "The board looks like shit" << std::endl;
+            std::cout << "The board looks bad, please reposition it" << std::endl;
             say_synchronous("Please put the cards correctly onto the board");
             nao_is_bored = true;
         }
@@ -62,11 +77,11 @@ void NodeManager::surrect() {
                 ros::Duration(1).sleep();
                 std::cout << "It is my turn" << std::endl;
                 auto cards_to_turn = _pc.decide_action();
-
                 if (cards_to_turn.size() == 2) {
                     std::cout<<"Telling to turn cards"<<std::endl;
                     for (const auto &card: cards_to_turn) {
                         ask_to_turn_card(card);
+                        //say_synchronous(""+ + "")
                         ActionBlocker(30,5).wait_until_card_is_revealed(card.get_position());
                     }
 
@@ -92,6 +107,7 @@ void NodeManager::surrect() {
                         std::cout<<"Turn card"<<std::endl;
                         ask_to_turn_card(card.value());
                         ActionBlocker(30,5).wait_until_card_is_revealed(card.value().get_position());
+
                         ask_to_collect_cards({random_card, card.value()});
 
                         _pc.delete_cards(random_card.get_id(), card.value().get_id());
@@ -108,11 +124,11 @@ void NodeManager::surrect() {
                         }
                         std::cout<<"turn card"<<std::endl;
                         ask_to_turn_card(second_random_card.value());
-                        auto revealed_card2 = ActionBlocker(30, 5).wait_until_card_is_revealed(
+                        auto revealed_card2 = ActionBlocker(30, 15).wait_until_card_is_revealed(
                                 second_random_card.value().get_position());
                         _pc.save_action(revealed_card2);
                         ros::Duration(0.5).sleep();
-                        auto card3 = _pc.search_paired_card(second_random_card.value());
+                        auto card3 = _pc.search_if_paired_card(second_random_card.value(),random_card);
                         if (card3.has_value()) {
                             ask_to_collect_cards({random_card, second_random_card.value()});
                             std::cout << "i am waiting for someone to collect the cards" << std::endl;
@@ -120,8 +136,8 @@ void NodeManager::surrect() {
 
                             nao_points += 1;
                         } else {
-                            say_synchronous("No Luck for me");
-                            std::cout<<"gNo luck for me"<<std::endl;
+                            say_synchronous(" No Luck for me , turn them back around ");
+                            std::cout<<" No luck for me"<<std::endl;
                             ActionBlocker(30, 5).wait_until_cards_covered(
                                     {random_card.get_id(), second_random_card.value().get_id()});
                             nao_is_in_charge = false;
@@ -134,18 +150,23 @@ void NodeManager::surrect() {
                 nao_is_bored = true;
                 std::cout<<"game ended"<<std::endl;
                 if (opponent_points > 3) {
-                    say_synchronous("good job");
+                    say_synchronous(" Good Job ");
                 } else if (nao_points > 3) {
-                    say_synchronous("looser! There is no shame in loosing against the master!");
+                    say_synchronous(" Looser ! There is no shame in loosing against the master!");
                 } else {
-                    say_synchronous("I could not bring it over me to beat you.");
+                    say_synchronous(" I could not bring it over me to beat you.");
                 }
+                //_pc.reset();
+                break;
             }
             if (!nao_is_in_charge) {
                 say_it_is_your_turn();
                 std::cout<<"Players turn"<<std::endl;
 
-                auto cards = ActionBlocker(30, 3).wait_until_enough_cards_revealed(2);
+                auto cards = ActionBlocker(30, 15).wait_until_enough_cards_revealed(2);
+                std::cout<<"Card1"<<cards[0].get_class()<<std::endl;
+                std::cout<<"Card2"<<cards[1].get_class()<<std::endl;
+
                 _pc.save_action(cards[0]);
                 _pc.save_action(cards[1]);
 
@@ -162,7 +183,7 @@ void NodeManager::surrect() {
                     opponent_points += 1;
                 } else {
                     std::cout<<"oponent had no luck"<<std::endl;
-                    say_synchronous("ahah no success for you");
+                    say_synchronous("ha ha ha no success for you, turn the cards around");
                     ActionBlocker(30, 5).wait_until_cards_covered({cards[0].get_id(), cards[1].get_id()});
                     nao_is_in_charge = true;
                 }
@@ -179,8 +200,11 @@ void NodeManager::surrect() {
                 } else {
                     say_synchronous("I could not bring it over me to beat you.");
                 }
+                //_pc.reset();
+                break;
             }
         }
+
     }
 }
 
@@ -236,7 +260,7 @@ bool NodeManager::initialize_game_board() {
     if (!std::get<1>(cards).empty() && !std::get<2>(cards).empty()) {
         return false;
     }
-    _pc.reset();
+    //_pc.reset();
 
     for (auto const &card : std::get<0>(cards)) {
         _pc.save(card);
@@ -245,6 +269,7 @@ bool NodeManager::initialize_game_board() {
 }
 
 void NodeManager::say_synchronous(std::string text) {
+    std::cout<<"starting to speak"<<std::endl;
     nao_playing_memory::SaySomethingGoal say_goal;
 
     say_goal.text = std::move(text);
@@ -253,16 +278,16 @@ void NodeManager::say_synchronous(std::string text) {
     bool finished_before_timeout2 = _voice_node.waitForResult(ros::Duration(30.0));
 
     if (!finished_before_timeout2) {
-        throw new std::runtime_error("took more than 30 seconds to speak the fucking sentence");
+        throw new std::runtime_error("took more than 30 seconds to speak the sentence");
     }
+    std::cout<<"ending to speak"<<std::endl;
 }
 
 void NodeManager::ask_to_collect_cards(const std::vector<reasoning::ConcealedCard> &cards) {
 
-    say_synchronous("Please give me the card " +
-                    std::to_string(cards[0].get_position().get_x())
-                    + " " +
-                    std::to_string(cards[0].get_position().get_y()) + " and the card" +
+    say_synchronous("Please give me the cards of class " + card_classes.find(cards[0].get_id())->second + "  in Positions" +
+                    std::to_string(cards[0].get_position().get_x()) + " " +
+                    std::to_string(cards[0].get_position().get_y()) + " and " +
                     std::to_string(cards[1].get_position().get_x()) + " " +
                     std::to_string(cards[1].get_position().get_y()) +
                     "!");

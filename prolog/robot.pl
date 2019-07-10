@@ -234,6 +234,9 @@ giveClass_pos(CX,CY,Class):-
 
 
     
+/*reset_prolog(C):-
+    rdf_assert(C,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#isDeleted',false).*/
+
 
 
 

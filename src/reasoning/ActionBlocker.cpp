@@ -1,5 +1,7 @@
 #include "ActionBlocker.h"
 
+#include <unordered_set>
+
 #include "FilterRecognizeTurn.h"
 #include "CardStateRetriever.h"
 
@@ -26,11 +28,24 @@ reasoning::ExposedCard ActionBlocker::wait_until_card_is_revealed(const reasonin
 std::vector<reasoning::ExposedCard> ActionBlocker::wait_until_enough_cards_revealed(unsigned int amount_of_cards) {
     std::vector<reasoning::ExposedCard> cards_revealed;
     cards_revealed.reserve(amount_of_cards);
+
+    std::unordered_set<unsigned int> ids_of_cards;
     while (cards_revealed.size() < amount_of_cards) {
         spin();
         auto actions = _sp.retrieve_actions();
+        for(auto const& action : actions.reveal_card){
+            std::cout << action.get_id() << " " << action.get_class() << " revealed " << std::endl;
+        }
 
-        cards_revealed.insert(cards_revealed.end(), actions.reveal_card.begin(), actions.reveal_card.end());
+        for(auto const & card : actions.reveal_card){
+            auto searched_id_in_set = ids_of_cards.find(card.get_id());
+            if (searched_id_in_set != ids_of_cards.end()){
+                std::cout << "detected card twice: " << card.get_class();
+            } else {
+                ids_of_cards.insert(card.get_id());
+                cards_revealed.push_back(card);
+            }
+        }
     }
 
     if (cards_revealed.size() > amount_of_cards){

@@ -51,13 +51,6 @@ public:
             success = false;
         }
         say2_srv.publishFeedback(say_feedback);
-        r.sleep();
-        r.sleep();
-        r.sleep();
-        r.sleep();
-        r.sleep();
-        r.sleep();
-        r.sleep();
 
 
         if(success){

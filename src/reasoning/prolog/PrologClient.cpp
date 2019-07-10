@@ -506,6 +506,41 @@ namespace reasoning {
 
     }
 
+    nonstd::optional<ConcealedCard> PrologClient::search_if_paired_card(const ConcealedCard &concealed_card,const ConcealedCard &concealed_card2) {
+
+
+        std::cout << "Print out ClassDatabase " << std::endl;
+        PrologQueryProxy bdgs5 = _pl.query("rdf_has(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass',Class)");
+        for (PrologQueryProxy::iterator it = bdgs5.begin(); it != bdgs5.end(); it++) {
+            PrologBindings bdg = *it;
+            std::cout << "Card1 = " << bdg["Card"] << std::endl;
+            std::cout << "Class = " << bdg["Class"] << std::endl;
+        }
+
+
+        std::cout << "Im gonna search for a paired Card for " <<concealed_card.get_position().get_x()<<concealed_card.get_position().get_x() <<std::endl;
+        auto bdgs = _pl.query("findTwoEqualCards_pos('" + _NAMESPACE + "Card_" + std::to_string(concealed_card.get_id()) +
+                              "','" + _NAMESPACE + "Card_" + std::to_string(concealed_card2.get_id()) +"',C2id,C2X,C2Y)");
+
+        if (bdgs.begin() == bdgs.end()) {
+            std::cout<<"No Pair"<<std::endl;
+            return {};
+        }
+
+
+        auto bdg = *(bdgs.begin());
+        std::string card2_id = bdg["C2id"];
+
+        return nonstd::optional<ConcealedCard>({
+                                                       (unsigned int) std::stoi(card2_id),
+                                                       CardPosition(
+                                                               (unsigned int) std::stoi(bdg["C2X"].toString()),
+                                                               (unsigned int) std::stoi(bdg["C2Y"].toString()))
+                                               });
+
+
+    }
+
     nonstd::optional<ConcealedCard> PrologClient::search_random_card() {
         std::cout << "Im gonna search for a random Card" << std::endl;
         auto bdgs = _pl.query("pickRandomCard_pos(C1,CX,CY)");
@@ -553,6 +588,13 @@ namespace reasoning {
 
 
     void PrologClient::reset() {
-        _pl = json_prolog::Prolog();
+        //reset_prolog(C)
+        std::cout << "Reseting Prolog " << std::endl;
+        PrologQueryProxy bdgs5 = _pl.query("reset_prolog(C)");
+        for (PrologQueryProxy::iterator it = bdgs5.begin(); it != bdgs5.end(); it++) {
+            PrologBindings bdg = *it;
+            std::cout << "Card  = " << bdg["C"] << std::endl;
+        }
+
     }
 }

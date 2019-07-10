@@ -68,6 +68,7 @@ namespace reasoning {
         std::vector<ConcealedCard> decide_action();
 
         nonstd::optional<ConcealedCard> search_paired_card(const ConcealedCard& concealed_card);
+        nonstd::optional<ConcealedCard> search_if_paired_card(const ConcealedCard &concealed_card,const ConcealedCard &concealed_card2);
 
         nonstd::optional<ConcealedCard> search_random_card();
 

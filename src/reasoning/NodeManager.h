@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <ros/ros.h>
 #include <boost/asio.hpp>
 #include <actionlib/client/simple_action_client.h>
@@ -35,6 +37,8 @@ private:
     void ask_to_turn_card(reasoning::ConcealedCard card);
 
     void say_someone_cheated();
+
+    std::unordered_map<unsigned int, std::string> card_classes;
 
 public:
 
