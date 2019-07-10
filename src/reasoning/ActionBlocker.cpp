@@ -92,15 +92,18 @@ void ActionBlocker::wait_until_card_is_removed(const reasoning::CardPosition &ca
 
 void ActionBlocker::wait_until_cards_removed(const std::vector<reasoning::CardPosition> &card_positions) {
     auto local_card_positions = card_positions;
+    std::cout << "im gonna wait for removal" << std::endl;
     while (!local_card_positions.empty()) {
         spin();
         auto actions = _sp.retrieve_actions();
         for (auto const &card : actions.remove_card) {
-            std::remove(local_card_positions.begin(), // NOLINT(bugprone-unused-return-value)
-                        local_card_positions.end(),
-                        card);
+            std::cout << "remove card " << card.get_x() << " " << card.get_y();
+            local_card_positions.erase(std::remove(local_card_positions.begin(),
+                                                   local_card_positions.end(),
+                                                   card), local_card_positions.end());
         }
     }
+    std::cout << "they have been removed" << std::endl;
 }
 
 void ActionBlocker::wait_until_card_is_covered(const unsigned int card_id) {

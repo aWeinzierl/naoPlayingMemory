@@ -454,21 +454,13 @@ namespace reasoning {
     //findTwoEqualCards_pos(C1, C2,Id2,C2X,C2Y)
 
     nonstd::optional<ConcealedCard> PrologClient::search_paired_card(const ConcealedCard &concealed_card) {
-        std::cout << "Print out DATABASE CARDS" << std::endl;
-        PrologQueryProxy bdgs4 = _pl.query("rdfs_individual_of(C,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card')");
-        for (PrologQueryProxy::iterator it = bdgs4.begin(); it != bdgs4.end(); it++) {
-            PrologBindings bdg = *it;
-            std::cout << "Card1 = " << bdg["C"] << std::endl;
 
-
-
-        }
 
         std::cout << "Print out ClassDatabase " << std::endl;
-        PrologQueryProxy bdgs5 = _pl.query("rdf_has('https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#Card_24','https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass',Class)");
+        PrologQueryProxy bdgs5 = _pl.query("rdf_has(Card,'https://github.com/aWeinzierl/naoPlayingMemory/blob/master/owl/Robot.owl#hasClass',Class)");
         for (PrologQueryProxy::iterator it = bdgs5.begin(); it != bdgs5.end(); it++) {
             PrologBindings bdg = *it;
-            //std::cout << "Card1 = " << bdg["Card"] << std::endl;
+            std::cout << "Card1 = " << bdg["Card"] << std::endl;
             std::cout << "Class = " << bdg["Class"] << std::endl;
         }
 
@@ -478,7 +470,7 @@ namespace reasoning {
                               "', C2,C2id,C2X,C2Y)");
 
         if (bdgs.begin() == bdgs.end()) {
-            std::cout<<"its gonna crash"<<std::endl;
+            std::cout<<"No Pair"<<std::endl;
             return {};
         }
 
@@ -534,10 +526,9 @@ namespace reasoning {
     }
     void PrologClient::save_action( const RevealCardAction &reveal_card_action) {
         //giveClass_pos(CX,CY,Class):-
-        //std::cout<<"giveClass_pos('" + std::to_string(reveal_card_action.get_position().get_x()) + "','" + std::to_string(reveal_card_action.get_position().get_y()) + "'," + reveal_card_action.get_class() + ")"<<std::endl;
-        //std::cout<<"here i am creating the class"<<reveal_card_action.get_class()<<"  "<<reveal_card_action.get_position().get_x()<<reveal_card_action.get_position().get_y()<<std::endl;
+        std::cout<<"giveClass_pos('" + std::to_string(reveal_card_action.get_position().get_x()) + "','" + std::to_string(reveal_card_action.get_position().get_y()) + "','" + reveal_card_action.get_class() + "')"<<std::endl;
+        std::cout<<"here i am creating the class"<<reveal_card_action.get_class()<<"  "<<reveal_card_action.get_position().get_x()<<reveal_card_action.get_position().get_y()<<std::endl;
         PrologQueryProxy bdgs = _pl.query("giveClass_pos('" + std::to_string(reveal_card_action.get_position().get_x()) + "','" + std::to_string(reveal_card_action.get_position().get_y()) + "','" + reveal_card_action.get_class() + "')");
-
 
 
     }
