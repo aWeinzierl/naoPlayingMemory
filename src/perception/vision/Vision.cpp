@@ -79,7 +79,20 @@ namespace perception{
                 {10, "Octopus"},
                 {11, "Nao"},
                 {12, "Nao"},
-
+        };
+        top_back_map = {
+                {1, 15},
+                {2, 16},
+                {3, 17},
+                {4, 18},
+                {5, 25},
+                {6, 26},
+                {7, 20},
+                {8, 19},
+                {9, 23},
+                {10, 24},
+                {11, 21},
+                {12, 22},
         };
 
     }
@@ -408,7 +421,7 @@ namespace perception{
                 if (grid_element.card.turned == 1 && grid_element.card.visible == true){
                     nao_playing_memory::ExposedCard tmp_exp;
                     tmp_exp.class_type = grid_element.card.object_type;
-                    tmp_exp.id = grid_element.card.aruco_id_bottom;
+                    tmp_exp.id = top_back_map.find(grid_element.card.aruco_id_bottom)->second;
                     tmp_exp.position.x = i;
                     tmp_exp.position.y = j;
 
