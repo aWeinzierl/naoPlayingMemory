@@ -3,6 +3,15 @@
 
 namespace reasoning {
 
+    bool StateProcessor::state_update_triggers_filter(const CardPosition& card_position, State state){
+        auto filter = _position_to_filter.find(card.get_position());
+        if (filter==_position_to_filter.end()){
+            throw new std::logic_error("position does not exist");
+        }
+
+        return filter->second.update(state);
+    }
+
     void StateProcessor::process_new_state(const std::vector<ConcealedCard> &concealed_card,
                                            const std::vector<ExposedCard> &exposed_card,
                                            const std::vector<CardPosition> &unknown) {
@@ -17,7 +26,7 @@ namespace reasoning {
         std::cout << "start updating"<<std::endl;
         for (const auto &card: exposed_card) {
             std::cout << "1" <<std::endl;
-            auto triggered = _position_to_filter.find(card.get_position())->second.update(State::EXPOSED);
+            auto triggered = state_update_triggers_filter(card.get_position(),State::EXPOSED);
             std::cout << "2" <<std::endl;
             if (triggered) {
                 std::cout << "3" <<std::endl;
@@ -28,9 +37,7 @@ namespace reasoning {
         for (const auto &card: concealed_card) {
             std::cout << "1" <<std::endl;
             std::cout<<"_card position: "<<card.get_position().get_x()<<" , "<< card.get_position().get_y()<<std::endl;
-            auto triggered = _position_to_filter.find(card.get_position())->second.update(State::CONCEALED);
-            //TODO CALL save_action(const std::string &player_name, const RevealCardAction &reveal_card_action,
-            //                              unsigned int time_instant)
+            auto triggered = state_update_triggers_filter(card.get_position(),State::CONCEALED);
             std::cout << "2" <<std::endl;
             if (triggered) {
                 std::cout << "3" <<std::endl;
@@ -39,7 +46,7 @@ namespace reasoning {
             }
         }
         for (const auto &position: unknown) {
-            auto triggered = _position_to_filter.find(position)->second.update(State::UNKNOWN);
+            auto triggered = state_update_triggers_filter(position, State::UNKNOWN);
             if (triggered) {
                 _actions.remove_card.emplace_back(position);
                 std::cout << "remove"<<std::endl;

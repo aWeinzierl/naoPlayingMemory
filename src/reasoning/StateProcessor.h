@@ -42,6 +42,8 @@ namespace reasoning {
             }
         }
 
+        state_update_triggers_filter(const CardPosition& card_position, State state);
+
     public:
         StateProcessor(unsigned int persistence);
 
