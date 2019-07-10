@@ -17,8 +17,10 @@ namespace speech{
         void publish_vocab(std::vector<std::string>& vocab);
         void speech_status(const actionlib_msgs::GoalStatusArray::ConstPtr& msg);
         void request_response_block(std::vector<std::string> &vocabulary, std::string& request, std::string& response);
+        void say_something(std::string text_to_say);
 
     private:
+        ros::Publisher _chatter_pub;
         ros::Publisher _speech_pub;
         ros::Publisher _vocab_pub;
         ros::ServiceClient _recog_start_srv;

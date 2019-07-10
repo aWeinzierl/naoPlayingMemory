@@ -8,7 +8,65 @@
 #include <std_srvs/Empty.h>
 #include "speech/SpeechRecognition.h"
 #include "string.h"
+class SaySomething2
+{
+protected:
 
+    ros::NodeHandle nh_;
+    actionlib::SimpleActionServer<nao_playing_memory::SaySomethingAction> say2_srv;
+
+    std::string action_name;
+
+
+    nao_playing_memory::SaySomethingFeedback say_feedback;
+    nao_playing_memory::SaySomethingResult say_result;
+
+public:
+    SaySomething2(std::string name) :
+        say2_srv (nh_, name, boost::bind(&SaySomething2::executeCB, this, _1), false),
+            action_name(name){
+        say2_srv.start();
+    }
+
+
+    ~SaySomething2(void){
+
+    }
+
+    void executeCB(const nao_playing_memory::SaySomethingGoalConstPtr &goal){
+        ros::Rate r(10);
+        bool success = true;
+
+        std::string text = goal->text;
+
+        speech::SpeechRecognitionClient RecogClient(nh_);
+
+        RecogClient.say_something(text);
+
+
+
+        if(say2_srv.isPreemptRequested() || !ros::ok()){
+            ROS_INFO("%s: Preempted", action_name.c_str());
+            say2_srv.setPreempted();
+            success = false;
+        }
+        say2_srv.publishFeedback(say_feedback);
+        r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+
+
+        if(success){
+            ROS_INFO("%s: Succeeded", action_name.c_str());
+            say2_srv.setSucceeded(say_result);
+        }
+
+    }
+};
 class SaySomething
 {
 protected:
@@ -35,7 +93,7 @@ public:
     }
 
     void executeCB(const nao_playing_memory::SaySomethingGoalConstPtr &goal){
-        ros::Rate r(1);
+        ros::Rate r(10);
         bool success = true;
 
         std::string text = goal->text;
@@ -53,6 +111,13 @@ public:
         }
         say_srv.publishFeedback(say_feedback);
         r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+        r.sleep();
+
 
         if(success){
             ROS_INFO("%s: Succeeded", action_name.c_str());
@@ -143,6 +208,7 @@ main(int argc, char **argv) {
 
     AskQuestion askQuestion("ask_question");
     SaySomething saySomethingAction("say_something");
+    SaySomething2 saySomething2Action("say_something2");
 
     ros::spin();
     return 0;
