@@ -24,7 +24,7 @@ public:
 
     ActionBlocker(unsigned int ros_rate, unsigned int persistence);
 
-    void wait_until_card_is_covered(unsigned int card_id);
+    void wait_until_cards_covered(const std::vector<unsigned int> &card_ids);
 
     reasoning::ExposedCard wait_until_card_is_revealed(const reasoning::CardPosition &card_pos);
 
@@ -32,7 +32,9 @@ public:
 
     void wait_until_cards_removed(const std::vector<reasoning::CardPosition>& card_positions);
 
-    reasoning::ExposedCard wait_until_any_card_is_revealed();
+    std::vector<reasoning::ExposedCard> wait_until_enough_cards_revealed(unsigned int amount_of_cards);
+
+    void wait_until_cards_revealed(const std::vector<unsigned int> &card_ids);
 
     void spin();
 };

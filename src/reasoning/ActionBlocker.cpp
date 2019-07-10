@@ -23,18 +23,21 @@ reasoning::ExposedCard ActionBlocker::wait_until_card_is_revealed(const reasonin
     }
 }
 
-reasoning::ExposedCard ActionBlocker::wait_until_any_card_is_revealed() {
-    while (true) {
+std::vector<reasoning::ExposedCard> ActionBlocker::wait_until_enough_cards_revealed(unsigned int amount_of_cards) {
+    std::vector<reasoning::ExposedCard> cards_revealed;
+    cards_revealed.reserve(amount_of_cards);
+    while (cards_revealed.size() < amount_of_cards) {
         spin();
         auto actions = _sp.retrieve_actions();
-        if (!actions.reveal_card.empty()) {
-            if (actions.reveal_card.size() != 1) {
-                throw new std::runtime_error("found two revealed cards at one");
-            }
 
-            return actions.reveal_card[0];
-        }
+        cards_revealed.insert(cards_revealed.end(), actions.reveal_card.begin(), actions.reveal_card.end());
     }
+
+    if (cards_revealed.size() > amount_of_cards){
+        throw std::runtime_error("too many cards have been revealed");
+    }
+
+    return cards_revealed;
 }
 
 void ActionBlocker::spin() {
@@ -106,15 +109,28 @@ void ActionBlocker::wait_until_cards_removed(const std::vector<reasoning::CardPo
     std::cout << "they have been removed" << std::endl;
 }
 
-void ActionBlocker::wait_until_card_is_covered(const unsigned int card_id) {
-    while (true) {
+void ActionBlocker::wait_until_cards_covered(const std::vector<unsigned int> &card_ids) {
+    auto local_card_ids = card_ids;
+    while (!local_card_ids.empty()) {
         spin();
         auto actions = _sp.retrieve_actions();
 
         for (auto const &card : actions.cover_card) {
-            if (card_id == card.get_id()) {
-                return;
-            }
+            local_card_ids.erase(std::remove(local_card_ids.begin(), local_card_ids.end(),
+                    card.get_id()), local_card_ids.end());
+        }
+    }
+}
+
+void ActionBlocker::wait_until_cards_revealed(const std::vector<unsigned int> &card_ids) {
+    auto local_card_ids = card_ids;
+    while (!local_card_ids.empty()) {
+        spin();
+        auto actions = _sp.retrieve_actions();
+
+        for (auto const &card : actions.reveal_card) {
+            local_card_ids.erase(std::remove(local_card_ids.begin(), local_card_ids.end(),
+                                             card.get_id()), local_card_ids.end());
         }
     }
 }

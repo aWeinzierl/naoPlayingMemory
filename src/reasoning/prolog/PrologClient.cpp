@@ -433,9 +433,17 @@ namespace reasoning {
         std::cout << "Im gonna decide which action to do" << std::endl;
         auto bdg = _pl.once("act_id_pos(C1id,C1X,C1Y,C2id,C2X,C2Y)");
         std::cout<<"Cards1:"<<bdg["C1id"]<<std::endl;
+        std::cout<<"Cx:"<<bdg["C1X"]<<std::endl;
+        std::cout<<"Cy:"<<bdg["C1Y"]<<std::endl;
         std::cout<<"Cards2:"<<bdg["C2id"]<<std::endl;
+        std::cout<<"Cx:"<<bdg["C2X"]<<std::endl;
+        std::cout<<"Cy:"<<bdg["C2Y"]<<std::endl;
         std::string card2_id = bdg["C2id"];
+        std::string card2_x = bdg["C2X"];
+        std::string card2_y = bdg["C2X"];
         std::string card1_id = bdg["C1id"];
+        std::string card1_x = bdg["C1X"];
+        std::string card1_y = bdg["C1Y"];
 
 
 
