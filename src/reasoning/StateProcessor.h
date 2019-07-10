@@ -33,16 +33,16 @@ namespace reasoning {
         std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> _position_to_filter;
 
         std::unordered_map<CardPosition, FilterRecognizeTurn, Hash> generate_filters(unsigned int persistence) {
-            for (unsigned int i = 0; i < 4; ++i) {
-                for (unsigned int j = 0; j < 3; ++j) {
+            for (unsigned int i = 1; i < 5; ++i) {
+                for (unsigned int j = 1; j < 4; ++j) {
                     auto cardPosition = CardPosition(i, j);
+                    std::cout<<"Test pos::"<<cardPosition.get_x()<<cardPosition.get_y()<<std::endl;
                     auto filter = FilterRecognizeTurn(persistence, State::CONCEALED);
                     _position_to_filter.insert({cardPosition, filter});
                 }
             }
         }
-
-        state_update_triggers_filter(const CardPosition& card_position, State state);
+        bool state_update_triggers_filter(const CardPosition& card_position, State state);
 
     public:
         StateProcessor(unsigned int persistence);

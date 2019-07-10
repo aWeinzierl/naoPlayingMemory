@@ -15,7 +15,7 @@ namespace reasoning {
     }
 
     bool operator==(const CardPosition &a, const CardPosition &b) {
-        return a.get_x() == b.get_x() && b.get_y() == b.get_y();
+        return a.get_x() == b.get_x() && a.get_y() == b.get_y();
 
     }
 }

@@ -4,7 +4,8 @@
 namespace reasoning {
 
     bool StateProcessor::state_update_triggers_filter(const CardPosition& card_position, State state){
-        auto filter = _position_to_filter.find(card.get_position());
+        auto filter = _position_to_filter.find(card_position);
+        std::cout<<"Test111111 pos::"<<card_position.get_x()<<card_position.get_y()<<"Filter: "<<filter->first.get_x()<<filter->first.get_y()<<std::endl;
         if (filter==_position_to_filter.end()){
             throw new std::logic_error("position does not exist");
         }
