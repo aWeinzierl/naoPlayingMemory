@@ -98,10 +98,11 @@ void NodeManager::surrect() {
                         }
                         ask_to_turn_card(second_random_card.value());
                         ActionBlocker(30, 5).wait_until_card_is_revealed(second_random_card.value().get_position());
-                        ros::Duration(0.1).sleep();
+                        ros::Duration(0.5).sleep();
                         _pc.search_paired_card(random_card);
                         if (random_card.get_id() == second_random_card.value().get_id()) {
                             ask_to_collect_cards({random_card, second_random_card.value()});
+                            std::cout<<"i am waiting for someone to collect the cards"<<std::endl;
                             //TODO remove  instances from prolog
                             _pc.delete_cards(random_card.get_id(),second_random_card.value().get_id());
                             //Added point counter
