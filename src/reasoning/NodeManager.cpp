@@ -53,6 +53,7 @@ void NodeManager::surrect() {
         auto nao_is_in_charge = true;
 
         auto game_is_running = true;
+        //TODO CREATE INITIAL INSTANCES FROM CARDS WITH void PrologClient::save(const ConcealedCard &concealed_card)
         while (game_is_running) {
             std::cout<<"Game is Running"<<std::endl;
             rate.sleep();

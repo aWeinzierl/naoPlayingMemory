@@ -29,7 +29,8 @@ namespace reasoning {
             std::cout << "1" <<std::endl;
             std::cout<<"_card position: "<<card.get_position().get_x()<<" , "<< card.get_position().get_y()<<std::endl;
             auto triggered = _position_to_filter.find(card.get_position())->second.update(State::CONCEALED);
-
+            //TODO CALL save_action(const std::string &player_name, const RevealCardAction &reveal_card_action,
+            //                              unsigned int time_instant)
             std::cout << "2" <<std::endl;
             if (triggered) {
                 std::cout << "3" <<std::endl;
