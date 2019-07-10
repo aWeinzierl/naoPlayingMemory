@@ -13,17 +13,6 @@ main(int argc, char **argv) {
     std::cout<<"Finished Testing the core dump is not Henriques problem "<<std::endl;*/
     NodeManager nm;
 
-    boost::circular_buffer<reasoning::State> test(5);
-    std::cout<<"First"<<std::endl;
-    test.push_back(reasoning::State::EXPOSED)  ;
-    test.push_back(reasoning::State::EXPOSED)  ;
-    test.push_back(reasoning::State::EXPOSED)  ;
-    test.push_back(reasoning::State::EXPOSED)  ;
-    test.push_back(reasoning::State::EXPOSED)  ;
-    test.push_back(reasoning::State::EXPOSED)  ;
-    if (*test.begin() == reasoning::State::EXPOSED){
-    std::cout<<"Test done lelel"<<std::endl;
-    }
     nm.surrect();
 
 }
