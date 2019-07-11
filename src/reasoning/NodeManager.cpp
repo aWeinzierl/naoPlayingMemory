@@ -150,11 +150,11 @@ void NodeManager::surrect() {
                 nao_is_bored = true;
                 std::cout<<"game ended"<<std::endl;
                 if (opponent_points > 3) {
-                    say_synchronous(" Good Job ");
+                    say_synchronous(" God job, but next time I will win! ");
                 } else if (nao_points > 3) {
                     say_synchronous(" Looser ! There is no shame in loosing against the master!");
                 } else {
-                    say_synchronous(" I could not bring it over me to beat you.");
+                    say_synchronous(" We are on the same Level ,  You are also a Master");
                 }
                 //_pc.reset();
                 break;
@@ -194,11 +194,11 @@ void NodeManager::surrect() {
                 nao_is_bored = true;
                 std::cout<<"game ended"<<std::endl;
                 if (opponent_points > 3) {
-                    say_synchronous("good job");
+                    say_synchronous("God job, but next time I will win!");
                 } else if (nao_points > 3) {
-                    say_synchronous("looser! There is no shame in loosing against the master!");
+                    say_synchronous(" Looser ! There is no shame in loosing against the master!");
                 } else {
-                    say_synchronous("I could not bring it over me to beat you.");
+                    say_synchronous(" We are on the same Level ,  You are also a Master ");
                 }
                 //_pc.reset();
                 break;
