@@ -23,8 +23,8 @@ class NodeManager {
 private:
     reasoning::PrologClient _pc;
 
-    actionlib::SimpleActionClient<nao_playing_memory::AskQuestionAction> _question_node;
-    actionlib::SimpleActionClient<nao_playing_memory::SaySomethingAction> _voice_node;
+    actionlib::SimpleActionClient <nao_playing_memory::AskQuestionAction> _question_node;
+    actionlib::SimpleActionClient <nao_playing_memory::SaySomethingAction> _voice_node;
 
     static reasoning::CardPosition cardPositionMap(const nao_playing_memory::Position &position);
 
@@ -40,15 +40,22 @@ private:
 
     std::unordered_map<unsigned int, std::string> card_classes;
 
-public:
-
-    NodeManager();
-
-    void surrect();
-
     bool initialize_game_board();
 
-    //void ask_to_collect_cards();
+    void ask_to_collect_cards(const std::vector <reasoning::ConcealedCard> &cards);
 
-    void ask_to_collect_cards(const std::vector<reasoning::ConcealedCard> &cards);
+    bool checkForWin(const unsigned int nao_points, const unsigned int opponent_points);
+
+    void handleWin(unsigned int &game_is_running, unsigned int &nao_is_bored, const unsigned int nao_points,
+                   const unsigned int opponent_points);
+
+    void NodeManager::waitForAPlayer();
+
+public:
+
+    /// constructs a fully working NodeManager
+    NodeManager();
+
+    /// bring nao to live and manage everything synchronously
+    void surrect();
 };

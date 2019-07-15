@@ -38,37 +38,60 @@ reasoning::CardPosition NodeManager::cardPositionMap(const nao_playing_memory::P
     };
 }
 
+bool NodeManager::checkForWin(const unsigned int nao_points, const unsigned int opponent_points) {
+    return opponent_points > 3 || nao_points > 3 || nao_points + opponent_points >= 6
+}
+
+void NodeManager::handleWin(unsigned int &game_is_running, unsigned int &nao_is_bored, const unsigned int nao_points,
+                            const unsigned int opponent_points) {
+    game_is_running = false;
+    nao_is_bored = true;
+    std::cout << "game ended" << std::endl;
+    if (opponent_points > 3) {
+        say_synchronous(" God job, but next time I will win! ");
+    } else if (nao_points > 3) {
+        say_synchronous(" Looser ! There is no shame in loosing against the master!");
+    } else {
+        say_synchronous(" We are on the same Level ,  You are also a Master");
+    }
+}
+
+void NodeManager::waitForAPlayer(){
+    auto nao_is_bored = true;
+    while (nao_is_bored) {
+        rate.sleep();
+        ros::Duration(3).sleep();
+        auto wants_play = ask_to_play();
+        if (wants_play) {
+            nao_is_bored = false;
+            opponent_points = 0;
+            nao_points = 0;
+            std::cout << "I will play a game" << std::endl;
+        }
+    }
+}
+
+void NodeManger::
+
 void NodeManager::surrect() {
     ros::Rate rate(30);
     unsigned int nao_points = 0;
     unsigned int opponent_points = 0;
-    //TODO Initialize max_num of points one can achieve depending on the number of init cards
-
     auto nao_is_bored = true;
+
+    if (!initialize_game_board()) {
+        std::cout << "The board looks bad, please reposition it" << std::endl;
+        say_synchronous("Please put the cards correctly onto the board");
+        return;
+    }
+
     while (true) {
-        while (nao_is_bored) {
-            rate.sleep();
-            ros::Duration(3).sleep();
-            auto wants_play = ask_to_play();
-            if (wants_play) {
-                nao_is_bored = false;
-                opponent_points = 0;
-                nao_points = 0;
-                std::cout << "I will play a game" << std::endl;
-            }
-
+        if (nao_is_bored){
+            waitForAPlayer();
         }
-
-        if (!initialize_game_board()) {
-            std::cout << "The board looks bad, please reposition it" << std::endl;
-            say_synchronous("Please put the cards correctly onto the board");
-            nao_is_bored = true;
-        }
-
         auto nao_is_in_charge = true;
-
         auto game_is_running = true;
-        //TODO CREATE INITIAL INSTANCES FROM CARDS WITH void PrologClient::save(const ConcealedCard &concealed_card)
+
         while (game_is_running) {
             std::cout << "Game is Running" << std::endl;
             rate.sleep();
@@ -78,18 +101,17 @@ void NodeManager::surrect() {
                 std::cout << "It is my turn" << std::endl;
                 auto cards_to_turn = _pc.decide_action();
                 if (cards_to_turn.size() == 2) {
-                    std::cout<<"Telling to turn cards"<<std::endl;
+                    std::cout << "Telling to turn cards" << std::endl;
                     for (const auto &card: cards_to_turn) {
                         ask_to_turn_card(card);
                         //say_synchronous(""+ + "")
-                        ActionBlocker(30,5).wait_until_card_is_revealed(card.get_position());
+                        ActionBlocker(30, 5).wait_until_card_is_revealed(card.get_position());
                     }
 
                     ros::Duration(2).sleep();
                     ask_to_collect_cards(cards_to_turn);
 
                     _pc.delete_cards(cards_to_turn[0].get_id(), cards_to_turn[1].get_id());
-
                     nao_points += 1;
                 } else {
 
@@ -104,9 +126,9 @@ void NodeManager::surrect() {
                     if (card.has_value()) {
 
                         std::cout << "Card:" << card.value().get_id() << std::endl;
-                        std::cout<<"Turn card"<<std::endl;
+                        std::cout << "Turn card" << std::endl;
                         ask_to_turn_card(card.value());
-                        ActionBlocker(30,5).wait_until_card_is_revealed(card.value().get_position());
+                        ActionBlocker(30, 5).wait_until_card_is_revealed(card.value().get_position());
 
                         ask_to_collect_cards({random_card, card.value()});
 
@@ -122,13 +144,13 @@ void NodeManager::surrect() {
                             game_is_running = false;
                             break;
                         }
-                        std::cout<<"turn card"<<std::endl;
+                        std::cout << "turn card" << std::endl;
                         ask_to_turn_card(second_random_card.value());
                         auto revealed_card2 = ActionBlocker(30, 15).wait_until_card_is_revealed(
                                 second_random_card.value().get_position());
                         _pc.save_action(revealed_card2);
                         ros::Duration(0.5).sleep();
-                        auto card3 = _pc.search_if_paired_card(second_random_card.value(),random_card);
+                        auto card3 = _pc.search_if_paired_card(second_random_card.value(), random_card);
                         if (card3.has_value()) {
                             ask_to_collect_cards({random_card, second_random_card.value()});
                             std::cout << "i am waiting for someone to collect the cards" << std::endl;
@@ -137,7 +159,7 @@ void NodeManager::surrect() {
                             nao_points += 1;
                         } else {
                             say_synchronous(" No Luck for me , turn them back around ");
-                            std::cout<<" No luck for me"<<std::endl;
+                            std::cout << " No luck for me" << std::endl;
                             ActionBlocker(30, 5).wait_until_cards_covered(
                                     {random_card.get_id(), second_random_card.value().get_id()});
                             nao_is_in_charge = false;
@@ -145,27 +167,18 @@ void NodeManager::surrect() {
                     }
                 }
             }
-            if (opponent_points > 3 || nao_points > 3 || nao_points + opponent_points >= 6) {
-                game_is_running = false;
-                nao_is_bored = true;
-                std::cout<<"game ended"<<std::endl;
-                if (opponent_points > 3) {
-                    say_synchronous(" God job, but next time I will win! ");
-                } else if (nao_points > 3) {
-                    say_synchronous(" Looser ! There is no shame in loosing against the master!");
-                } else {
-                    say_synchronous(" We are on the same Level ,  You are also a Master");
-                }
-                //_pc.reset();
+            if (checkForWin(nao_points, opponent_points)) {
+                handleWin(game_is_running, nao_is_bored, nao_points, opponent_points);
                 break;
             }
+
             if (!nao_is_in_charge) {
                 say_it_is_your_turn();
-                std::cout<<"Players turn"<<std::endl;
+                std::cout << "Players turn" << std::endl;
 
                 auto cards = ActionBlocker(30, 15).wait_until_enough_cards_revealed(2);
-                std::cout<<"Card1"<<cards[0].get_class()<<std::endl;
-                std::cout<<"Card2"<<cards[1].get_class()<<std::endl;
+                std::cout << "Card1" << cards[0].get_class() << std::endl;
+                std::cout << "Card2" << cards[1].get_class() << std::endl;
 
                 _pc.save_action(cards[0]);
                 _pc.save_action(cards[1]);
@@ -173,7 +186,7 @@ void NodeManager::surrect() {
 
                 bool equal_cards = _pc.are_cards_equal(cards[0].get_id(), cards[1].get_id());
                 if (equal_cards) {
-                    std::cout<<"Oponent won pair"<<std::endl;
+                    std::cout << "Oponent won pair" << std::endl;
                     say_synchronous("Take your Cards");
                     ActionBlocker(30, 45).wait_until_cards_removed({
                                                                            cards[0].get_position(),
@@ -182,25 +195,15 @@ void NodeManager::surrect() {
                     _pc.delete_cards(cards[0].get_id(), cards[1].get_id());
                     opponent_points += 1;
                 } else {
-                    std::cout<<"oponent had no luck"<<std::endl;
+                    std::cout << "oponent had no luck" << std::endl;
                     say_synchronous("ha ha ha no success for you, turn the cards around");
                     ActionBlocker(30, 5).wait_until_cards_covered({cards[0].get_id(), cards[1].get_id()});
                     nao_is_in_charge = true;
                 }
             }
 
-            if (opponent_points > 3 || nao_points > 3 || nao_points + opponent_points >= 6) {
-                game_is_running = false;
-                nao_is_bored = true;
-                std::cout<<"game ended"<<std::endl;
-                if (opponent_points > 3) {
-                    say_synchronous("God job, but next time I will win!");
-                } else if (nao_points > 3) {
-                    say_synchronous(" Looser ! There is no shame in loosing against the master!");
-                } else {
-                    say_synchronous(" We are on the same Level ,  You are also a Master ");
-                }
-                //_pc.reset();
+            if (checkForWin(nao_points, opponent_points)) {
+                handleWin(game_is_running, nao_is_bored, nao_points, opponent_points);
                 break;
             }
         }
@@ -226,7 +229,7 @@ void NodeManager::ask_to_turn_card(reasoning::ConcealedCard card) {
 }
 
 bool NodeManager::ask_to_play() {
-    std::vector<std::string> possible_answers = {
+    std::vector <std::string> possible_answers = {
             "Yes", "No"
     };
 
@@ -269,7 +272,7 @@ bool NodeManager::initialize_game_board() {
 }
 
 void NodeManager::say_synchronous(std::string text) {
-    std::cout<<"starting to speak"<<std::endl;
+    std::cout << "starting to speak" << std::endl;
     nao_playing_memory::SaySomethingGoal say_goal;
 
     say_goal.text = std::move(text);
@@ -280,17 +283,18 @@ void NodeManager::say_synchronous(std::string text) {
     if (!finished_before_timeout2) {
         throw new std::runtime_error("took more than 30 seconds to speak the sentence");
     }
-    std::cout<<"ending to speak"<<std::endl;
+    std::cout << "ending to speak" << std::endl;
 }
 
-void NodeManager::ask_to_collect_cards(const std::vector<reasoning::ConcealedCard> &cards) {
+void NodeManager::ask_to_collect_cards(const std::vector <reasoning::ConcealedCard> &cards) {
 
-    say_synchronous("Please give me the cards of class " + card_classes.find(cards[0].get_id())->second + "  in Positions" +
-                    std::to_string(cards[0].get_position().get_x()) + " " +
-                    std::to_string(cards[0].get_position().get_y()) + " and " +
-                    std::to_string(cards[1].get_position().get_x()) + " " +
-                    std::to_string(cards[1].get_position().get_y()) +
-                    "!");
+    say_synchronous(
+            "Please give me the cards of class " + card_classes.find(cards[0].get_id())->second + "  in Positions" +
+            std::to_string(cards[0].get_position().get_x()) + " " +
+            std::to_string(cards[0].get_position().get_y()) + " and " +
+            std::to_string(cards[1].get_position().get_x()) + " " +
+            std::to_string(cards[1].get_position().get_y()) +
+            "!");
 
     ActionBlocker(30, 45).wait_until_cards_removed({cards[0].get_position(), cards[1].get_position()});
 
