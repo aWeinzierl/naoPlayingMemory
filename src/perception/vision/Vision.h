@@ -43,17 +43,50 @@ namespace perception{
 
 
     public:
+        ///
+        /// \param nodeHandle
         explicit VisionClient(ros::NodeHandle& nodeHandle);
+
+        /// callback used to get the image of the camera
+        /// \param msg
         void image_callback(const sensor_msgs::ImageConstPtr& msg);
+
+        ///
         void detect_cards();
 
     private:
+
+        ///
         void initialize_game_grid();
+
+        ///
         void check_cards();
+
+        ///
         void publish_cards();
+
+        ///
+        /// \param card_collection
+        /// \return
         std::vector<GridElement> retrieve_edge_cards(const std::vector<GridElement> card_collection);
+
+        /// calculate the center position of a
+        /// \param r red corner position
+        /// \param g green corner position
+        /// \param b blue corner position
+        /// \return
         Position get_center(cv::Point r, cv::Point g, cv::Point b);
+
+        ///
+        /// \param elements
+        /// \param center
+        /// \return
         GridElement find_closest_card(std::vector<GridElement> elements, Position center);
+
+        ///
+        /// \param elements
+        /// \param center
+        /// \return
         GridElement find_closest_card_w_thresh(std::vector<GridElement> elements, Position center);
 
     };
