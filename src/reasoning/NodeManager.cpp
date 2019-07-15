@@ -42,7 +42,7 @@ bool NodeManager::checkForWin(const unsigned int nao_points, const unsigned int 
     return opponent_points > 3 || nao_points > 3 || nao_points + opponent_points >= 6
 }
 
-void NodeManager::handleWin(unsigned int &game_is_running, unsigned int &nao_is_bored, const unsigned int nao_points,
+void NodeManager::handleWin(bool &game_is_running, bool &nao_is_bored, const unsigned int nao_points,
                             const unsigned int opponent_points) {
     game_is_running = false;
     nao_is_bored = true;
@@ -263,7 +263,6 @@ bool NodeManager::initialize_game_board() {
     if (!std::get<1>(cards).empty() && !std::get<2>(cards).empty()) {
         return false;
     }
-    //_pc.reset();
 
     for (auto const &card : std::get<0>(cards)) {
         _pc.save(card);
@@ -289,7 +288,7 @@ void NodeManager::say_synchronous(std::string text) {
 void NodeManager::ask_to_collect_cards(const std::vector <reasoning::ConcealedCard> &cards) {
 
     say_synchronous(
-            "Please give me the cards of class " + card_classes.find(cards[0].get_id())->second + "  in Positions" +
+            "Please give me the cards of class " + _card_classes.find(cards[0].get_id())->second + "  in Positions" +
             std::to_string(cards[0].get_position().get_x()) + " " +
             std::to_string(cards[0].get_position().get_y()) + " and " +
             std::to_string(cards[1].get_position().get_x()) + " " +

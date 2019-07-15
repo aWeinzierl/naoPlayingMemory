@@ -26,12 +26,15 @@ class CardStateRetriever {
     nonstd::optional<AllCards> _cards;
     std::mutex _cards_mutex;
 
+    /// callback used to retrieve data
+    /// \param msg
     void vision_callback(const nao_playing_memory::Cards::ConstPtr &msg);
 
 public:
 
     explicit CardStateRetriever(unsigned int ros_rate);
 
-
+    /// retrieves the current state of the board
+    /// \return the cards as detected
     AllCards retrieve_current_state();
 };
