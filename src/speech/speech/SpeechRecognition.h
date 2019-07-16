@@ -35,7 +35,8 @@ namespace speech {
         ///\param request question, that is supposed to be spoken out
         ///\param response string that gets the understood response
         void request_response_block(std::vector<std::string> &vocabulary, std::string& request, std::string& response);
-        //let nao say something, similar to talk but publishes directly to speech node and not speech action goal
+        ///let nao say something, similar to talk but publishes directly to speech node and not speech action goal
+        ///\param text_to_say string that the nao is supposed to say
         void say_something(std::string text_to_say);
 
     private:
