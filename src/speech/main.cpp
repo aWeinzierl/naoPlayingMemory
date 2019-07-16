@@ -8,6 +8,8 @@
 #include <std_srvs/Empty.h>
 #include "speech/SpeechRecognition.h"
 #include "string.h"
+
+///create a actionserver that provides the action saysomething2, that lets the nao say something with directly publishing to speech node///
 class SaySomething2
 {
 protected:
@@ -60,6 +62,8 @@ public:
 
     }
 };
+
+///creates actionserver that provides action saysomething that uses the speechactiongoal action to let nao say something///
 class SaySomething
 {
 protected:
@@ -119,7 +123,7 @@ public:
 
     }
 };
-
+///create ask question action server, that provides the askquestion action ///
 class AskQuestion
 {
 protected:
