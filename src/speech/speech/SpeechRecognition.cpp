@@ -1,12 +1,15 @@
+#include <string>
+#include <iostream>
+#include <sstream>
+
 #include <ros/ros.h>
 #include <naoqi_bridge_msgs/SpeechWithFeedbackActionGoal.h>
 #include <naoqi_bridge_msgs/SetSpeechVocabularyActionGoal.h>
 #include <std_msgs/String.h>
 #include <std_srvs/Empty.h>
+
 #include "SpeechRecognition.h"
-#include <string>
-#include <iostream>
-#include <sstream>
+
 
 namespace patch {
     template<typename T>

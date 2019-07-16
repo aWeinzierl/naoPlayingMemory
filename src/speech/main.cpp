@@ -2,10 +2,10 @@
 #include <actionlib/server/simple_action_server.h>
 #include <nao_playing_memory/AskQuestionAction.h>
 #include <nao_playing_memory/SaySomethingAction.h>
-
 #include <naoqi_bridge_msgs/SetSpeechVocabularyActionGoal.h>
 #include <naoqi_bridge_msgs/SpeechWithFeedbackActionGoal.h>
 #include <std_srvs/Empty.h>
+
 #include "speech/SpeechRecognition.h"
 #include "string.h"
 
@@ -63,7 +63,7 @@ public:
     }
 };
 
-///creates actionserver that provides action saysomething that uses the speechactiongoal action to let nao say something///
+///creates actionserver that provides action saysomething that uses the speechactiongoal action to let nao say something
 class SaySomething
 {
 protected:
@@ -185,23 +185,6 @@ public:
 main(int argc, char **argv) {
     ros::init(argc, argv, "speech");
     ros::NodeHandle n;
-
-    /*
-    std::vector<std::string> available_vocabulary;
-    available_vocabulary.push_back("Yes");
-    available_vocabulary.push_back("No");
-    available_vocabulary.push_back("Hi Nao");
-
-    std::string result;
-    uint32_t duration=10;
-    speech::SpeechRecognitionClient RecogClient(n);
-    std::string text = "Hi, I am going to kill you!";
-    RecogClient.talk(text);
-
-
-    std::string request = "You want to play a round?";
-    RecogClient.request_response_block(available_vocabulary,request, result);
-     */
 
     AskQuestion askQuestion("ask_question");
     SaySomething saySomethingAction("say_something");
