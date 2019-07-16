@@ -77,16 +77,17 @@ namespace perception{
         /// \return
         Position get_center(cv::Point r, cv::Point g, cv::Point b);
 
-        ///
-        /// \param elements
-        /// \param center
-        /// \return
+        /// finds the closes grid element with respect to the position
+        /// \param elements items to choose from
+        /// \param center position which is used to determine the closes element
+        /// \return the closes element
         GridElement find_closest_card(std::vector<GridElement> elements, Position center);
 
-        ///
-        /// \param elements
-        /// \param center
-        /// \return
+        /// Finds the closest grid element with respect to the position, using a threshold which has to be below the
+        /// threshold which is given as a private member
+        /// \param elements items to choose from
+        /// \param center position which is used to determine the closes element
+        /// \return the closes element, if one fits the threshold; else all values are zero/false
         GridElement find_closest_card_w_thresh(std::vector<GridElement> elements, Position center);
 
     };

@@ -71,7 +71,7 @@ private:
                    const unsigned int opponent_points);
 
     /// wait for a player who wants to play
-    void NodeManager::waitForAPlayer();
+    void waitForAPlayer();
 
 public:
 
