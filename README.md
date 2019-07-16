@@ -1,7 +1,6 @@
-knowledgePerceptionWithNao
+# Nao playing memory
 
-Instructions:
-
+###### Instructions:
 1. Build and source correctly
 1. Prepare Nao so he clearly can see the complete board with all cards on it - with the images on the bottom.
     -   Orient yourselves according to the video 
