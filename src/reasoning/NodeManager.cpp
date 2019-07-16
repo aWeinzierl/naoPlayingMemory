@@ -64,10 +64,8 @@ void NodeManager::waitForAPlayer(){
         ros::Duration(3).sleep();
         auto wants_play = ask_to_play();
         if (wants_play) {
-            nao_is_bored = false;
-            opponent_points = 0;
-            nao_points = 0;
             std::cout << "I will play a game" << std::endl;
+            return;
         }
     }
 }
@@ -88,10 +86,12 @@ void NodeManager::surrect() {
     while (true) {
         if (nao_is_bored){
             waitForAPlayer();
-
+            nao_is_bored = false;
         }
         auto nao_is_in_charge = true;
         auto game_is_running = true;
+        opponent_points = 0;
+        nao_points = 0;
 
         while (game_is_running) {
             std::cout << "Game is Running" << std::endl;
