@@ -15,7 +15,7 @@ NodeManager::NodeManager()
     _question_node.waitForServer();
     _voice_node.waitForServer();
 
-    card_classes = {
+    _card_classes = {
             {15, "Strawberry"},
             {16, "Strawberry"},
             {17, "Pizza"},
@@ -39,7 +39,7 @@ reasoning::CardPosition NodeManager::cardPositionMap(const nao_playing_memory::P
 }
 
 bool NodeManager::checkForWin(const unsigned int nao_points, const unsigned int opponent_points) {
-    return opponent_points > 3 || nao_points > 3 || nao_points + opponent_points >= 6
+    return opponent_points > 3 || nao_points > 3 || nao_points + opponent_points >= 6;
 }
 
 void NodeManager::handleWin(bool &game_is_running, bool &nao_is_bored, const unsigned int nao_points,
@@ -57,6 +57,7 @@ void NodeManager::handleWin(bool &game_is_running, bool &nao_is_bored, const uns
 }
 
 void NodeManager::waitForAPlayer(){
+    ros::Rate rate(30);
     auto nao_is_bored = true;
     while (nao_is_bored) {
         rate.sleep();
@@ -71,7 +72,6 @@ void NodeManager::waitForAPlayer(){
     }
 }
 
-void NodeManger::
 
 void NodeManager::surrect() {
     ros::Rate rate(30);
@@ -88,6 +88,7 @@ void NodeManager::surrect() {
     while (true) {
         if (nao_is_bored){
             waitForAPlayer();
+
         }
         auto nao_is_in_charge = true;
         auto game_is_running = true;
