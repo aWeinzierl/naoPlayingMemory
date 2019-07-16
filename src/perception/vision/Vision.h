@@ -51,18 +51,18 @@ namespace perception{
         /// \param msg
         void image_callback(const sensor_msgs::ImageConstPtr& msg);
 
-        ///
+        ///function that calls the initialize game grid function and when its initialized it keeps on detecting the cards
         void detect_cards();
 
     private:
 
-        ///
+        ///checks if all cards are turned over and visible, then builds the card grid
         void initialize_game_grid();
 
-        ///
+        ///continuously checks the cards, builds an internal collection of concealed-, revealed- and not available cards
         void check_cards();
 
-        ///
+        ///publishes the cards messages to cards node
         void publish_cards();
 
         ///
