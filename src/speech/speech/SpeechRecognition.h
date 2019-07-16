@@ -13,7 +13,8 @@ namespace speech {
       //need a ros nodehandle and creates publishers to different topics and clients to the required servers
         explicit SpeechRecognitionClient(ros::NodeHandle& nodeHandle);
 
-        //lets the nao say something, i.e. publishes the provided sentence to the speech action goal
+        ///lets the nao say something, i.e. publishes the provided sentence to the speech action goal
+        ///\param sentence to be said out loud by nao
         void talk(std::string sentence);
         //requires the available vocabulary, publishes an empty request to the action server and listens to for the specified duration
         void listen(std::vector<std::string>& available_sentences, std::string& results, int record_duration);
